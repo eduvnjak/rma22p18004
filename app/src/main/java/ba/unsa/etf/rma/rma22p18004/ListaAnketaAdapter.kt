@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 
-class ListaAnketaAdapter(private val dataSet: List<Anketa>):
+class ListaAnketaAdapter(private var dataSet: List<Anketa>):
     RecyclerView.Adapter<ListaAnketaAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageViewStanjeAnkete: ImageView = view.findViewById(R.id.imageView_stanje_ankete)
@@ -60,6 +60,11 @@ class ListaAnketaAdapter(private val dataSet: List<Anketa>):
 
     override fun getItemCount(): Int {
         return dataSet.size
+    }
+
+    fun updateAnkete(noveAnkete: List<Anketa>) {
+        dataSet=noveAnkete
+        notifyDataSetChanged()
     }
 
 

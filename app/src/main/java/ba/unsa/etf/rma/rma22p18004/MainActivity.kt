@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun filtrirajAnkete(){
-
+        val odabranaOpcija = filterAnketa.selectedItem as String
+        listaAnketaAdapter.updateAnkete(mainActivityViewModel.filtriraj(odabranaOpcija))
     }
 }
