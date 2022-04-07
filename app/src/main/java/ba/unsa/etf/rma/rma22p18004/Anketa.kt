@@ -8,6 +8,16 @@ data class Anketa(val naziv: String, val nazivIstrazivanja: String, val datumPoc
         require((progres >= 0) and (progres <= 1)) {
             "progres mora biti izmedju 0 i 1 ukljucivo"
         }
+        //da li je ovo neophodno
+        //trajanje mora biti pozitivno
+        require(trajanje>0)
+        //datum pocetka mora biti prije datuma kraja
+        require(datumPocetak.before(datumKraj))
+        //datuma rada mora biti izmedju pocetka i kraja
+        if(datumRada != null) require(datumPocetak.before(datumRada) and datumRada!!.before(datumKraj))
+//        //uradjena anketa mora imati progres 1
+//        require(if (datumRada != null) progres==1f else true)
+//        //neuradjena anketa mora imati progres 0 ??
     }
 }
 
