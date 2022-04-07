@@ -84,6 +84,7 @@ object AnketaRepository {
         calendar.set(2022,5,5)
         datum2 = calendar.time
         calendar.set(2022,3,3)
+        datum3 = calendar.time
         ankete.add(
             Anketa("Anketa 2 I5 G1",
                 "Istrazivanje 5",

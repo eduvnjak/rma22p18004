@@ -1,6 +1,7 @@
 package ba.unsa.etf.rma.rma22p18004
 
 import java.util.*
+import kotlin.math.round
 
 data class Anketa(val naziv: String, val nazivIstrazivanja: String, val datumPocetak: Date,
                   val datumKraj: Date, var datumRada: Date?, val trajanje: Int, val nazivGrupe: String, var progres: Float){
@@ -24,6 +25,24 @@ data class Anketa(val naziv: String, val nazivIstrazivanja: String, val datumPoc
         if(datumPocetak.after(now)){
             require(progres==0f)
         }
+    }
+    fun dajStatusAnkete(): Int{
+        if(datumRada != null) return 1 // uradjen
+        val trenutniDate = Calendar.getInstance().time
+        if(datumPocetak.after(trenutniDate)) return 3 //nije aktivan
+        if(datumKraj.after(trenutniDate)) return 2 // aktivan
+        return 4 // nije uradjen, prošao
+    }
+    fun dajDatumZaListu(): Date {
+        val status = this.dajStatusAnkete()
+        when(status){
+            1 -> return datumRada!!
+            3 -> return datumPocetak
+        }
+        return datumKraj
+    }
+    fun dajProgresZaokruzen(): Float{
+        return round(progres/0.2f)*0.2f
     }
 }
 

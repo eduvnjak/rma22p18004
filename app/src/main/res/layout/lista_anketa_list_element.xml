@@ -14,6 +14,7 @@
         android:padding="10dp">
 
         <ImageView
+            android:id="@+id/imageView_stanje_ankete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -24,6 +25,8 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:max="100"
+            android:min="0"
             android:progressBackgroundTint="#7baaa4"
             android:progressTint="#6a9ecb"
             app:layout_constraintEnd_toEndOf="parent"

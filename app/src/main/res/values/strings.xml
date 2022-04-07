@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RMA22P18004</string>
+    <string name="anketa_uradjena">Anketa urađena %1$s</string>
+    <string name="vrijeme_zatvaranja">Vrijeme zatvaranja %1$s</string>
+    <string name="vrijeme_aktiviranja">Vrijeme aktiviranja %1$s</string>
+    <string name="anketa_zatvorena">Anketa zatvorena %1$s</string>
 </resources>
