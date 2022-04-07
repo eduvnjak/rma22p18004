@@ -14,10 +14,16 @@ data class Anketa(val naziv: String, val nazivIstrazivanja: String, val datumPoc
         //datum pocetka mora biti prije datuma kraja
         require(datumPocetak.before(datumKraj))
         //datuma rada mora biti izmedju pocetka i kraja
-        if(datumRada != null) require(datumPocetak.before(datumRada) and datumRada!!.before(datumKraj))
-//        //uradjena anketa mora imati progres 1
-//        require(if (datumRada != null) progres==1f else true)
-//        //neuradjena anketa mora imati progres 0 ??
+        if(datumRada != null){
+            require(datumPocetak.before(datumRada) and datumRada!!.before(datumKraj))
+            //uradjena anketa mora imati progres 1
+            require(progres==1f)
+        }
+        //neuradjena anketa koja jos nije aktivna mora imati progres 0 ??
+        val now: Date = Calendar.getInstance().time
+        if(datumPocetak.after(now)){
+            require(progres==0f)
+        }
     }
 }
 
