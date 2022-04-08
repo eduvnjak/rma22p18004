@@ -1,4 +1,4 @@
-package ba.unsa.etf.rma.rma22p18004
+package ba.unsa.etf.rma.rma22p18004.models
 
 object IstrazivanjeRepository {
     val svaIstrazivanja: List<Istrazivanje> = arrayListOf(
@@ -16,7 +16,7 @@ object IstrazivanjeRepository {
         )
 
     fun getIstrazivanjeByGodina(godina: Int): List<Istrazivanje>{
-        return svaIstrazivanja.filter {istrazivanje -> istrazivanje.godina == godina  }
+        return svaIstrazivanja.filter { istrazivanje -> istrazivanje.godina == godina  }
     }
     fun getAll(): List<Istrazivanje>{
         return svaIstrazivanja

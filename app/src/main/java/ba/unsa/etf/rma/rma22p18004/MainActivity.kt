@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ba.unsa.etf.rma.rma22p18004.view.ListaAnketaAdapter
+import ba.unsa.etf.rma.rma22p18004.viewmodel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var listaAnketa: RecyclerView

@@ -1,4 +1,4 @@
-package ba.unsa.etf.rma.rma22p18004
+package ba.unsa.etf.rma.rma22p18004.models
 
 data class Istrazivanje(val naziv: String, val godina: Int){
     init {

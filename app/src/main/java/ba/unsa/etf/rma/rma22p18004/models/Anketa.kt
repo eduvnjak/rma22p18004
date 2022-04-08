@@ -1,4 +1,4 @@
-package ba.unsa.etf.rma.rma22p18004
+package ba.unsa.etf.rma.rma22p18004.models
 
 import java.util.*
 import kotlin.math.round

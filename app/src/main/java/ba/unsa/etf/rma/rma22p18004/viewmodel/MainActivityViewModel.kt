@@ -1,4 +1,7 @@
-package ba.unsa.etf.rma.rma22p18004
+package ba.unsa.etf.rma.rma22p18004.viewmodel
+
+import ba.unsa.etf.rma.rma22p18004.models.Anketa
+import ba.unsa.etf.rma.rma22p18004.models.AnketaRepository
 
 class MainActivityViewModel {
     fun dajAnkete(): List<Anketa> {
