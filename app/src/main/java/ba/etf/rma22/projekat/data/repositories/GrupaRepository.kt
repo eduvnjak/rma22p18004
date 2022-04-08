@@ -10,8 +10,10 @@ object GrupaRepository {
         Grupa("I3 G1","Istrazivanje 3"),
         Grupa("I3 G2","Istrazivanje 3"),
         Grupa("I4 G1","Istrazivanje 4"),
-        Grupa("I4 G2", "Istrazivanje 4"),
-        Grupa("I5 G2","Istrazivanje 5"),
+        Grupa("I4 G2","Istrazivanje 4"),
+        Grupa("I5 G1","Istrazivanje 5"),
+        Grupa("I6 G1","Istrazivanje 6"),
+        Grupa("I6 G2","Istrazivanje 6"),
     )
     val upisaneGrupe: MutableList<Grupa> = mutableListOf(
         Grupa("I1 G1","Istrazivanje 1"),

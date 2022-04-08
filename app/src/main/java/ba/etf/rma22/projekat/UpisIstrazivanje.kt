@@ -2,6 +2,7 @@ package ba.etf.rma22.projekat
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -83,6 +84,7 @@ class UpisIstrazivanje: AppCompatActivity() {
     inner class OdabirGodinaSpinnerListener : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
             updateIstrazivanjaSpinner()
+            Log.i("", "Mijenjam istrazivanja!")
             updateGrupaSpinner()
         }
 
@@ -94,7 +96,7 @@ class UpisIstrazivanje: AppCompatActivity() {
     fun updateIstrazivanjaSpinner() {
         odabirIstrazivanjaSpinnerAdapter.clear()
         odabirIstrazivanjaSpinner.setSelection(0)
-        odabirGrupaSpinnerAdapter.addAll(
+        odabirIstrazivanjaSpinnerAdapter.addAll(
             upisIstrazivanjeViewModel.dajIstrazivanja(odabirGodinaSpinner.selectedItem as String)
         )
         odabirIstrazivanjaSpinnerAdapter.notifyDataSetChanged()
