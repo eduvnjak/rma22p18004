@@ -4,4 +4,8 @@
     <string name="vrijeme_zatvaranja">Vrijeme zatvaranja %1$s</string>
     <string name="vrijeme_aktiviranja">Vrijeme aktiviranja %1$s</string>
     <string name="anketa_zatvorena">Anketa zatvorena %1$s</string>
+    <string name="odaberi_godinu">Odaberi godinu:</string>
+    <string name="odaberi_istrazivanje">Odaberi istraživanje</string>
+    <string name="odaberi_grupu">Odaberi grupu</string>
+    <string name="upisi_me">Upiši me</string>
 </resources>

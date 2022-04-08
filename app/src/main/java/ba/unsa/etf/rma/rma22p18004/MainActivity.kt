@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.GridLayout
 import android.widget.Spinner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,14 +28,14 @@ class MainActivity : AppCompatActivity() {
         ArrayAdapter.createFromResource(this,R.array.filter_anketa_opcije,android.R.layout.simple_spinner_item).also {
                 adapter ->  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             filterAnketa.adapter = adapter}
-        filterAnketa.onItemSelectedListener = filterAnketaSpinnerListener()
+        filterAnketa.onItemSelectedListener = FilterAnketaSpinnerListener()
 
         listaAnketa.layoutManager=GridLayoutManager(this, 2)
         listaAnketaAdapter= ListaAnketaAdapter(mainActivityViewModel.dajAnkete())
         listaAnketa.adapter=listaAnketaAdapter
     }
 
-    inner class filterAnketaSpinnerListener: AdapterView.OnItemSelectedListener{
+    inner class FilterAnketaSpinnerListener: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
             filtrirajAnkete()
         }
