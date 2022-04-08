@@ -1,5 +1,6 @@
-package ba.unsa.etf.rma.rma22p18004.models
+package ba.etf.rma22.projekat.data.repositories
 
+import ba.etf.rma22.projekat.data.models.Anketa
 import java.util.*
 import kotlin.collections.ArrayList
 

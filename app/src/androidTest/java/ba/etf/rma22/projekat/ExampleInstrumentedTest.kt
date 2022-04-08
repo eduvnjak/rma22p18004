@@ -1,4 +1,4 @@
-package ba.unsa.etf.rma.rma22p18004
+package ba.etf.rma22.projekat
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("ba.unsa.etf.rma.rma22p18004", appContext.packageName)
+        assertEquals("ba.etf.rma.rma22p18004", appContext.packageName)
     }
 }

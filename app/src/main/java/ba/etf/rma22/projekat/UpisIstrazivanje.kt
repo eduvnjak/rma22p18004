@@ -1,11 +1,11 @@
-package ba.unsa.etf.rma.rma22p18004
+package ba.etf.rma22.projekat
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import ba.unsa.etf.rma.rma22p18004.viewmodel.UpisIstrazivanjeViewModel
+import ba.etf.rma22.projekat.viewmodel.UpisIstrazivanjeViewModel
 
 class UpisIstrazivanje: AppCompatActivity() {
 

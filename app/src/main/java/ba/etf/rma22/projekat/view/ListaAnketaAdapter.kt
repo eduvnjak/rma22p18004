@@ -1,4 +1,4 @@
-package ba.unsa.etf.rma.rma22p18004.view
+package ba.etf.rma22.projekat.view
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ba.unsa.etf.rma.rma22p18004.R
-import ba.unsa.etf.rma.rma22p18004.models.Anketa
+import ba.etf.rma22.projekat.R
+import ba.etf.rma22.projekat.data.models.Anketa
 import java.text.SimpleDateFormat
 
 class ListaAnketaAdapter(private var dataSet: List<Anketa>):

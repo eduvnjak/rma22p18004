@@ -1,4 +1,6 @@
-package ba.unsa.etf.rma.rma22p18004.models
+package ba.etf.rma22.projekat.data.repositories
+
+import ba.etf.rma22.projekat.data.models.Istrazivanje
 
 object IstrazivanjeRepository {
     val svaIstrazivanja: List<Istrazivanje> = listOf(
@@ -27,7 +29,8 @@ object IstrazivanjeRepository {
 
     fun dajIstrazivanjaNaKojaNijeUpisan(godina: Int): List<Istrazivanje> {
         return getIstrazivanjeByGodina(godina).minus(
-            upisanaIstrazivanja)
+            upisanaIstrazivanja
+        )
     }
 
     fun upisiIstrazivanja(nazivIstrazivanja: String, godinaIstrazivanja: Int) {

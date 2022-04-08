@@ -1,4 +1,4 @@
-package ba.unsa.etf.rma.rma22p18004
+package ba.etf.rma22.projekat
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +9,8 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ba.unsa.etf.rma.rma22p18004.view.ListaAnketaAdapter
-import ba.unsa.etf.rma.rma22p18004.viewmodel.MainActivityViewModel
+import ba.etf.rma22.projekat.view.ListaAnketaAdapter
+import ba.etf.rma22.projekat.viewmodel.MainActivityViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {

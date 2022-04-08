@@ -1,7 +1,7 @@
-package ba.unsa.etf.rma.rma22p18004.viewmodel
+package ba.etf.rma22.projekat.viewmodel
 
-import ba.unsa.etf.rma.rma22p18004.models.GrupaRepository
-import ba.unsa.etf.rma.rma22p18004.models.IstrazivanjeRepository
+import ba.etf.rma22.projekat.data.repositories.GrupaRepository
+import ba.etf.rma22.projekat.data.repositories.IstrazivanjeRepository
 
 class UpisIstrazivanjeViewModel {
     fun dajIstrazivanja(odabranaGodina: String): List<String>{
