@@ -35,8 +35,6 @@ object AnketaRepository {
         datum1 = calendar.time
         calendar.set(2022,2,15)
         datum2 = calendar.time
-        calendar.set(2022,2,10)
-        datum3 = calendar.time
         ankete.add(Anketa("Anketa 2 I1 G1",
             "Istrazivanje 1",
             datum1,
@@ -180,15 +178,15 @@ object AnketaRepository {
         return ankete
     }
     fun getDone(): List<Anketa> {
-        return ankete.filter { anketa -> anketa.datumRada!=null }
+        return getMyAnkete().filter { anketa -> anketa.datumRada!=null }
     }
     fun getFuture(): List<Anketa>{
         val now: Date = Calendar.getInstance().time
-        return ankete.filter { anketa -> anketa.datumPocetak.after(now) }
+        return getMyAnkete().filter { anketa -> anketa.datumPocetak.after(now) }
     }
     //sve prosle koje nisu uradjene
     fun getNotTaken(): List<Anketa>{
         val now: Date = Calendar.getInstance().time
-        return ankete.filter { anketa -> anketa.datumRada==null && anketa.datumKraj.before(now) }
+        return getMyAnkete().filter { anketa -> anketa.datumRada==null && anketa.datumKraj.before(now) }
     }
 }
