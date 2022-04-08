@@ -10,19 +10,19 @@ class MainActivityViewModel {
 
     fun filtriraj(odabranaOpcija: String, opcije: Array<String>): List<Anketa> {
         when(odabranaOpcija) {
-            opcije[1] -> {
+            opcije[0] -> {
                 return AnketaRepository.getMyAnkete().sortedBy { it.datumPocetak  }
             }
-            opcije[2] -> {
+            opcije[1] -> {
                 return AnketaRepository.getAll().sortedBy { it.datumPocetak  }
             }
-            opcije[3] -> {
+            opcije[2] -> {
                 return AnketaRepository.getDone().sortedBy { it.datumPocetak  }
             }
-            opcije[4] -> {
+            opcije[3] -> {
                 return AnketaRepository.getFuture().sortedBy { it.datumPocetak  }
             }
-            opcije[5] -> {
+            opcije[4] -> {
                 return AnketaRepository.getNotTaken().sortedBy { it.datumPocetak  }
             }
         }
