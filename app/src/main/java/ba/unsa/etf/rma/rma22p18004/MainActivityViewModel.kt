@@ -5,21 +5,21 @@ class MainActivityViewModel {
         return AnketaRepository.getMyAnkete().sortedBy { it.datumPocetak  }
     }
 
-    fun filtriraj(odabranaOpcija: String): List<Anketa> {
+    fun filtriraj(odabranaOpcija: String, opcije: Array<String>): List<Anketa> {
         when(odabranaOpcija) {
-            "Sve moje ankete" -> {
+            opcije[1] -> {
                 return AnketaRepository.getMyAnkete().sortedBy { it.datumPocetak  }
             }
-            "Sve ankete" -> {
+            opcije[2] -> {
                 return AnketaRepository.getAll().sortedBy { it.datumPocetak  }
             }
-            "Urađene ankete" -> {
+            opcije[3] -> {
                 return AnketaRepository.getDone().sortedBy { it.datumPocetak  }
             }
-            "Buduće ankete" -> {
+            opcije[4] -> {
                 return AnketaRepository.getFuture().sortedBy { it.datumPocetak  }
             }
-            "Prošle (neurađene) ankete" -> {
+            opcije[5] -> {
                 return AnketaRepository.getNotTaken().sortedBy { it.datumPocetak  }
             }
         }
