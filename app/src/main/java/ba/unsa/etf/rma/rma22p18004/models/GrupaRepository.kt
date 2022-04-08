@@ -1,7 +1,7 @@
 package ba.unsa.etf.rma.rma22p18004.models
 
 object GrupaRepository {
-    val sveGrupe: List<Grupa> = arrayListOf(
+    val sveGrupe: List<Grupa> = listOf(
         Grupa("I1 G1","Istrazivanje 1"),
         Grupa("I1 G2","Istrazivanje 1"),
         Grupa("I2 G1","Istrazivanje 2"),
@@ -11,7 +11,7 @@ object GrupaRepository {
         Grupa("I4 G2", "Istrazivanje 4"),
         Grupa("I5 G2","Istrazivanje 5"),
     )
-    val upisaneGrupe: List<Grupa> = arrayListOf(
+    val upisaneGrupe: MutableList<Grupa> = mutableListOf(
         Grupa("I1 G1","Istrazivanje 1"),
         Grupa("I4 G1","Istrazivanje 4"),
         Grupa("I5 G1","Istrazivanje 5"),
@@ -19,5 +19,9 @@ object GrupaRepository {
 
     fun getGroupsByIstrazivanjet(nazivIstrazivanja:String) : List<Grupa>{
         return sveGrupe.filter { grupa -> grupa.nazivIstrazivanja == nazivIstrazivanja }
+    }
+
+    fun upisiGrupu(grupaNaziv: String, istrazivanjeNaziv: String) {
+        upisaneGrupe.add(sveGrupe.find { grupa -> grupa.naziv==grupaNaziv && grupa.nazivIstrazivanja==istrazivanjeNaziv }!!)
     }
 }

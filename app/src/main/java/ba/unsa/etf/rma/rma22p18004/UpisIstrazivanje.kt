@@ -1,12 +1,11 @@
 package ba.unsa.etf.rma.rma22p18004
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import ba.unsa.etf.rma.rma22p18004.viewmodel.UpisIstrazivanjeViewModel
 
 class UpisIstrazivanje: AppCompatActivity() {
 
@@ -15,9 +14,11 @@ class UpisIstrazivanje: AppCompatActivity() {
     private lateinit var odabirGrupaSpinner: Spinner
     private lateinit var dodajIstrazivanjeButton: Button
 
-    private lateinit var odabirGodinaSpinnerAdapter: ArrayAdapter<String>
+    //private lateinit var odabirGodinaSpinnerAdapter: ArrayAdapter<String>
     private lateinit var odabirIstrazivanjaSpinnerAdapter: ArrayAdapter<String>
     private lateinit var odabirGrupaSpinnerAdapter: ArrayAdapter<String>
+
+    private var upisIstrazivanjeViewModel = UpisIstrazivanjeViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,38 +43,78 @@ class UpisIstrazivanje: AppCompatActivity() {
         odabirGrupaSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         odabirGrupaSpinner.adapter = odabirGrupaSpinnerAdapter
         odabirGrupaSpinner.onItemSelectedListener = OdabirGrupaSpinnerListener()
+
+        dodajIstrazivanjeButton.setOnClickListener{
+            dodajIstrazivanjeButtonAction()
+        }
     }
 
-    class OdabirGrupaSpinnerListener : AdapterView.OnItemSelectedListener {
+    private fun dodajIstrazivanjeButtonAction() {
+        if(odabirIstrazivanjaSpinner.selectedItem != null && odabirGodinaSpinner.selectedItem != null && odabirGrupaSpinner.selectedItem != null) {
+            upisIstrazivanjeViewModel.upisiIstrazivanje(odabirIstrazivanjaSpinner.selectedItem as String, odabirGrupaSpinner.selectedItem as String, odabirGodinaSpinner.selectedItem as String)
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }else{
+            Toast.makeText(this, "Odaberi godinu, istraživanje i grupu!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    inner class OdabirGrupaSpinnerListener : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-            TODO("Not yet implemented")
+            dodajIstrazivanjeButton.isEnabled=true
         }
 
         override fun onNothingSelected(p0: AdapterView<*>?) {
-            TODO("Not yet implemented")
+            dodajIstrazivanjeButton.isEnabled=false
         }
 
     }
 
-    class OdabirIstrazivanjaSpinnerListener : AdapterView.OnItemSelectedListener {
+    inner class OdabirIstrazivanjaSpinnerListener : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-            TODO("Not yet implemented")
+            updateGrupaSpinner()
         }
 
         override fun onNothingSelected(p0: AdapterView<*>?) {
-            TODO("Not yet implemented")
         }
 
     }
 
     inner class OdabirGodinaSpinnerListener : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-            TODO("Not yet implemented")
+            updateIstrazivanjaSpinner()
+            updateGrupaSpinner()
         }
 
         override fun onNothingSelected(p0: AdapterView<*>?) {
-            TODO("Not yet implemented")
         }
 
+    }
+
+    fun updateIstrazivanjaSpinner() {
+        odabirIstrazivanjaSpinnerAdapter.clear()
+        odabirIstrazivanjaSpinner.setSelection(0)
+        odabirGrupaSpinnerAdapter.addAll(
+            upisIstrazivanjeViewModel.dajIstrazivanja(odabirGodinaSpinner.selectedItem as String)
+        )
+        odabirIstrazivanjaSpinnerAdapter.notifyDataSetChanged()
+    }
+
+    fun updateGrupaSpinner() {
+        odabirGrupaSpinnerAdapter.clear()
+        odabirGrupaSpinner.setSelection(0)
+        if(!odabirIstrazivanjaSpinnerAdapter.isEmpty) {
+            odabirGrupaSpinnerAdapter.addAll(
+                upisIstrazivanjeViewModel.dajGrupe(odabirIstrazivanjaSpinner.selectedItem as String)
+            )
+        }
+        odabirGrupaSpinnerAdapter.notifyDataSetChanged()
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        // da li je potrebno
+        finish()
     }
 }

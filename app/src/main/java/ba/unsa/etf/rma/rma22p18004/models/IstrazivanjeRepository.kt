@@ -1,7 +1,7 @@
 package ba.unsa.etf.rma.rma22p18004.models
 
 object IstrazivanjeRepository {
-    val svaIstrazivanja: List<Istrazivanje> = arrayListOf(
+    val svaIstrazivanja: List<Istrazivanje> = listOf(
         Istrazivanje("Istrazivanje 1", 1),
         Istrazivanje("Istrazivanje 2", 1),
         Istrazivanje("Istrazivanje 3", 1),
@@ -9,7 +9,7 @@ object IstrazivanjeRepository {
         Istrazivanje("Istrazivanje 5", 2),
         Istrazivanje("Istrazivanje 6", 3),
     )
-    val upisanaIstrazivanja: List<Istrazivanje> = arrayListOf(
+    val upisanaIstrazivanja: MutableList<Istrazivanje> = mutableListOf(
         Istrazivanje("Istrazivanje 1", 1),
         Istrazivanje("Istrazivanje 4", 2),
         Istrazivanje("Istrazivanje 5", 2),
@@ -23,6 +23,15 @@ object IstrazivanjeRepository {
     }
     fun getUpisani(): List<Istrazivanje>{
         return upisanaIstrazivanja
+    }
+
+    fun dajIstrazivanjaNaKojaNijeUpisan(godina: Int): List<Istrazivanje> {
+        return getIstrazivanjeByGodina(godina).minus(
+            upisanaIstrazivanja)
+    }
+
+    fun upisiIstrazivanja(nazivIstrazivanja: String, godinaIstrazivanja: Int) {
+        upisanaIstrazivanja.add(svaIstrazivanja.find { istrazivanje -> istrazivanje.naziv==nazivIstrazivanja && istrazivanje.godina==godinaIstrazivanja }!!)
     }
 }
 

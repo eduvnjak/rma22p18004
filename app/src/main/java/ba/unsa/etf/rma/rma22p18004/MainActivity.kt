@@ -1,5 +1,6 @@
 package ba.unsa.etf.rma.rma22p18004
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,10 +11,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.rma.rma22p18004.view.ListaAnketaAdapter
 import ba.unsa.etf.rma.rma22p18004.viewmodel.MainActivityViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var listaAnketa: RecyclerView
     private lateinit var filterAnketa: Spinner
+    private lateinit var floatingActionButton: FloatingActionButton
 
     private lateinit var listaAnketaAdapter: ListaAnketaAdapter
     private lateinit var filterAnketaAdapter: ArrayAdapter<String>
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         listaAnketa = findViewById(R.id.listaAnketa)
         filterAnketa = findViewById(R.id.filterAnketa)
+        floatingActionButton = findViewById(R.id.floatingActionButton)
 
         ArrayAdapter.createFromResource(this,R.array.filter_anketa_opcije,android.R.layout.simple_spinner_item).also {
                 adapter ->  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -35,6 +39,10 @@ class MainActivity : AppCompatActivity() {
         listaAnketa.layoutManager=GridLayoutManager(this, 2)
         listaAnketaAdapter= ListaAnketaAdapter(mainActivityViewModel.dajAnkete())
         listaAnketa.adapter=listaAnketaAdapter
+
+        floatingActionButton.setOnClickListener {
+            pokreniUpisIstrazivanjeActivity()
+        }
     }
 
     inner class FilterAnketaSpinnerListener: AdapterView.OnItemSelectedListener{
@@ -43,12 +51,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onNothingSelected(p0: AdapterView<*>?) {
-            TODO("Not yet implemented")
         }
 
     }
     fun filtrirajAnkete(){
         val odabranaOpcija = filterAnketa.selectedItem as String
         listaAnketaAdapter.updateAnkete(mainActivityViewModel.filtriraj(odabranaOpcija,resources.getStringArray(R.array.filter_anketa_opcije)))
+    }
+    fun pokreniUpisIstrazivanjeActivity() {
+        val intent = Intent(this, UpisIstrazivanje::class.java)
+        startActivity(intent)
+        finish()
     }
 }
