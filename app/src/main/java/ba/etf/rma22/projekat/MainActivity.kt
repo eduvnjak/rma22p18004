@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         listaAnketa = findViewById(R.id.listaAnketa)
         filterAnketa = findViewById(R.id.filterAnketa)
-        floatingActionButton = findViewById(R.id.floatingActionButton)
+        floatingActionButton = findViewById(R.id.upisDugme)
 
         ArrayAdapter.createFromResource(this,R.array.filter_anketa_opcije,android.R.layout.simple_spinner_item).also {
                 adapter ->  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
