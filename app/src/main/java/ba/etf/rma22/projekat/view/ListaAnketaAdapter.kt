@@ -20,6 +20,7 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>):
         val textViewIstrazivanjeNaziv: TextView = view.findViewById(R.id.textView_istrazivanje_naziv)
         val textViewAnketaNaziv: TextView = view.findViewById(R.id.textView_anketa_naziv)
         val textViewAnketaDatum: TextView = view.findViewById(R.id.textView_anketa_datum)
+        val textViewAnketaDatumText: TextView = view.findViewById(R.id.textView_anketa_datum_text)
 
         init {
             // Define click listener for the ViewHolder's View.
@@ -43,19 +44,23 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>):
         val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
         when(dataSet[position].dajStatusAnkete()){
             1->{
-                holder.textViewAnketaDatum.text=context.getString(R.string.anketa_uradjena, simpleDateFormat.format(dataSet[position].dajDatumZaListu()))
+                holder.textViewAnketaDatumText.text=context.getString(R.string.anketa_uradjena)
+                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
                 holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("plava","drawable",context.packageName))
             }
             2->{
-                holder.textViewAnketaDatum.text=context.getString(R.string.vrijeme_zatvaranja, simpleDateFormat.format(dataSet[position].dajDatumZaListu()))
+                holder.textViewAnketaDatumText.text=context.getString(R.string.vrijeme_zatvaranja)
+                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
                 holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("zelena","drawable",context.packageName))
             }
             3->{
-                holder.textViewAnketaDatum.text=context.getString(R.string.vrijeme_aktiviranja, simpleDateFormat.format(dataSet[position].dajDatumZaListu()))
+                holder.textViewAnketaDatumText.text=context.getString(R.string.vrijeme_aktiviranja)
+                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
                 holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("zuta","drawable",context.packageName))
             }
             4->{
-                holder.textViewAnketaDatum.text=context.getString(R.string.anketa_zatvorena, simpleDateFormat.format(dataSet[position].dajDatumZaListu()))
+                holder.textViewAnketaDatumText.text=context.getString(R.string.anketa_zatvorena)
+                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
                 holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("crvena","drawable",context.packageName))
             }
         }

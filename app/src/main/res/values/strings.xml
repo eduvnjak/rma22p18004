@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">RMA22P18004</string>
-    <string name="anketa_uradjena">Anketa urađena %1$s</string>
-    <string name="vrijeme_zatvaranja">Vrijeme zatvaranja %1$s</string>
-    <string name="vrijeme_aktiviranja">Vrijeme aktiviranja %1$s</string>
-    <string name="anketa_zatvorena">Anketa zatvorena %1$s</string>
+    <string name="anketa_uradjena">Anketa urađena:\u0020</string>
+    <string name="vrijeme_zatvaranja">Vrijeme zatvaranja:\u0020</string>
+    <string name="vrijeme_aktiviranja">Vrijeme aktiviranja:\u0020</string>
+    <string name="anketa_zatvorena">Anketa zatvorena:\u0020</string>
     <string name="odaberi_godinu">Odaberi godinu:</string>
     <string name="odaberi_istrazivanje">Odaberi istraživanje</string>
     <string name="odaberi_grupu">Odaberi grupu</string>
