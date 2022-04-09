@@ -1,5 +1,6 @@
 package ba.etf.rma22.projekat.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,7 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>):
         holder.textViewAnketaNaziv.text = dataSet[position].naziv
         holder.textViewIstrazivanjeNaziv.text = dataSet[position].nazivIstrazivanja
         //progress
-        holder.progressBarProgresZavrsetka.progress=(dataSet[position].progres*100).toInt()
+        holder.progressBarProgresZavrsetka.progress=(dataSet[position].dajProgresZaokruzen()*100).toInt()
         //datum i status
         val context =holder.imageViewStanjeAnkete.context
         val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
