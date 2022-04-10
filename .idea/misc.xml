@@ -4,12 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/drawable/crvena.xml" value="0.188" />
+        <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/drawable/custom_progress.xml" value="0.196" />
         <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/drawable/plava.xml" value="0.188" />
+        <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/drawable/progress_bar_progress.xml" value="0.196" />
+        <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/drawable/progress_indicator.xml" value="0.196" />
         <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/drawable/zelena.xml" value="0.188" />
         <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/drawable/zuta.xml" value="0.188" />
         <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/layout/activity_main.xml" value="0.42991452991452994" />
         <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/layout/activity_upis_istrazivanja.xml" value="0.24540401881145787" />
-        <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/layout/lista_anketa_list_element.xml" value="0.33" />
+        <entry key="..\:/Users/Eman/AndroidStudioProjects/RMA22P18004/app/src/main/res/layout/lista_anketa_list_element.xml" value="0.67" />
       </map>
     </option>
   </component>
