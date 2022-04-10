@@ -37,9 +37,9 @@ class PocetniTest {
         var listaOdabira = listOf<String>(
             "Sve moje ankete",
             "Sve ankete",
-            "UraÄ‘ene ankete",
-            "BuduÄ‡e ankete",
-            "ProĹˇle ankete"
+            "Urađene ankete",
+            "Buduće ankete",
+            "Prošle ankete"
         )
 
         for (odabir in listaOdabira) {
@@ -78,9 +78,9 @@ class PocetniTest {
         var listaOdabira = listOf<String>(
             "Sve moje ankete",
             "Sve ankete",
-            "UraÄ‘ene ankete",
-            "BuduÄ‡e ankete",
-            "ProĹˇle ankete"
+            "Urađene ankete",
+            "Buduće ankete",
+            "Prošle ankete"
         )
         var kolikoAnketa = 0
         for (odabir in listaOdabira) {
@@ -90,9 +90,9 @@ class PocetniTest {
             when(odabir){
                 "Sve moje ankete" -> ankete=AnketaRepository.getMyAnkete()
                 "Sve ankete" -> ankete=AnketaRepository.getAll()
-                "UraÄ‘ene ankete" -> ankete=AnketaRepository.getDone()
-                "BuduÄ‡e ankete" -> ankete=AnketaRepository.getFuture()
-                "ProĹˇle ankete" -> ankete=AnketaRepository.getNotTaken()
+                "Urađene ankete" -> ankete=AnketaRepository.getDone()
+                "Buduće ankete" -> ankete=AnketaRepository.getFuture()
+                "Prošle ankete" -> ankete=AnketaRepository.getNotTaken()
             }
             kolikoAnketa+=ankete.size
             onView(withId(R.id.listaAnketa)).check(hasItemCount(ankete.size))
