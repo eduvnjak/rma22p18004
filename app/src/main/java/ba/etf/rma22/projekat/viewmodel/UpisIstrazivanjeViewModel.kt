@@ -11,8 +11,14 @@ class UpisIstrazivanjeViewModel {
         return GrupaRepository.getGroupsByIstrazivanjet(odabranoIstrazivanje).map { grupa -> grupa.naziv }
     }
     fun upisiIstrazivanje(odabranoIstrazivanje: String, odabranaGrupa: String, odabranaGodina: String) {
+        postaviPosljednjuOdabranuGodinu(Integer.parseInt(odabranaGodina))
         IstrazivanjeRepository.upisiIstrazivanja(odabranoIstrazivanje,Integer.parseInt(odabranaGodina))
         GrupaRepository.upisiGrupu(odabranaGrupa, odabranoIstrazivanje)
     }
-
+    fun dajPosljednjuOdabranuGodinu(): String{
+        return IstrazivanjeRepository.posljednjaOdabranaGodina.toString()
+    }
+    fun postaviPosljednjuOdabranuGodinu(godina: Int){
+        IstrazivanjeRepository.posljednjaOdabranaGodina=godina
+    }
 }

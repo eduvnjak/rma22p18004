@@ -16,6 +16,7 @@ object IstrazivanjeRepository {
         Istrazivanje("Istrazivanje 4", 2),
         Istrazivanje("Istrazivanje 5", 2),
         )
+    var posljednjaOdabranaGodina = 1
 
     fun getIstrazivanjeByGodina(godina: Int): List<Istrazivanje>{
         return svaIstrazivanja.filter { istrazivanje -> istrazivanje.godina == godina  }

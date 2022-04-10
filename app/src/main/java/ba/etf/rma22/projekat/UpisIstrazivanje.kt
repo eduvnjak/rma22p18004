@@ -34,6 +34,7 @@ class UpisIstrazivanje: AppCompatActivity() {
                 adapter ->  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             odabirGodinaSpinner.adapter = adapter}
         odabirGodinaSpinner.onItemSelectedListener = OdabirGodinaSpinnerListener()
+        odabirGodinaSpinner.setSelection((odabirGodinaSpinner.adapter as ArrayAdapter<String>).getPosition(upisIstrazivanjeViewModel.dajPosljednjuOdabranuGodinu()))
 
         odabirIstrazivanjaSpinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item)
         odabirIstrazivanjaSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -84,7 +85,7 @@ class UpisIstrazivanje: AppCompatActivity() {
     inner class OdabirGodinaSpinnerListener : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
             updateIstrazivanjaSpinner()
-            Log.i("", "Mijenjam istrazivanja!")
+//            Log.i("", "Mijenjam istrazivanja!")
             updateGrupaSpinner()
         }
 
