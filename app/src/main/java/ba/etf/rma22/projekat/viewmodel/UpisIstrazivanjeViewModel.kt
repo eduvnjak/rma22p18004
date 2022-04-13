@@ -8,7 +8,7 @@ class UpisIstrazivanjeViewModel {
         return IstrazivanjeRepository.dajIstrazivanjaNaKojaNijeUpisan(Integer.parseInt(odabranaGodina)).map { istrazivanje -> istrazivanje.naziv }
     }
     fun dajGrupe(odabranoIstrazivanje: String): List<String>{
-        return GrupaRepository.getGroupsByIstrazivanjet(odabranoIstrazivanje).map { grupa -> grupa.naziv }
+        return GrupaRepository.getGroupsByIstrazivanje(odabranoIstrazivanje).map { grupa -> grupa.naziv }
     }
     fun upisiIstrazivanje(odabranoIstrazivanje: String, odabranaGrupa: String, odabranaGodina: String) {
         postaviPosljednjuOdabranuGodinu(Integer.parseInt(odabranaGodina))

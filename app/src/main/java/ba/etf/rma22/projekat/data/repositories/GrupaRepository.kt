@@ -7,6 +7,7 @@ object GrupaRepository {
         Grupa("I1 G1","Istrazivanje 1"),
         Grupa("I1 G2","Istrazivanje 1"),
         Grupa("I2 G1","Istrazivanje 2"),
+        Grupa("I2 G2","Istrazivanje 2"),
         Grupa("I3 G1","Istrazivanje 3"),
         Grupa("I3 G2","Istrazivanje 3"),
         Grupa("I4 G1","Istrazivanje 4"),
@@ -21,7 +22,7 @@ object GrupaRepository {
         Grupa("I5 G1","Istrazivanje 5"),
         )
 
-    fun getGroupsByIstrazivanjet(nazivIstrazivanja:String) : List<Grupa>{
+    fun getGroupsByIstrazivanje(nazivIstrazivanja:String) : List<Grupa>{
         return sveGrupe.filter { grupa -> grupa.nazivIstrazivanja == nazivIstrazivanja }
     }
 
