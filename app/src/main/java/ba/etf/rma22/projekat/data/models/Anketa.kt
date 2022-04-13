@@ -42,6 +42,7 @@ data class Anketa(val naziv: String, val nazivIstrazivanja: String, val datumPoc
         return datumKraj
     }
     fun dajProgresZaokruzen(): Float{
+        if(progres > 0.8f && progres < 1f) return 0.8f
         return round(progres/0.2f)*0.2f
     }
 }

@@ -48,7 +48,7 @@ object AnketaRepository {
             null,
             2,
             "I1 G1",
-            0.4f)
+            0.99f)
         )
         calendar.set(2022,7,10)
         datum1 = calendar.time
