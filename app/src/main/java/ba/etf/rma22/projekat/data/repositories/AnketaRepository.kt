@@ -109,7 +109,7 @@ object AnketaRepository {
         calendar.set(2022,2,15)
         datum2 = calendar.time
         ankete.add(
-            Anketa("Anketa 6 I6 G1",
+            Anketa("Anketa 1 I6 G1",
             "Istrazivanje 6",
             datum1,
             datum2,
@@ -119,7 +119,7 @@ object AnketaRepository {
             0f)
         )
         ankete.add(
-            Anketa("Anketa 6 I6 G2",
+            Anketa("Anketa 1 I6 G2",
             "Istrazivanje 6",
             datum1,
             datum2,
