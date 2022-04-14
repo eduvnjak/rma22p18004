@@ -1,66 +1,50 @@
 package ba.etf.rma22.projekat
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import ba.etf.rma22.projekat.view.ListaAnketaAdapter
-import ba.etf.rma22.projekat.viewmodel.MainActivityViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.viewpager2.widget.ViewPager2
+import ba.etf.rma22.projekat.view.FragmentAnkete
+import ba.etf.rma22.projekat.view.FragmentIstrazivanje
+import ba.etf.rma22.projekat.view.FragmentPoruka
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var listaAnketa: RecyclerView
-    private lateinit var filterAnketa: Spinner
-    private lateinit var floatingActionButton: FloatingActionButton
+    private lateinit var viewPager: ViewPager2
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
 
-    private lateinit var listaAnketaAdapter: ListaAnketaAdapter
-    private lateinit var filterAnketaAdapter: ArrayAdapter<String>
-
-    private var mainActivityViewModel = MainActivityViewModel()
+    private var izvrsenUpis = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val fragments =
+            mutableListOf(
+                FragmentAnkete(),
+                FragmentIstrazivanje(),
+            )
+        viewPager = findViewById(R.id.fragment_view_pager)
+        viewPager.offscreenPageLimit = 1
+        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, fragments, lifecycle)
+        viewPager.adapter = viewPagerAdapter
 
-        listaAnketa = findViewById(R.id.listaAnketa)
-        filterAnketa = findViewById(R.id.filterAnketa)
-        floatingActionButton = findViewById(R.id.upisDugme)
-
-        ArrayAdapter.createFromResource(this,R.array.filter_anketa_opcije,android.R.layout.simple_spinner_item).also {
-                adapter ->  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            filterAnketa.adapter = adapter}
-        filterAnketa.onItemSelectedListener = FilterAnketaSpinnerListener()
-
-        listaAnketa.layoutManager=GridLayoutManager(this, 2)
-        listaAnketaAdapter= ListaAnketaAdapter(mainActivityViewModel.dajAnkete())
-        listaAnketa.adapter=listaAnketaAdapter
-
-        floatingActionButton.setOnClickListener {
-            pokreniUpisIstrazivanjeActivity()
-        }
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                if(position == 1 && izvrsenUpis){
+                    izvrsenUpis = false
+                    viewPagerAdapter.refreshFragment(1,FragmentIstrazivanje())                }
+            }
+        })
     }
+    fun prikaziPoruku(grupa: String, istrazivanje: String){
+        val fragmentPoruka = FragmentPoruka()
 
-    inner class FilterAnketaSpinnerListener: AdapterView.OnItemSelectedListener{
-        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-            filtrirajAnkete()
-        }
+        val bundle = Bundle()
+        bundle.putString("grupa",grupa)
+        bundle.putString("istrazivanje",istrazivanje)
+        fragmentPoruka.arguments = bundle
 
-        override fun onNothingSelected(p0: AdapterView<*>?) {
-        }
+        viewPagerAdapter.refreshFragment(1,fragmentPoruka)
+        viewPagerAdapter.refreshFragment(0,FragmentAnkete())
 
-    }
-    fun filtrirajAnkete(){
-        val odabranaOpcija = filterAnketa.selectedItem as String
-        listaAnketaAdapter.updateAnkete(mainActivityViewModel.filtriraj(odabranaOpcija,resources.getStringArray(R.array.filter_anketa_opcije)))
-    }
-    fun pokreniUpisIstrazivanjeActivity() {
-        val intent = Intent(this, UpisIstrazivanje::class.java)
-        startActivity(intent)
-        finish()
+        izvrsenUpis = true
     }
 }
