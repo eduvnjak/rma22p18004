@@ -10,7 +10,9 @@ import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
+import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -44,11 +46,16 @@ class FragmentAnkete: Fragment() {
         filterAnketa.onItemSelectedListener = FilterAnketaSpinnerListener()
 
         listaAnketa.layoutManager= GridLayoutManager(activity, 2)
-        listaAnketaAdapter= ListaAnketaAdapter(mainActivityViewModel.dajAnkete())
+        listaAnketaAdapter= ListaAnketaAdapter(mainActivityViewModel.dajAnkete()) {anketa ->  ispuniAnketu(anketa)}
         listaAnketa.adapter=listaAnketaAdapter
 
         return view
     }
+
+    private fun ispuniAnketu(anketa: Anketa) {
+        (activity as MainActivity).pokreniIspunjavanjeAnkete(anketa.naziv,anketa.nazivIstrazivanja)
+    }
+
     inner class FilterAnketaSpinnerListener: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
             filtrirajAnkete()

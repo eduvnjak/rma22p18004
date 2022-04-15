@@ -2,6 +2,7 @@ package ba.etf.rma22.projekat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import ba.etf.rma22.projekat.view.FragmentAnkete
 import ba.etf.rma22.projekat.view.FragmentIstrazivanje
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
-                if(position == 1 && izvrsenUpis){
+                if(position == 0 && izvrsenUpis){
                     izvrsenUpis = false
                     viewPagerAdapter.refreshFragment(1,FragmentIstrazivanje())                }
             }
@@ -46,5 +47,9 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.refreshFragment(0,FragmentAnkete())
 
         izvrsenUpis = true
+    }
+
+    fun pokreniIspunjavanjeAnkete(nazivAnkete: String, nazivIstrazivanja: String) {
+        Log.i("KLIKNO SI NA", nazivAnkete+" "+nazivIstrazivanja)
     }
 }

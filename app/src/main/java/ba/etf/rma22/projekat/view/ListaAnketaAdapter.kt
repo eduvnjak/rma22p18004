@@ -12,8 +12,9 @@ import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
 import java.text.SimpleDateFormat
 
-class ListaAnketaAdapter(private var dataSet: List<Anketa>):
-    RecyclerView.Adapter<ListaAnketaAdapter.ViewHolder>() {
+class ListaAnketaAdapter(private var dataSet: List<Anketa>,
+                        private val onItemClicked: (anketa: Anketa) -> Unit
+): RecyclerView.Adapter<ListaAnketaAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageViewStanjeAnkete: ImageView = view.findViewById(R.id.imageView_stanje_ankete)
         val progressBarProgresZavrsetka: ProgressBar = view.findViewById(R.id.progresZavrsetka)
@@ -64,6 +65,7 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>):
                 holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("crvena","drawable",context.packageName))
             }
         }
+        holder.itemView.setOnClickListener{onItemClicked(dataSet[position])}
     }
 
     override fun getItemCount(): Int {
