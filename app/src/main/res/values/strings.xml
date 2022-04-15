@@ -8,4 +8,6 @@
     <string name="odaberi_istrazivanje">Odaberi istraživanje</string>
     <string name="odaberi_grupu">Odaberi grupu</string>
     <string name="upisi_me">Upiši me</string>
+    <string name="predaj_anketu">Predaj anketu</string>
+    <string name="zaustavi_anketu">Zaustavi anketu</string>
 </resources>
