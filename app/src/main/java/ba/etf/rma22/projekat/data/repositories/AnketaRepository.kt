@@ -48,7 +48,7 @@ object AnketaRepository {
             null,
             2,
             "I1 G1",
-            0.99f)
+            0.75f)
         )
         calendar.set(2022,7,10)
         datum1 = calendar.time
@@ -233,5 +233,9 @@ object AnketaRepository {
     fun getNotTaken(): List<Anketa>{
         val now: Date = Calendar.getInstance().time
         return getMyAnkete().filter { anketa -> anketa.datumRada==null && anketa.datumKraj.before(now) }
+    }
+
+    fun dajAnketu(nazivAnkete: String, nazivIstrazivanja: String): Anketa? {
+        return ankete.find { anketa -> anketa.naziv == nazivAnkete && anketa.nazivIstrazivanja == nazivIstrazivanja }
     }
 }
