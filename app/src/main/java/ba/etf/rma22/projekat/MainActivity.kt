@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         for(i in 0 until brojPitanja){
             viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i]))
         }
-        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa.naziv,anketa.nazivIstrazivanja))
+        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa))
 
         //popuni podacima
 

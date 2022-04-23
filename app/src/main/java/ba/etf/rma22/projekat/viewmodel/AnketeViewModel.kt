@@ -29,9 +29,8 @@ class AnketeViewModel {
         return emptyList()
     }
 
-    fun dajProgres(nazivAnkete: String, nazivIstrazivanja: String): String {
-        val anketa = AnketaRepository.dajAnketu(nazivAnkete,nazivIstrazivanja)
-        val progres = ((anketa?.dajProgresZaokruzen() ?: 0f).toInt()*100).toString()+"%"
+    fun dajProgres(anketa: Anketa): String {
+        val progres = (anketa.dajProgresZaokruzen().toInt()*100).toString()+"%"
         return progres
     }
 }
