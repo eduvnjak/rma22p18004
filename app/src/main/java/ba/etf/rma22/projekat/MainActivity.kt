@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewPagerAdapter: ViewPagerAdapter
 
     private var izvrsenUpis = false
+    private var anketaZaustavljena = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
-                if(position == 0 && izvrsenUpis){
+                if(position == 0 && (izvrsenUpis || anketaZaustavljena)){
                     izvrsenUpis = false
+                    anketaZaustavljena = false
                     viewPagerAdapter.refreshFragment(1,FragmentIstrazivanje())                }
             }
         })
@@ -58,7 +60,20 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa))
 
         //popuni podacima
+    }
+    fun prikaziPorukuZaustaviAnketu(poruka: String){
+        val fragmentPoruka = FragmentPoruka.newInstance(poruka)
 
 
+        //da li ovaj refresh ispod ili samo pozvati neku metodu osvjezi ankete u fragment poruka
+        for(i in 2 until viewPagerAdapter.itemCount){
+            viewPagerAdapter.remove(2)
+        }
+
+        viewPagerAdapter.refreshFragment(1,fragmentPoruka)
+        viewPagerAdapter.refreshFragment(0,FragmentAnkete())
+        viewPager.setCurrentItem(1,true)
+
+        anketaZaustavljena = true
     }
 }

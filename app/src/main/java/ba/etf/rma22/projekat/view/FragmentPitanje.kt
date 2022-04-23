@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.models.Pitanje
@@ -63,16 +64,7 @@ class FragmentPitanje(val pitanje: Pitanje, val anketa: Anketa): Fragment() {
         }
 
     private fun zaustaviAnketu() {
-
-    }
-    fun getViewByPosition(pos: Int, listView: ListView): View? {
-        val firstListItemPosition = listView.firstVisiblePosition
-        val lastListItemPosition = firstListItemPosition + listView.childCount - 1
-        return if (pos < firstListItemPosition || pos > lastListItemPosition) {
-            listView.adapter.getView(pos, null, listView)
-        } else {
-            val childIndex = pos - firstListItemPosition
-            listView.getChildAt(childIndex)
-        }
+        val poruka = "Završili ste anketu ${anketa.naziv} u okviru istraživanja ${anketa.nazivIstrazivanja}"
+        (activity as MainActivity).prikaziPorukuZaustaviAnketu(poruka)
     }
 }

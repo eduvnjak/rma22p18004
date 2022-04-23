@@ -34,6 +34,7 @@ class OdgovoriListaAdapter(context: Context, @LayoutRes val layoutResource: Int,
                 for (i in 0 until parent.childCount){
                     if (i == position){
                         (parent.getChildAt(i) as TextView).setTextColor(Color.parseColor("#0000FF"))
+                        pitanjeAnketaViewModel.azurirajOdgovor(pitanjeAnketa,position)
                     }else{
                         (parent.getChildAt(i) as TextView).setTextColor(Color.parseColor("#FF000000"))
                     }
