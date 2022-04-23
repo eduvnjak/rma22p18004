@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
-import ba.etf.rma22.projekat.view.FragmentAnkete
-import ba.etf.rma22.projekat.view.FragmentIstrazivanje
-import ba.etf.rma22.projekat.view.FragmentPoruka
+import ba.etf.rma22.projekat.data.models.Anketa
+import ba.etf.rma22.projekat.data.models.Pitanje
+import ba.etf.rma22.projekat.view.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
@@ -35,21 +35,30 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-    fun prikaziPoruku(grupa: String, istrazivanje: String){
-        val fragmentPoruka = FragmentPoruka()
+    fun prikaziPorukuUspjesanUpis(poruka: String){
+        val fragmentPoruka = FragmentPoruka.newInstance(poruka)
 
-        val bundle = Bundle()
-        bundle.putString("grupa",grupa)
-        bundle.putString("istrazivanje",istrazivanje)
-        fragmentPoruka.arguments = bundle
 
+        //da li ovaj refresh ispod ili samo pozvati neku metodu osvjezi ankete u fragment poruka
         viewPagerAdapter.refreshFragment(1,fragmentPoruka)
         viewPagerAdapter.refreshFragment(0,FragmentAnkete())
 
         izvrsenUpis = true
     }
 
-    fun pokreniIspunjavanjeAnkete(nazivAnkete: String, nazivIstrazivanja: String) {
-        Log.i("KLIKNO SI NA", nazivAnkete+" "+nazivIstrazivanja)
+    fun pokreniIspunjavanjeAnkete(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>) {
+        Log.i("KLIKNO SI NA", anketa.naziv+" "+anketa.nazivIstrazivanja+" ima "+pitanjaZaAnketu.size)
+        //broj pitanja
+        viewPagerAdapter.remove(0)
+        viewPagerAdapter.remove(0)
+        val brojPitanja = pitanjaZaAnketu.size
+        for(i in 0 until brojPitanja){
+            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i]))
+        }
+        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa.naziv,anketa.nazivIstrazivanja))
+
+        //popuni podacima
+
+
     }
 }

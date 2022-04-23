@@ -1,10 +1,11 @@
 package ba.etf.rma22.projekat.data.repositories
 
+import android.util.Log
 import ba.etf.rma22.projekat.data.models.Pitanje
 import ba.etf.rma22.projekat.data.models.PitanjeAnketa
 
 object PitanjeAnketaRepository {
-    val pitanja: List<Pitanje> = listOf(
+    val svaPitanja: List<Pitanje> = listOf(
         Pitanje("pitanje1","tekst pitanja 1", listOf(
             "opcija 1",
             "opcija 2",
@@ -334,14 +335,13 @@ object PitanjeAnketaRepository {
 
         )
     fun getPitanja(nazivAnkete: String, nazivIstrazivanja: String): List<Pitanje>{
+        val pitanjaAnketeZaAnketu = pitanjaAnkete.filter { pitanjeAnketa -> pitanjeAnketa.anketa == nazivAnkete && pitanjeAnketa.istrazivanje == nazivIstrazivanja}
         val pitanja = ArrayList<Pitanje>()
-        for(pitanjeAnketa in pitanjaAnkete){
-            if(nazivAnkete == pitanjeAnketa.anketa && nazivIstrazivanja == pitanjeAnketa.istrazivanje){
-                for(pitanje in pitanja){
-                    if(pitanje.naziv == pitanjeAnketa.naziv){
-                        pitanja.add(pitanje)
-                        break
-                    }
+
+        for(pitanjeAnketa in pitanjaAnketeZaAnketu){
+            for(pitanje in svaPitanja){
+                if(pitanje.naziv == pitanjeAnketa.naziv){
+                    pitanja.add(pitanje)
                 }
             }
         }

@@ -1,7 +1,5 @@
 package ba.etf.rma22.projekat.view
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -67,7 +65,8 @@ class FragmentIstrazivanje: Fragment() {
                 odabirGrupaSpinner.selectedItem as String,
                 odabirGodinaSpinner.selectedItem as String
             )
-            (activity as MainActivity).prikaziPoruku(odabirGrupaSpinner.selectedItem as String, odabirIstrazivanjaSpinner.selectedItem as String)
+            val poruka = "Uspješno ste upisani u grupu ${odabirGrupaSpinner.selectedItem as String} istraživanja ${odabirIstrazivanjaSpinner.selectedItem as String}!"
+            (activity as MainActivity).prikaziPorukuUspjesanUpis(poruka)
         }
 //        }else{
 //            Toast.makeText(this, "Odaberi godinu, istraživanje i grupu!", Toast.LENGTH_SHORT).show()
