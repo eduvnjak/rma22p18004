@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.remove(0)
         val brojPitanja = pitanjaZaAnketu.size
         for(i in 0 until brojPitanja){
-            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i]))
+            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa))
         }
         viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa))
 

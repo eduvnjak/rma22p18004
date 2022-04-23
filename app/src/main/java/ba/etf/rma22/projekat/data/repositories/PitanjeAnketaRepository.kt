@@ -347,4 +347,12 @@ object PitanjeAnketaRepository {
         }
         return pitanja
     }
+
+    fun getPitanjeAnketa(
+        nazivAnkete: String,
+        nazivIstrazivanja: String,
+        nazivPitanja: String
+    ): PitanjeAnketa {
+        return pitanjaAnkete.find { pitanjeAnketa -> pitanjeAnketa.naziv == nazivPitanja && pitanjeAnketa.anketa == nazivAnkete && pitanjeAnketa.istrazivanje == nazivIstrazivanja }!!
+    }
 }

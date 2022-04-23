@@ -15,9 +15,6 @@ class FragmentPredaj(val anketa: Anketa): Fragment() {
     private lateinit var progresTekst: TextView
     private lateinit var dugmePredaj: Button
 
-    private lateinit var nazivAnkete: String
-    private lateinit var nazivIstrazivanja: String
-
     private var anketeViewModel = AnketeViewModel()
     
     companion object{
