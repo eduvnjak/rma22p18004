@@ -25,7 +25,7 @@ class PitanjeAnketaViewModel {
         return PitanjeAnketaRepository.getPitanjeAnketa(anketa.naziv, anketa.nazivIstrazivanja, pitanje.naziv)
     }
 
-    fun azurirajOdgovor(pitanjeAnketa: PitanjeAnketa, odgovor: Int) {
+    fun azurirajOdgovor(pitanjeAnketa: PitanjeAnketa, odgovor: Int?) {
         PitanjeAnketaRepository.odgovoriNaPitanje(pitanjeAnketa.naziv, pitanjeAnketa.anketa, pitanjeAnketa.istrazivanje, odgovor)
     }
 }

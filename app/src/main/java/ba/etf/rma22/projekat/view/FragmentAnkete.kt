@@ -20,7 +20,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class FragmentAnkete: Fragment() {
     private lateinit var listaAnketa: RecyclerView
     private lateinit var filterAnketa: Spinner
-    private lateinit var floatingActionButton: FloatingActionButton
 
     private lateinit var listaAnketaAdapter: ListaAnketaAdapter
     private lateinit var filterAnketaAdapter: ArrayAdapter<String>

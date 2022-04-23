@@ -356,7 +356,7 @@ object PitanjeAnketaRepository {
         return pitanjaAnkete.find { pitanjeAnketa -> pitanjeAnketa.naziv == nazivPitanja && pitanjeAnketa.anketa == nazivAnkete && pitanjeAnketa.istrazivanje == nazivIstrazivanja }!!
     }
 
-    fun odgovoriNaPitanje(naziv: String, anketa: String, istrazivanje: String, odgovor: Int) {
+    fun odgovoriNaPitanje(naziv: String, anketa: String, istrazivanje: String, odgovor: Int?) {
         getPitanjeAnketa(anketa,istrazivanje,naziv).odabranaOpcija = odgovor
     }
 }

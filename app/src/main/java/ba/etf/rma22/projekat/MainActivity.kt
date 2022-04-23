@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
                 FragmentIstrazivanje(),
             )
         viewPager = findViewById(R.id.fragment_view_pager)
-        viewPager.offscreenPageLimit = 1
+        viewPager.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, fragments, lifecycle)
         viewPager.adapter = viewPagerAdapter
 
@@ -63,17 +63,17 @@ class MainActivity : AppCompatActivity() {
     }
     fun prikaziPorukuZaustaviAnketu(poruka: String){
         val fragmentPoruka = FragmentPoruka.newInstance(poruka)
+        val fragmentAnkete = FragmentAnkete.newInstance()
 
+        val brojFragmenata = viewPagerAdapter.itemCount
 
-        //da li ovaj refresh ispod ili samo pozvati neku metodu osvjezi ankete u fragment poruka
-        for(i in 2 until viewPagerAdapter.itemCount){
-            viewPagerAdapter.remove(2)
-        }
-
+        viewPagerAdapter.refreshFragment(0,fragmentAnkete)
         viewPagerAdapter.refreshFragment(1,fragmentPoruka)
-        viewPagerAdapter.refreshFragment(0,FragmentAnkete())
         viewPager.setCurrentItem(1,true)
 
+        for(i in brojFragmenata-1 downTo  2){
+            viewPagerAdapter.remove(i)
+        }
         anketaZaustavljena = true
     }
 }
