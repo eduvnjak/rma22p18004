@@ -272,7 +272,7 @@ object PitanjeAnketaRepository {
     val pitanjaAnkete: List<PitanjeAnketa> = listOf(
         PitanjeAnketa("pitanje1","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
         PitanjeAnketa("pitanje2","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
-        PitanjeAnketa("pitanje3","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
+        PitanjeAnketa("pitanje3","Anketa 1 I5 G1" ,"Istrazivanje 5",0),
         PitanjeAnketa("pitanje4","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
         PitanjeAnketa("pitanje5","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
         PitanjeAnketa("pitanje6","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
@@ -289,17 +289,17 @@ object PitanjeAnketaRepository {
         PitanjeAnketa("pitanje14","Anketa 2 I1 G1" ,"Istrazivanje 1",2),
         PitanjeAnketa("pitanje15","Anketa 2 I1 G1" ,"Istrazivanje 1",null),
 
-        PitanjeAnketa("pitanje16","Anketa 2 I6 G1" ,"Istrazivanje 6",null),
-        PitanjeAnketa("pitanje17","Anketa 2 I6 G1" ,"Istrazivanje 6",null),
+        PitanjeAnketa("pitanje16","Anketa 1 I6 G1" ,"Istrazivanje 6",null),
+        PitanjeAnketa("pitanje17","Anketa 1 I6 G1" ,"Istrazivanje 6",null),
 
         PitanjeAnketa("pitanje18","Anketa 1 I6 G2" ,"Istrazivanje 6",null),
         PitanjeAnketa("pitanje19","Anketa 1 I6 G2" ,"Istrazivanje 6",null),
 
-        PitanjeAnketa("pitanje20","Anketa 1 I5 G1" ,"Istrazivanje 5",3),
-        PitanjeAnketa("pitanje21","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
-        PitanjeAnketa("pitanje22","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
-        PitanjeAnketa("pitanje23","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
-        PitanjeAnketa("pitanje24","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
+//        PitanjeAnketa("pitanje20","Anketa 1 I5 G1" ,"Istrazivanje 5",3),
+//        PitanjeAnketa("pitanje21","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
+//        PitanjeAnketa("pitanje22","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
+//        PitanjeAnketa("pitanje23","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
+//        PitanjeAnketa("pitanje24","Anketa 1 I5 G1" ,"Istrazivanje 5",null),
 
         PitanjeAnketa("pitanje25","Anketa 2 I2 G1" ,"Istrazivanje 2",null),
         PitanjeAnketa("pitanje26","Anketa 2 I2 G1" ,"Istrazivanje 2",null),
@@ -325,7 +325,7 @@ object PitanjeAnketaRepository {
         PitanjeAnketa("pitanje41","Anketa 2 I5 G1" ,"Istrazivanje 5",1),
         PitanjeAnketa("pitanje42","Anketa 2 I5 G1" ,"Istrazivanje 5",2),
 
-        PitanjeAnketa("pitanje43","Anketa 2 I4 G1" ,"Istrazivanje 4",null),
+        PitanjeAnketa("pitanje43","Anketa 1 I4 G1" ,"Istrazivanje 4",null),
 
         PitanjeAnketa("pitanje44","Anketa 2 I1 G2" ,"Istrazivanje 1",null),
 
