@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -55,6 +56,10 @@ class FragmentAnkete: Fragment() {
 
     private fun ispuniAnketu(anketa: Anketa) {
         //provjeri da li se anketa moze ispuniti
+        if(anketa.dajStatusAnkete() == 3){
+            Toast.makeText(requireContext(),"Anketa još nije aktivna", Toast.LENGTH_SHORT).show()
+            return
+        }
         (activity as MainActivity).pokreniIspunjavanjeAnkete(anketa, pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa))
     }
 
