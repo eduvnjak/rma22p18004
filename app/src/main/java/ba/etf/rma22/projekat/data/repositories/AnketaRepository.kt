@@ -75,7 +75,7 @@ object AnketaRepository {
                 "I1 G2",
                 0f)
         )
-        calendar.set(2022,2,10)
+        calendar.set(2022,1,10)
         datum1 = calendar.time
         calendar.set(2022,6,15)
         datum2 = calendar.time
@@ -217,7 +217,7 @@ object AnketaRepository {
                     myAnkete.add(anketa)
             }
         }
-        return myAnkete
+        return myAnkete.sortedBy { anketa -> anketa.datumPocetak }
         //mozel ovo krace?
     }
     fun getAll(): List<Anketa> {

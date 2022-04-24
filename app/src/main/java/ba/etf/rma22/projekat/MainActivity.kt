@@ -3,7 +3,6 @@ package ba.etf.rma22.projekat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.models.Pitanje
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
                 FragmentAnkete(),
                 FragmentIstrazivanje(),
             )
-        viewPager = findViewById(R.id.fragment_view_pager)
+        viewPager = findViewById(R.id.pager)
         viewPager.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, fragments, lifecycle)
         viewPager.adapter = viewPagerAdapter
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun pokreniIspunjavanjeAnkete(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>) {
-        Log.i("KLIKNO SI NA", anketa.naziv+" "+anketa.nazivIstrazivanja+" ima "+pitanjaZaAnketu.size)
+//        Log.i("KLIKNO SI NA", anketa.naziv+" "+anketa.nazivIstrazivanja+" ima "+pitanjaZaAnketu.size)
         //broj pitanja
         viewPagerAdapter.remove(0)
         viewPagerAdapter.remove(0)
@@ -78,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun azurirajProgresUFragmentu() {
-        Log.i("TAGTAG","azuriram")
+//        Log.i("TAGTAG","azuriram")
         (viewPagerAdapter.dajFragment(viewPagerAdapter.itemCount-1) as FragmentPredaj).updateProgress()
     }
 
