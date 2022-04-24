@@ -65,15 +65,15 @@ class MainActivity : AppCompatActivity() {
         val fragmentPoruka = FragmentPoruka.newInstance(poruka)
         val fragmentAnkete = FragmentAnkete.newInstance()
 
-        val brojFragmenata = viewPagerAdapter.itemCount
+        viewPagerAdapter.ocistiSve()
+        viewPagerAdapter.add(0,fragmentAnkete)
+        viewPagerAdapter.add(1,fragmentPoruka)
+        viewPager.setCurrentItem(1,false)
 
-        viewPagerAdapter.refreshFragment(0,fragmentAnkete)
-        viewPagerAdapter.refreshFragment(1,fragmentPoruka)
-        viewPager.setCurrentItem(1,true)
-
-        for(i in brojFragmenata-1 downTo  2){
-            viewPagerAdapter.remove(i)
-        }
+//        val brojFragmenata = viewPagerAdapter.itemCount
+//        for(i in brojFragmenata-1 downTo  2){
+//            viewPagerAdapter.remove(i)
+//        }
         anketaZaustavljena = true
     }
 }

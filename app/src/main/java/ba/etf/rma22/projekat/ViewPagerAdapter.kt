@@ -40,4 +40,9 @@ class ViewPagerAdapter(
     override fun containsItem(itemId: Long): Boolean {
         return fragments.find { it.hashCode().toLong() == itemId } != null
     }
+
+    fun ocistiSve() {
+        fragments.clear()
+        notifyDataSetChanged()
+    }
 }
