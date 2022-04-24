@@ -1,13 +1,13 @@
 package ba.etf.rma22.projekat.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
@@ -42,7 +42,9 @@ class FragmentPredaj(val anketa: Anketa, val pregled: Boolean): Fragment() {
     }
 
     private fun predajAnketu() {
-
+        anketeViewModel.proglasiAnketuUradjenom(anketa)
+        val poruka = "Završili ste anketu ${anketa.naziv} u okviru istraživanja ${anketa.nazivIstrazivanja}"
+        (activity as MainActivity).predajAnketuPrikaziPoruku(poruka)
     }
     fun updateProgress() {
 //        Log.i("TAGTAG","fragment predaj")

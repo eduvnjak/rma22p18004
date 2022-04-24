@@ -17,7 +17,7 @@ data class Anketa(val naziv: String, val nazivIstrazivanja: String, val datumPoc
         //datuma rada mora biti izmedju pocetka i kraja
         if(datumRada != null){
             require(datumPocetak.before(datumRada) and datumRada!!.before(datumKraj))
-            //uradjena anketa mora imati progres 1
+            //uradjena anketa mora imati progres 1? ne mora !
             //require(progres==1f)
         }
         //neuradjena anketa koja jos nije aktivna mora imati progres 0 ??

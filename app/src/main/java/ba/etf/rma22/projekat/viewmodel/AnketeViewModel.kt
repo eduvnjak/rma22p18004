@@ -3,6 +3,7 @@ package ba.etf.rma22.projekat.viewmodel
 import android.util.Log
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.repositories.AnketaRepository
+import java.util.*
 
 class AnketeViewModel {
     fun dajAnkete(): List<Anketa> {
@@ -37,5 +38,10 @@ class AnketeViewModel {
 //        )
         val progres = (AnketaRepository.dajAnketu(anketa.naziv, anketa.nazivIstrazivanja)!!.dajProgresZaokruzen()*100).toInt().toString()+"%"
         return progres
+    }
+
+    fun proglasiAnketuUradjenom(anketa: Anketa) {
+        val calendar = Calendar.getInstance()
+        AnketaRepository.dajAnketu(anketa.naziv, anketa.nazivIstrazivanja)!!.datumRada = calendar.time
     }
 }

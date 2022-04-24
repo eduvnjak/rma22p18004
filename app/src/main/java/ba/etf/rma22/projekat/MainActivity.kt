@@ -31,8 +31,9 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
-                if(position == 0 && izvrsenUpis){
+                if(position == 0 && (izvrsenUpis || anketaZaustavljena)){
                     izvrsenUpis = false
+                    anketaZaustavljena = false
                     viewPagerAdapter.refreshFragment(1,FragmentIstrazivanje())                }
             }
         })
@@ -89,5 +90,18 @@ class MainActivity : AppCompatActivity() {
             viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, true))
         }
         viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, true))
+    }
+
+    fun predajAnketuPrikaziPoruku(poruka: String) {
+        val fragmentPoruka = FragmentPoruka.newInstance(poruka)
+        val fragmentAnkete = FragmentAnkete.newInstance()
+
+        viewPagerAdapter.ocistiSve()
+        viewPagerAdapter.add(0,fragmentAnkete)
+        viewPagerAdapter.add(1,fragmentPoruka)
+        viewPager.setCurrentItem(1,false)
+
+
+        anketaZaustavljena = true
     }
 }
