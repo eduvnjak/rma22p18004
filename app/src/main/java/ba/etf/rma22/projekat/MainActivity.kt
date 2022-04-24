@@ -30,9 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
-                if(position == 0 && (izvrsenUpis || anketaZaustavljena)){
+                if(position == 0 && izvrsenUpis){
                     izvrsenUpis = false
-                    anketaZaustavljena = false
                     viewPagerAdapter.refreshFragment(1,FragmentIstrazivanje())                }
             }
         })
@@ -61,20 +60,19 @@ class MainActivity : AppCompatActivity() {
 
         //popuni podacima
     }
-    fun prikaziPorukuZaustaviAnketu(poruka: String){
-        val fragmentPoruka = FragmentPoruka.newInstance(poruka)
+    fun zaustaviAnketu(){
         val fragmentAnkete = FragmentAnkete.newInstance()
+        val fragmentIstrazivanje = FragmentIstrazivanje.newInstance()
 
         viewPagerAdapter.ocistiSve()
         viewPagerAdapter.add(0,fragmentAnkete)
-        viewPagerAdapter.add(1,fragmentPoruka)
-        viewPager.setCurrentItem(1,false)
+        viewPagerAdapter.add(1,fragmentIstrazivanje)
+        viewPager.setCurrentItem(0,false)
 
 //        val brojFragmenata = viewPagerAdapter.itemCount
 //        for(i in brojFragmenata-1 downTo  2){
 //            viewPagerAdapter.remove(i)
 //        }
-        anketaZaustavljena = true
     }
 
     fun azurirajProgresUFragmentu() {

@@ -1,8 +1,6 @@
 package ba.etf.rma22.projekat.view
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,8 +62,7 @@ class FragmentPitanje(val pitanje: Pitanje, val anketa: Anketa): Fragment() {
         }
 
     private fun zaustaviAnketu() {
-        val poruka = "Završili ste anketu ${anketa.naziv} u okviru istraživanja ${anketa.nazivIstrazivanja}"
-        (activity as MainActivity).prikaziPorukuZaustaviAnketu(poruka)
+        (activity as MainActivity).zaustaviAnketu()
     }
 
     fun azurirajProgres() {
