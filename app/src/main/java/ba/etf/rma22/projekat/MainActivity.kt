@@ -2,7 +2,6 @@ package ba.etf.rma22.projekat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.models.Pitanje
@@ -50,7 +49,6 @@ class MainActivity : AppCompatActivity() {
 
     fun pokreniIspunjavanjeAnkete(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>) {
 //        Log.i("KLIKNO SI NA", anketa.naziv+" "+anketa.nazivIstrazivanja+" ima "+pitanjaZaAnketu.size)
-        //broj pitanja
         viewPagerAdapter.remove(0)
         viewPagerAdapter.remove(0)
         val brojPitanja = pitanjaZaAnketu.size
@@ -59,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
         viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, false))
 
-        //popuni podacima
     }
     fun zaustaviAnketu(){
         val fragmentAnkete = FragmentAnkete.newInstance()
@@ -70,10 +67,7 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.add(1,fragmentIstrazivanje)
         viewPager.setCurrentItem(0,false)
 
-//        val brojFragmenata = viewPagerAdapter.itemCount
-//        for(i in brojFragmenata-1 downTo  2){
-//            viewPagerAdapter.remove(i)
-//        }
+
     }
 
     fun azurirajProgresUFragmentu() {

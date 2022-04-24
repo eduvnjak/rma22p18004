@@ -1,12 +1,9 @@
-package ba.etf.rma22.projekat
+package ba.etf.rma22.projekat.view
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import ba.etf.rma22.projekat.view.FragmentAnkete
-import ba.etf.rma22.projekat.view.FragmentIstrazivanje
 
 class ViewPagerAdapter(
     fragmentManager: FragmentManager, var fragments: MutableList<Fragment>, lifecycle: Lifecycle
