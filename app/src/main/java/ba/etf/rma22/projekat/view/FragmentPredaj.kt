@@ -12,14 +12,14 @@ import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
 
-class FragmentPredaj(val anketa: Anketa): Fragment() {
+class FragmentPredaj(val anketa: Anketa, val pregled: Boolean): Fragment() {
     private lateinit var progresTekst: TextView
     private lateinit var dugmePredaj: Button
 
     private var anketeViewModel = AnketeViewModel()
     
     companion object{
-        fun newInstance(anketa: Anketa) = FragmentPredaj(anketa)
+        fun newInstance(anketa: Anketa, pregled: Boolean) = FragmentPredaj(anketa, pregled)
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +33,7 @@ class FragmentPredaj(val anketa: Anketa): Fragment() {
 
         progresTekst.text = anketeViewModel.dajProgres(anketa)
 
+        dugmePredaj.isEnabled = !pregled
         dugmePredaj.setOnClickListener{
             predajAnketu()
         }

@@ -55,9 +55,9 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.remove(0)
         val brojPitanja = pitanjaZaAnketu.size
         for(i in 0 until brojPitanja){
-            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa))
+            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, false))
         }
-        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa))
+        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, false))
 
         //popuni podacima
     }
@@ -79,5 +79,15 @@ class MainActivity : AppCompatActivity() {
     fun azurirajProgresUFragmentu() {
         Log.i("TAGTAG","azuriram")
         (viewPagerAdapter.dajFragment(viewPagerAdapter.itemCount-1) as FragmentPredaj).updateProgress()
+    }
+
+    fun pokreniPregledAnkete(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>) {
+        viewPagerAdapter.remove(0)
+        viewPagerAdapter.remove(0)
+        val brojPitanja = pitanjaZaAnketu.size
+        for(i in 0 until brojPitanja){
+            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, true))
+        }
+        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, true))
     }
 }

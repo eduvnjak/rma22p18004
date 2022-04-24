@@ -60,7 +60,12 @@ class FragmentAnkete: Fragment() {
             Toast.makeText(requireContext(),"Anketa još nije aktivna", Toast.LENGTH_SHORT).show()
             return
         }
-        (activity as MainActivity).pokreniIspunjavanjeAnkete(anketa, pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa))
+        if(anketa.dajStatusAnkete() == 2){
+            (activity as MainActivity).pokreniIspunjavanjeAnkete(anketa, pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa))
+        }else{
+            (activity as MainActivity).pokreniPregledAnkete(anketa, pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa))
+        }
+
     }
 
     inner class FilterAnketaSpinnerListener: AdapterView.OnItemSelectedListener{
