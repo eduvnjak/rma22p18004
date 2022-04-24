@@ -40,6 +40,7 @@ class OdgovoriListaAdapter(context: Context, @LayoutRes val layoutResource: Int,
                             (parent.getChildAt(i) as TextView).setTextColor(Color.parseColor("#FF000000"))
                             pitanjeAnketaViewModel.azurirajOdgovor(pitanjeAnketa,null)
                         }
+                        fragmentPitanje.azurirajProgres()
                     }else{
                         (parent.getChildAt(i) as TextView).setTextColor(Color.parseColor("#FF000000"))
                     }

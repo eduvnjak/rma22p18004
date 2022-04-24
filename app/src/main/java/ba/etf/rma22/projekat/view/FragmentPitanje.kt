@@ -67,4 +67,11 @@ class FragmentPitanje(val pitanje: Pitanje, val anketa: Anketa): Fragment() {
         val poruka = "Završili ste anketu ${anketa.naziv} u okviru istraživanja ${anketa.nazivIstrazivanja}"
         (activity as MainActivity).prikaziPorukuZaustaviAnketu(poruka)
     }
+
+    fun azurirajProgres() {
+        //izracunaj novi
+        pitanjeAnketaViewModel.azurirajProgres(anketa)
+        //posalji obavijestu main activity da izmijeni u fragmentPredaj
+        (activity as MainActivity).azurirajProgresUFragmentu()
+    }
 }

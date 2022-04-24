@@ -76,4 +76,9 @@ class MainActivity : AppCompatActivity() {
 //        }
         anketaZaustavljena = true
     }
+
+    fun azurirajProgresUFragmentu() {
+        Log.i("TAGTAG","azuriram")
+        (viewPagerAdapter.dajFragment(viewPagerAdapter.itemCount-1) as FragmentPredaj).updateProgress()
+    }
 }

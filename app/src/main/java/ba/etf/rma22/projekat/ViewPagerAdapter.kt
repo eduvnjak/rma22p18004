@@ -45,4 +45,8 @@ class ViewPagerAdapter(
         fragments.clear()
         notifyDataSetChanged()
     }
+
+    fun dajFragment(position: Int): Fragment {
+        return fragments[position]
+    }
 }

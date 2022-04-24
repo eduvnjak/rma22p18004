@@ -1,6 +1,7 @@
 package ba.etf.rma22.projekat.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +43,11 @@ class FragmentPredaj(val anketa: Anketa): Fragment() {
     private fun predajAnketu() {
 
     }
-    private fun updateProgress() {
-        progresTekst.text = anketeViewModel.dajProgres(anketa)
+    fun updateProgress() {
+//        Log.i("TAGTAG","fragment predaj")
+        if(this::progresTekst.isInitialized){
+//            Log.i("TAGTAG","fragment predaj mijenjam" + anketeViewModel.dajProgres(anketa))
+            progresTekst.text = anketeViewModel.dajProgres(anketa)
+        }
     }
 }

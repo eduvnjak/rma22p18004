@@ -1,5 +1,6 @@
 package ba.etf.rma22.projekat.viewmodel
 
+import android.util.Log
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.repositories.AnketaRepository
 
@@ -30,7 +31,11 @@ class AnketeViewModel {
     }
 
     fun dajProgres(anketa: Anketa): String {
-        val progres = (anketa.dajProgresZaokruzen().toInt()*100).toString()+"%"
+//        Log.i("tag",
+//            AnketaRepository.dajAnketu(anketa.naziv, anketa.nazivIstrazivanja)!!.dajProgresZaokruzen()
+//                .toString()
+//        )
+        val progres = (AnketaRepository.dajAnketu(anketa.naziv, anketa.nazivIstrazivanja)!!.dajProgresZaokruzen()*100).toInt().toString()+"%"
         return progres
     }
 }

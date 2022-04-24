@@ -1,5 +1,6 @@
 package ba.etf.rma22.projekat.data.repositories
 
+import android.util.Log
 import ba.etf.rma22.projekat.data.models.Anketa
 import java.util.*
 import kotlin.collections.ArrayList
@@ -237,5 +238,10 @@ object AnketaRepository {
 
     fun dajAnketu(nazivAnkete: String, nazivIstrazivanja: String): Anketa? {
         return ankete.find { anketa -> anketa.naziv == nazivAnkete && anketa.nazivIstrazivanja == nazivIstrazivanja }
+    }
+
+    fun azurirajProgresZaAnketu(anketa: Anketa, progres: Float) {
+//        Log.i("TAGTAG", anketa.naziv + " " + anketa.nazivIstrazivanja + " " + progres)
+        dajAnketu(anketa.naziv,anketa.nazivIstrazivanja)!!.progres = progres
     }
 }
