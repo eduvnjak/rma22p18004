@@ -55,10 +55,10 @@ class FragmentPitanje(val pitanje: Pitanje, val anketa: Anketa, val pregled: Boo
         (activity as MainActivity).zaustaviAnketu()
     }
 
-    fun azurirajProgres() {
-        //izracunaj novi
-        pitanjeAnketaViewModel.azurirajProgres(anketa)
-        //posalji obavijestu main activity da izmijeni u fragmentPredaj
-        (activity as MainActivity).azurirajProgresUFragmentu()
-    }
+//    fun azurirajProgres() {
+//        //izracunaj novi
+//        pitanjeAnketaViewModel.azurirajProgres(anketa)
+//        //posalji obavijestu main activity da izmijeni u fragmentPredaj
+//        (activity as MainActivity).azurirajProgresUFragmentu()
+//    }
 }

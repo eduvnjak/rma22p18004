@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
 import java.text.SimpleDateFormat
+import java.util.*
 
 class ListaAnketaAdapter(private var dataSet: List<Anketa>,
                         private val onItemClicked: (anketa: Anketa) -> Unit
@@ -39,32 +40,61 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>,
         holder.textViewAnketaNaziv.text = dataSet[position].naziv
         holder.textViewIstrazivanjeNaziv.text = dataSet[position].nazivIstrazivanja
         //progress
-        holder.progressBarProgresZavrsetka.progress=(dataSet[position].dajProgresZaokruzen()*100).toInt()
+        holder.progressBarProgresZavrsetka.progress=(dataSet[position].progres ?: 0)
         //datum i status
-        val context =holder.imageViewStanjeAnkete.context
+        val context = holder.imageViewStanjeAnkete.context
         val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
-        when(dataSet[position].dajStatusAnkete()){
-            1->{
-                holder.textViewAnketaDatumText.text=context.getString(R.string.anketa_uradjena)
-                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
-                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("plava","drawable",context.packageName))
-            }
-            2->{
-                holder.textViewAnketaDatumText.text=context.getString(R.string.vrijeme_zatvaranja)
-                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
-                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("zelena","drawable",context.packageName))
-            }
-            3->{
-                holder.textViewAnketaDatumText.text=context.getString(R.string.vrijeme_aktiviranja)
-                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
-                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("zuta","drawable",context.packageName))
-            }
-            4->{
-                holder.textViewAnketaDatumText.text=context.getString(R.string.anketa_zatvorena)
-                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
-                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("crvena","drawable",context.packageName))
+
+        val trenutniDatum = Calendar.getInstance().time
+        var statusBoja = "zelena"
+
+        if(dataSet[position].predana) {
+            statusBoja = "plava"
+            //todo dobavi datum
+            holder.textViewAnketaDatumText.text = ""
+        } else if (trenutniDatum < dataSet[position].datumPocetak) {
+            statusBoja = "zuta"
+            holder.textViewAnketaDatumText.text = context.getString(R.string.vrijeme_aktiviranja)
+            holder.textViewAnketaDatum.text = simpleDateFormat.format(dataSet[position].datumPocetak)
+        } else if (dataSet[position].datumKraj != null && trenutniDatum > dataSet[position].datumKraj){
+            statusBoja = "crvena"
+            holder.textViewAnketaDatumText.text = context.getString(R.string.anketa_zatvorena)
+            holder.textViewAnketaDatum.text = simpleDateFormat.format(dataSet[position].datumKraj!!)
+        } else{
+            statusBoja = "zelena"
+            holder.textViewAnketaDatumText.text = context.getString(R.string.vrijeme_zatvaranja)
+            if (dataSet[position].datumKraj != null){
+                holder.textViewAnketaDatum.text = simpleDateFormat.format(dataSet[position].datumKraj)
+            } else {
+                holder.textViewAnketaDatum.text = "Nikada"
             }
         }
+        holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier(statusBoja,"drawable",context.packageName))
+
+//        when(dataSet[position].dajStatusAnkete()){
+//            1->{
+//                holder.textViewAnketaDatumText.text=context.getString(R.string.anketa_uradjena)
+//                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
+//                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("plava","drawable",context.packageName))
+//            }
+//            2->{
+//                holder.textViewAnketaDatumText.text=context.getString(R.string.vrijeme_zatvaranja)
+//                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
+//                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("zelena","drawable",context.packageName))
+//            }
+//            3->{
+//                holder.textViewAnketaDatumText.text=context.getString(R.string.vrijeme_aktiviranja)
+//                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
+//                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("zuta","drawable",context.packageName))
+//            }
+//            4->{
+//                holder.textViewAnketaDatumText.text=context.getString(R.string.anketa_zatvorena)
+//                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
+//                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("crvena","drawable",context.packageName))
+//            }
+//        }
+
+        //TODO("postavi razlog postavljanja listenera")
         holder.itemView.setOnClickListener{onItemClicked(dataSet[position])}
     }
 

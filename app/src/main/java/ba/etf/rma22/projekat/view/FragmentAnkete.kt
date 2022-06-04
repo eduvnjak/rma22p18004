@@ -11,12 +11,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class FragmentAnkete: Fragment() {
     private lateinit var listaAnketa: RecyclerView
@@ -48,7 +46,8 @@ class FragmentAnkete: Fragment() {
         filterAnketa.onItemSelectedListener = FilterAnketaSpinnerListener()
 
         listaAnketa.layoutManager= GridLayoutManager(activity, 2)
-        listaAnketaAdapter= ListaAnketaAdapter(anketeViewModel.dajAnkete()) { anketa ->  ispuniAnketu(anketa)}
+        //listaAnketaAdapter= ListaAnketaAdapter(anketeViewModel.dajAnkete()) { anketa ->  ispuniAnketu(anketa)}
+        listaAnketaAdapter= ListaAnketaAdapter(emptyList()) { anketa ->  ispuniAnketu(anketa)}
         listaAnketa.adapter=listaAnketaAdapter
 
         return view
@@ -56,20 +55,21 @@ class FragmentAnkete: Fragment() {
 
     private fun ispuniAnketu(anketa: Anketa) {
         //provjeri da li se anketa moze ispuniti
-        if(anketa.dajStatusAnkete() == 3){
-            Toast.makeText(requireContext(),"Anketa još nije aktivna", Toast.LENGTH_SHORT).show()
-            return
-        }
-        if(anketa.dajStatusAnkete() == 2){
-            (activity as MainActivity).pokreniIspunjavanjeAnkete(anketa, pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa))
-        }else{
-            (activity as MainActivity).pokreniPregledAnkete(anketa, pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa))
-        }
-
+//        if(anketa.dajStatusAnkete() == 3){
+//            Toast.makeText(requireContext(),"Anketa još nije aktivna", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+//        if(anketa.dajStatusAnkete() == 2){
+//            (activity as MainActivity).pokreniIspunjavanjeAnkete(anketa, pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa))
+//        }else{
+//            (activity as MainActivity).pokreniPregledAnkete(anketa, pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa))
+//        }
     }
 
     inner class FilterAnketaSpinnerListener: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+            val toast = Toast.makeText(context,"Dohvacanje anketa",Toast.LENGTH_SHORT)
+            toast.show()
             filtrirajAnkete()
         }
 
@@ -79,6 +79,9 @@ class FragmentAnkete: Fragment() {
     }
     fun filtrirajAnkete(){
         val odabranaOpcija = filterAnketa.selectedItem as String
-        listaAnketaAdapter.updateAnkete(anketeViewModel.filtriraj(odabranaOpcija,resources.getStringArray(R.array.filter_anketa_opcije)))
+        listaAnketaAdapter.updateAnkete(anketeViewModel.filtriraj(::prikaziAnkete,odabranaOpcija,resources.getStringArray(R.array.filter_anketa_opcije)))
+    }
+    private fun prikaziAnkete(noveAnkete: List<Anketa>) {
+        listaAnketaAdapter.updateAnkete(noveAnkete)
     }
 }

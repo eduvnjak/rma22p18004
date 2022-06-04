@@ -1,3 +1,7 @@
 package ba.etf.rma22.projekat.data.models
 
-data class PitanjeAnketa(val naziv: String, val anketa: String, val istrazivanje: String, var odabranaOpcija: Int?)
+data class PitanjeAnketa(
+    val naziv: String,
+    val anketa: String,
+    val istrazivanje: String,
+    var odabranaOpcija: Int?)
