@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
                 if(position == 0 && (izvrsenUpis || anketaZaustavljena)){
                     izvrsenUpis = false
                     anketaZaustavljena = false
-                    viewPagerAdapter.refreshFragment(1,FragmentIstrazivanje())                }
+                    viewPagerAdapter.refreshFragment(1,FragmentIstrazivanje())
+                }
             }
         })
     }
@@ -48,14 +49,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun pokreniIspunjavanjeAnkete(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>) {
-//        Log.i("KLIKNO SI NA", anketa.naziv+" "+anketa.nazivIstrazivanja+" ima "+pitanjaZaAnketu.size)
-        viewPagerAdapter.remove(0)
-        viewPagerAdapter.remove(0)
-        val brojPitanja = pitanjaZaAnketu.size
-        for(i in 0 until brojPitanja){
-            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, false))
-        }
-        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, false))
+////        Log.i("KLIKNO SI NA", anketa.naziv+" "+anketa.nazivIstrazivanja+" ima "+pitanjaZaAnketu.size)
+//        viewPagerAdapter.remove(0)
+//        viewPagerAdapter.remove(0)
+//        val brojPitanja = pitanjaZaAnketu.size
+//        for(i in 0 until brojPitanja){
+//            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, false))
+//        }
+//        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, false))
 
     }
     fun zaustaviAnketu(){
@@ -71,18 +72,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun azurirajProgresUFragmentu() {
-//        Log.i("TAGTAG","azuriram")
-        (viewPagerAdapter.dajFragment(viewPagerAdapter.itemCount-1) as FragmentPredaj).updateProgress()
+////        Log.i("TAGTAG","azuriram")
+//        (viewPagerAdapter.dajFragment(viewPagerAdapter.itemCount-1) as FragmentPredaj).updateProgress()
     }
 
     fun pokreniPregledAnkete(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>) {
-        viewPagerAdapter.remove(0)
-        viewPagerAdapter.remove(0)
-        val brojPitanja = pitanjaZaAnketu.size
-        for(i in 0 until brojPitanja){
-            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, true))
-        }
-        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, true))
+//        viewPagerAdapter.remove(0)
+//        viewPagerAdapter.remove(0)
+//        val brojPitanja = pitanjaZaAnketu.size
+//        for(i in 0 until brojPitanja){
+//            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, true))
+//        }
+//        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, true))
     }
 
     fun predajAnketuPrikaziPoruku(poruka: String) {

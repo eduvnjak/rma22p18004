@@ -3,19 +3,6 @@ package ba.etf.rma22.projekat.data.repositories
 import ba.etf.rma22.projekat.data.models.Istrazivanje
 
 object IstrazivanjeRepository {
-//    val svaIstrazivanja: List<Istrazivanje> = listOf(
-//        Istrazivanje("Istrazivanje 1", 1),
-//        Istrazivanje("Istrazivanje 2", 1),
-//        Istrazivanje("Istrazivanje 3", 1),
-//        Istrazivanje("Istrazivanje 4", 2),
-//        Istrazivanje("Istrazivanje 5", 2),
-//        Istrazivanje("Istrazivanje 6", 3),
-//    )
-//    val upisanaIstrazivanja: MutableList<Istrazivanje> = mutableListOf(
-//        Istrazivanje("Istrazivanje 1", 1),
-//        Istrazivanje("Istrazivanje 4", 2),
-//        Istrazivanje("Istrazivanje 5", 2),
-//        )
 
 //    var posljednjaOdabranaGodina = 1
 //

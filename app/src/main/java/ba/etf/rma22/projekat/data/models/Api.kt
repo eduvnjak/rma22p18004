@@ -9,7 +9,9 @@ import retrofit2.http.Query
 interface Api {
     //vraca sva istrazivanja
     @GET("/istrazivanje")
-    suspend fun dajSvaIstrazivanja(): Response<List<Istrazivanje>>
+    suspend fun dajSvaIstrazivanja(
+        @Query("offset") offset: Int
+    ): Response<List<Istrazivanje>>
 
     //vraca istrazivanje sa id-om
     @GET("/istrazivanje/{id}")
@@ -34,7 +36,7 @@ interface Api {
     suspend fun dodajStudentaUGrupu(
         @Path("id") studentId: Int,
         @Path("gid") grupaId: Int
-    ): Response<Int> //<== ??????
+    ): Response<ServisPoruka>
 
     //vraca grupe u koje je student upisan
     @GET("/student/{id}/grupa")
