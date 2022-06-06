@@ -1,5 +1,6 @@
 package ba.etf.rma22.projekat.data.repositories
 
+import android.util.Log
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.models.ApiAdapter
 import ba.etf.rma22.projekat.data.models.Grupa
@@ -43,14 +44,28 @@ object IstrazivanjeIGrupaRepository {
         }
     }
     suspend fun upisiUGrupu(idGrupa: Int): Boolean {
-        return false
+        return withContext(Dispatchers.IO) {
+            val idStudent = AccountRepository.getHash()
+            val response = ApiAdapter.retrofit.dodajStudentaUGrupu(idStudent, idGrupa)
+            val responseBodyObject = response.body()
+            val poruka = responseBodyObject?.poruka ?: ""
+            if (poruka == "Grupa not found" || poruka.contains("Ne postoji account"))
+                return@withContext false
+            return@withContext true
+        }
     }
     suspend fun getUpisaneGrupe(): List<Grupa> {
         return withContext(Dispatchers.IO){
-            val studentId = AccountRepository.getHash()
-            val response = ApiAdapter.retrofit.dajGrupeZaStudenta(studentId)
+            try {
+                val studentId = AccountRepository.getHash()
+                Log.i("TEST", "tu sam 1")
+                val response = ApiAdapter.retrofit.dajGrupeZaStudenta(studentId)
 //            var responseBody = response.body() ?: mutableListOf()
             return@withContext response.body() ?: mutableListOf()
+            } catch (exception: IllegalStateException) {
+                Log.i("TEST"," greska")
+                return@withContext mutableListOf<Grupa>()
+            }
         }
     }
 

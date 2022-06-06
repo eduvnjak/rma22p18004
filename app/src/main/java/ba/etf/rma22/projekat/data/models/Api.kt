@@ -34,7 +34,7 @@ interface Api {
     //dodaje studenta sa hash-om id u grupu sa id-em gid
     @POST("/grupa/{gid}/student/{id}")
     suspend fun dodajStudentaUGrupu(
-        @Path("id") studentId: Int,
+        @Path("id") studentId: String,
         @Path("gid") grupaId: Int
     ): Response<ServisPoruka>
 

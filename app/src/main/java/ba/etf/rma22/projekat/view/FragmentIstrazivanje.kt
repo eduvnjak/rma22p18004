@@ -114,9 +114,11 @@ class FragmentIstrazivanje: Fragment() {
     fun updateIstrazivanjaSpinner(istrazivanja: List<Istrazivanje>) {
         odabirIstrazivanjaSpinnerAdapter.clear()
         //dal ovo ispod moze bacit izuzetak ako nema istrazivanja na godini, izgleda da ne moze
-        odabirIstrazivanjaSpinner.setSelection(0)
         odabirIstrazivanjaSpinnerAdapter.addAll(istrazivanja)
         odabirIstrazivanjaSpinnerAdapter.notifyDataSetChanged()
+        odabirIstrazivanjaSpinner.setSelection(0)
+        upisIstrazivanjeViewModel.popuniGrupeZaIstrazivanje(::updateGrupaSpinner, (odabirIstrazivanjaSpinner.selectedItem as Istrazivanje).id)
+
     }
 
     fun updateGrupaSpinner(grupe: List<Grupa>) {
