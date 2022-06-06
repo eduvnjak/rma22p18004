@@ -1,6 +1,7 @@
 package ba.etf.rma22.projekat.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,7 +62,8 @@ class FragmentIstrazivanje: Fragment() {
     }
     private fun dodajIstrazivanjeButtonAction() {
         if(odabirIstrazivanjaSpinner.selectedItem != null && odabirGodinaSpinner.selectedItem != null && odabirGrupaSpinner.selectedItem != null) {
-            val poruka = "Uspješno ste upisani u grupu ${odabirGrupaSpinner.selectedItem as String} istraživanja ${odabirIstrazivanjaSpinner.selectedItem as String}!"
+            val poruka = "Uspješno ste upisani u grupu ${odabirGrupaSpinner.selectedItem} istraživanja ${odabirIstrazivanjaSpinner.selectedItem }!"
+            Log.i("TEST", "prije upisa")
             upisIstrazivanjeViewModel.upisiIstrazivanje(
                 ::prikaziPoruku,
                 poruka,
@@ -117,7 +119,8 @@ class FragmentIstrazivanje: Fragment() {
         odabirIstrazivanjaSpinnerAdapter.addAll(istrazivanja)
         odabirIstrazivanjaSpinnerAdapter.notifyDataSetChanged()
         odabirIstrazivanjaSpinner.setSelection(0)
-        upisIstrazivanjeViewModel.popuniGrupeZaIstrazivanje(::updateGrupaSpinner, (odabirIstrazivanjaSpinner.selectedItem as Istrazivanje).id)
+        if(odabirIstrazivanjaSpinner.selectedItem != null)
+            upisIstrazivanjeViewModel.popuniGrupeZaIstrazivanje(::updateGrupaSpinner, (odabirIstrazivanjaSpinner.selectedItem as Istrazivanje).id)
 
     }
 

@@ -1,5 +1,6 @@
 package ba.etf.rma22.projekat.viewmodel
 
+import android.util.Log
 import ba.etf.rma22.projekat.data.models.Grupa
 import ba.etf.rma22.projekat.data.models.Istrazivanje
 import ba.etf.rma22.projekat.data.repositories.GrupaRepository
@@ -23,6 +24,7 @@ class UpisIstrazivanjeViewModel {
     fun upisiIstrazivanje(actionUpis: (string: String) -> Unit, poruka: String, odabranaGrupaId: Int, odabranaGodina: Int) {
         scope.launch {
             postaviPosljednjuOdabranuGodinu(odabranaGodina)
+            Log.i("TEST", "viewmodel upisi IStrazivanje")
             if(IstrazivanjeIGrupaRepository.upisiUGrupu(odabranaGrupaId)){
                 actionUpis.invoke(poruka)
             }

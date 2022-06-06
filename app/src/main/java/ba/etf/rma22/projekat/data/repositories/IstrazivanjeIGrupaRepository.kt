@@ -49,6 +49,8 @@ object IstrazivanjeIGrupaRepository {
             val response = ApiAdapter.retrofit.dodajStudentaUGrupu(idStudent, idGrupa)
             val responseBodyObject = response.body()
             val poruka = responseBodyObject?.poruka ?: ""
+            Log.i("TEST", "Istrazivanje i grupa repository upis " + idGrupa + " poruka " + poruka)
+
             if (poruka == "Grupa not found" || poruka.contains("Ne postoji account"))
                 return@withContext false
             return@withContext true
