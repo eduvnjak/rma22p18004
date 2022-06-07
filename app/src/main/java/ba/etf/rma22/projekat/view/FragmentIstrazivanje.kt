@@ -121,7 +121,8 @@ class FragmentIstrazivanje: Fragment() {
         odabirIstrazivanjaSpinner.setSelection(0)
         if(odabirIstrazivanjaSpinner.selectedItem != null)
             upisIstrazivanjeViewModel.popuniGrupeZaIstrazivanje(::updateGrupaSpinner, (odabirIstrazivanjaSpinner.selectedItem as Istrazivanje).id)
-
+        else
+            odabirGrupaSpinnerAdapter.clear()
     }
 
     fun updateGrupaSpinner(grupe: List<Grupa>) {
