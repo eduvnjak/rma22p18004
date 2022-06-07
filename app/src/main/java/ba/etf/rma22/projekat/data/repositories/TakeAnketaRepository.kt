@@ -1,5 +1,6 @@
 package ba.etf.rma22.projekat.data.repositories
 
+import android.util.Log
 import ba.etf.rma22.projekat.data.models.AnketaTaken
 import ba.etf.rma22.projekat.data.models.ApiAdapter
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +27,7 @@ object TakeAnketaRepository {
     }
     suspend fun dajPokusajZaAnketu(anketaId: Int): AnketaTaken? {
         return withContext(Dispatchers.IO) {
-            val poceteAnkete = getPoceteAnkete()
+            val poceteAnkete = getPoceteAnkete().sortedByDescending { anketaTaken -> anketaTaken.id }
             val zapocetiPokusaj = poceteAnkete.find { at -> at.AnketumId == anketaId }
             return@withContext zapocetiPokusaj
         }

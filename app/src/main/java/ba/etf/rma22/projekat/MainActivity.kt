@@ -2,12 +2,16 @@ package ba.etf.rma22.projekat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import ba.etf.rma22.projekat.data.models.Anketa
+import ba.etf.rma22.projekat.data.models.Odgovor
 import ba.etf.rma22.projekat.data.models.Pitanje
-import ba.etf.rma22.projekat.data.models.PitanjeAnketa
 import ba.etf.rma22.projekat.view.*
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
@@ -17,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private var anketaZaustavljena = false
 
     private var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
+
+    private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,18 +57,27 @@ class MainActivity : AppCompatActivity() {
 
         izvrsenUpis = true
     }
-
-    fun pokreniIspunjavanjeAnkete(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>) {
-////        Log.i("KLIKNO SI NA", anketa.naziv+" "+anketa.nazivIstrazivanja+" ima "+pitanjaZaAnketu.size)
-//        viewPagerAdapter.remove(0)
-//        viewPagerAdapter.remove(0)
-//        val brojPitanja = pitanjaZaAnketu.size
-//        for(i in 0 until brojPitanja){
-//            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, false))
+    fun pokreniIspunjavanjeAnkete(anketa: Anketa) {
+//        scope.launch {
+//            val pokusaj = TakeAnketaRepository.dajPokusajZaAnketu(anketa.id)
+//            Toast.makeText(this@MainActivity, pokusaj?.id.toString() ?: "-1", Toast.LENGTH_SHORT).show()
 //        }
-//        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, false))
-
+        pitanjeAnketaViewModel.dajPitanjaZaAnketuIPokusaj(anketa, ::prikaziPitanjaIspunjavanje)
     }
+
+    fun prikaziPitanjaIspunjavanje(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>, odgovoriDosadasnji: List<Odgovor>) {
+//        Log.i("KLIKNO SI NA", anketa.naziv+" "+anketa.nazivIstrazivanja+" ima "+pitanjaZaAnketu.size)
+        viewPagerAdapter.remove(0)
+        viewPagerAdapter.remove(0)
+        val brojPitanja = pitanjaZaAnketu.size
+        for(i in 0 until brojPitanja) {
+            val indeksOdgovora = odgovoriDosadasnji.find { odgovor -> odgovor.pitanjeId == pitanjaZaAnketu[i].id }?.odgovoreno
+            Log.i("TEST", pitanjaZaAnketu[i].tekst + " " + indeksOdgovora +" " + odgovoriDosadasnji.size)
+            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], indeksOdgovora, false))
+        }
+        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, false))
+    }
+
     fun zaustaviAnketu(){
         val fragmentAnkete = FragmentAnkete.newInstance()
         val fragmentIstrazivanje = FragmentIstrazivanje.newInstance()
@@ -71,8 +86,6 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.add(0,fragmentAnkete)
         viewPagerAdapter.add(1,fragmentIstrazivanje)
         viewPager.setCurrentItem(0,false)
-
-
     }
 
     fun azurirajProgresUFragmentu() {
@@ -81,15 +94,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun pokreniPregledAnkete(anketa: Anketa) {
-        pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa, ::pokreniPregledAnketeSecond)
+        pitanjeAnketaViewModel.dajPitanjaZaAnketuIPokusaj(anketa, ::prikaziPitanjaPregled)
     }
 
-    fun pokreniPregledAnketeSecond(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>) {
+    fun prikaziPitanjaPregled(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>, odgovoriDosadasnji: List<Odgovor>) {
         viewPagerAdapter.remove(0)
         viewPagerAdapter.remove(0)
         val brojPitanja = pitanjaZaAnketu.size
         for(i in 0 until brojPitanja){
-            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, true))
+            val indeksOdgovora = odgovoriDosadasnji.find { odgovor -> odgovor.pitanjeId == pitanjaZaAnketu[i].id }?.odgovoreno
+            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], indeksOdgovora, true))
         }
         viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, true))
     }

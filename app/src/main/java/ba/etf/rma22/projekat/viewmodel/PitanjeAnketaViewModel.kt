@@ -1,12 +1,12 @@
 package ba.etf.rma22.projekat.viewmodel
 
+import android.util.Log
 import ba.etf.rma22.projekat.MainActivity
-import ba.etf.rma22.projekat.data.models.Anketa
-import ba.etf.rma22.projekat.data.models.Pitanje
-import ba.etf.rma22.projekat.data.models.PitanjeAnketa
+import ba.etf.rma22.projekat.data.models.*
 import ba.etf.rma22.projekat.data.repositories.AnketaRepository
 import ba.etf.rma22.projekat.data.repositories.OdgovorRepository
 import ba.etf.rma22.projekat.data.repositories.PitanjeAnketaRepository
+import ba.etf.rma22.projekat.data.repositories.TakeAnketaRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,7 +21,13 @@ class PitanjeAnketaViewModel {
             action.invoke(anketa, pitanja)
         }
     }
-
+    fun dajPitanjaZaAnketuIPokusaj(anketa: Anketa, action: (anketa: Anketa, pitanjaZaAnketu: List<Pitanje>, odgovori: List<Odgovor>) ->Unit) {
+        scope.launch {
+            val pitanja = PitanjeAnketaRepository.getPitanja(anketa.id)
+            val odgovori = OdgovorRepository.getOdgovoriAnketa(anketa.id)
+            action.invoke(anketa, pitanja, odgovori)
+        }
+    }
 //    fun dajPitanjeAnketuZaAnketu(anketa: Anketa, pitanje: Pitanje): PitanjeAnketa {
 //        return PitanjeAnketaRepository.getPitanjeAnketa(anketa.naziv, anketa.nazivIstrazivanja, pitanje.naziv)
 //    }
@@ -35,6 +41,7 @@ class PitanjeAnketaViewModel {
 //    }
     suspend fun isAnketaPredana(anketa: Anketa, pitanja: List<Pitanje>): Boolean {
         val dosadasnjiOdgovori = OdgovorRepository.getOdgovoriAnketa(anketa.id)
+        Log.i("TEST", "tu sam 1")
         return dosadasnjiOdgovori.size == pitanja.size
     }
 }

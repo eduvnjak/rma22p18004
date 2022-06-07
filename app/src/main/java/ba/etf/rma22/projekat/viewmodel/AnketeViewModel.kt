@@ -28,8 +28,8 @@ class AnketeViewModel {
                     ankete.forEach {
                         it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
                     }
+//                    Log.i("TEST", "tu sam 2")
                     anketeAction.invoke(ankete)
-                    Log.i("TEST", "tu sam 2")
                 }
                 //return AnketaRepository.getMyAnkete().sortedBy { it.datumPocetak  }
             }

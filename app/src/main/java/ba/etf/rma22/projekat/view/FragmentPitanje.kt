@@ -12,10 +12,11 @@ import androidx.fragment.app.Fragment
 import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
+import ba.etf.rma22.projekat.data.models.AnketaTaken
 import ba.etf.rma22.projekat.data.models.Pitanje
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
 
-class FragmentPitanje(val pitanje: Pitanje, val anketa: Anketa, val pregled: Boolean): Fragment() {
+class FragmentPitanje(val pitanje: Pitanje, val odgovorIndeks: Int?, val pregled: Boolean): Fragment() {
     private lateinit var listaOdgovora: ListView
     private lateinit var tekstPitanja: TextView
     private lateinit var dugmeZaustavi: Button
@@ -25,7 +26,7 @@ class FragmentPitanje(val pitanje: Pitanje, val anketa: Anketa, val pregled: Boo
     private val pitanjeAnketaViewModel = PitanjeAnketaViewModel()
 
     companion object {
-        fun newInstance(pitanje: Pitanje, anketa: Anketa, pregled: Boolean) = FragmentPitanje(pitanje, anketa, pregled)
+        fun newInstance(pitanje: Pitanje, odgovorIndeks: Int?, pregled: Boolean) = FragmentPitanje(pitanje, odgovorIndeks, pregled)
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +40,7 @@ class FragmentPitanje(val pitanje: Pitanje, val anketa: Anketa, val pregled: Boo
         dugmeZaustavi = view.findViewById(R.id.dugmeZaustavi)
 
 
-        listaOdgovoraAdapter =  OdgovoriListaAdapter(requireActivity(), R.layout.lista_pitanja_element, pitanje, anketa, pregled, this)
+        listaOdgovoraAdapter =  OdgovoriListaAdapter(requireActivity(), R.layout.lista_pitanja_element, pitanje, odgovorIndeks, false, this)
         listaOdgovora.adapter = listaOdgovoraAdapter
 
 

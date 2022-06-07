@@ -66,7 +66,8 @@ class FragmentAnkete: Fragment() {
 //        }else{
 //            (activity as MainActivity).pokreniPregledAnkete(anketa, pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa))
 //        }
-        (activity as MainActivity).pokreniPregledAnkete(anketa)
+        //(activity as MainActivity).pokreniPregledAnkete(anketa)
+        (activity as MainActivity).pokreniIspunjavanjeAnkete(anketa)
 //        pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa, MainActivity::pokreniPregledAnkete)
     }
 
@@ -86,6 +87,7 @@ class FragmentAnkete: Fragment() {
         listaAnketaAdapter.updateAnkete(anketeViewModel.filtriraj(::prikaziAnkete,odabranaOpcija,resources.getStringArray(R.array.filter_anketa_opcije)))
     }
     private fun prikaziAnkete(noveAnkete: List<Anketa>) {
+        Toast.makeText(context,"Ankete dohvacene!",Toast.LENGTH_SHORT).show()
         listaAnketaAdapter.updateAnkete(noveAnkete)
     }
 }

@@ -1,5 +1,6 @@
 package ba.etf.rma22.projekat.data.repositories
 
+import android.util.Log
 import ba.etf.rma22.projekat.data.models.ApiAdapter
 import ba.etf.rma22.projekat.data.models.Odgovor
 import kotlinx.coroutines.Dispatchers
@@ -13,11 +14,16 @@ object OdgovorRepository {
             if (pokusaj == null) {
                 return@withContext odgovoriZaAnketu
             } else{
-                val odgovoriZaPokusaj = ApiAdapter.retrofit.dajOdgovoreZaPokusaj(AccountRepository.hashCode(), pokusaj.id).body()
-                return@withContext odgovoriZaPokusaj!!
+                try{
+                    val odgovoriZaPokusaj = ApiAdapter.retrofit.dajOdgovoreZaPokusaj(AccountRepository.getHash(), pokusaj.id).body()
+                    return@withContext odgovoriZaPokusaj ?: mutableListOf()
+                } catch (e: IllegalStateException){
+                    return@withContext mutableListOf<Odgovor>()
+                }
             }
         }
     }
+
     fun postaviOdgovorAnketa(idAnketaTaken: Int,idPitanje: Int,odgovor: Int): Int{
         return 1
     }

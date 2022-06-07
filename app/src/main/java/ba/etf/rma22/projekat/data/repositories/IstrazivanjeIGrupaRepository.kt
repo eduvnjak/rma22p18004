@@ -60,7 +60,6 @@ object IstrazivanjeIGrupaRepository {
         return withContext(Dispatchers.IO){
             try {
                 val studentId = AccountRepository.getHash()
-                Log.i("TEST", "tu sam 1")
                 val response = ApiAdapter.retrofit.dajGrupeZaStudenta(studentId)
 //            var responseBody = response.body() ?: mutableListOf()
             return@withContext response.body() ?: mutableListOf()

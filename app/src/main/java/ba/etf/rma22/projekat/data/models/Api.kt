@@ -76,7 +76,7 @@ interface Api {
     //lista sa odgovorima
     @GET("student/{id}/anketataken/{ktid}/odgovori")
     suspend fun dajOdgovoreZaPokusaj(
-        @Path("id") studentId: Int,
+        @Path("id") studentId: String,
         @Path("ktid") pokusajRjesavanjaAnkete: Int
     ): Response<List<Odgovor>>
 
