@@ -44,4 +44,19 @@ class PitanjeAnketaViewModel {
         Log.i("TEST", "tu sam 1")
         return dosadasnjiOdgovori.size == pitanja.size
     }
+
+    fun postaviOdgovore(mapaPitanjeOdgovor: MutableMap<Pitanje, Int?>, anketaId: Int, action: (poruka: String) -> Unit, poruka: String ) {
+        scope.launch {
+            val pokusaj = TakeAnketaRepository.dajPokusajZaAnketu(anketaId)
+            for (entry in mapaPitanjeOdgovor) {
+                if (entry.value != null)
+                    OdgovorRepository.postaviOdgovorAnketa(
+                        pokusaj!!.id,
+                        entry.key.id,
+                        entry.value!!
+                    )
+            }
+            action.invoke(poruka)
+        }
+    }
 }

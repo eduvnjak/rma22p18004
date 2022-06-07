@@ -1,10 +1,7 @@
 package ba.etf.rma22.projekat.data.models
 
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface Api {
     //vraca sva istrazivanja
@@ -83,9 +80,10 @@ interface Api {
     //dodaje odgovor
     @POST("/student/{id}/anketataken/{ktid}/odgovor")
     suspend fun postaviOdgovorZaPokusaj(
-        @Path("id") studentId: Int,
-        @Path("ktid") pokusajRjesavanjaAnkete: Int
-    ): Response<Odgovor> //?? zasto odgovor kao response, dal gore treba body request odgovora
+        @Path("id") studentId: String,
+        @Path("ktid") pokusajRjesavanjaAnkete: Int,
+        @Body odgovorRequest: OdgovorRequestBody
+    ): Response<Odgovor>
 
     //vraca listu pokusaja za ankete studenta
     @GET("/student/{id}/anketataken")

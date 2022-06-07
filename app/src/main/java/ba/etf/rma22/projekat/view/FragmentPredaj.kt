@@ -42,7 +42,7 @@ class FragmentPredaj(val anketa: Anketa, val pregled: Boolean): Fragment() {
 
     private fun predajAnketu() {
         val poruka = "Završili ste anketu ${anketa.naziv} u okviru istraživanja ${anketa.nazivIstrazivanja}"
-        (activity as MainActivity).predajAnketuPrikaziPoruku(poruka)
+        (activity as MainActivity).predajAnketu(poruka, anketa.id)
     }
     fun updateProgress(progres: String) {
 //        Log.i("TAGTAG","fragment predaj")

@@ -118,7 +118,17 @@ class MainActivity : AppCompatActivity() {
         azurirajProgresUFragmentu()
     }
 
-    fun predajAnketuPrikaziPoruku(poruka: String) {
+    fun predajAnketu(poruka: String, anketaId: Int) {
+        //posalji odgovore
+        val mapaPitanjeOdgovor = mutableMapOf<Pitanje, Int?>()
+        for (i in 0 until viewPagerAdapter.itemCount-1) {
+            mapaPitanjeOdgovor[(viewPagerAdapter.dajFragment(i) as FragmentPitanje).pitanje] = (viewPagerAdapter.dajFragment(i) as FragmentPitanje).odgovorIndeks
+        }
+        pitanjeAnketaViewModel.postaviOdgovore(mapaPitanjeOdgovor, anketaId, ::anketaPredanaPrikaziPoruku, poruka)
+        //pa ocisti i pozovi ovu dole
+
+    }
+    fun anketaPredanaPrikaziPoruku(poruka: String) {
         val fragmentPoruka = FragmentPoruka.newInstance(poruka)
         val fragmentAnkete = FragmentAnkete.newInstance()
 
