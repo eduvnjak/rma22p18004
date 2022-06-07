@@ -49,7 +49,7 @@ class AnketeViewModel {
                     ankete.forEach {
                         it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
                     }
-                    anketeAction.invoke(ankete)
+                    anketeAction.invoke(ankete.filter { anketa -> anketa.predana })
                 }
                 //return AnketaRepository.getDone().sortedBy { it.datumPocetak  }
             }
