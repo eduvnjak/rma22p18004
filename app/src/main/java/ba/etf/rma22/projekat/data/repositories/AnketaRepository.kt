@@ -70,7 +70,9 @@ object AnketaRepository {
     private suspend fun popuniIstrazivanjaZaAnkete(ankete: List<Anketa>): List<Anketa> {
         val anketeSaIstrazivanjem = mutableListOf<Anketa>()
         for (anketa in ankete) {
-            val grupeZaAnketu = ApiAdapter.retrofit.dajGrupeZaAnketu(anketa.id).body()
+            var grupeZaAnketu = ApiAdapter.retrofit.dajGrupeZaAnketu(anketa.id).body()
+            grupeZaAnketu = grupeZaAnketu?.distinctBy { it.istrazivanjeId }
+            //pazi da li je grupaid bitan u anketi
             val tempList = mutableListOf<Anketa>()
             grupeZaAnketu!!.forEach { grupa ->
                 val istrazivanje = ApiAdapter.retrofit.dajIstrazivanje(grupa.istrazivanjeId).body()!!

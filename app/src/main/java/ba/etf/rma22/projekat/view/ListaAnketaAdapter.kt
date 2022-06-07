@@ -51,7 +51,7 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>,
         if(dataSet[position].predana) {
             statusBoja = "plava"
             //todo dobavi datum
-            holder.textViewAnketaDatumText.text = ""
+            holder.textViewAnketaDatumText.text = "TODO"
         } else if (trenutniDatum < dataSet[position].datumPocetak) {
             statusBoja = "zuta"
             holder.textViewAnketaDatumText.text = context.getString(R.string.vrijeme_aktiviranja)
