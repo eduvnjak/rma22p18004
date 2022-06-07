@@ -74,11 +74,25 @@ class AnketeViewModel {
         return emptyList()
     }
 
-//    fun dajProgres(anketa: Anketa): String {
-//
-//        val progres = (AnketaRepository.dajAnketu(anketa.naziv, anketa.nazivIstrazivanja)!!.dajProgresZaokruzen()*100).toInt().toString()+"%"
-//        return progres
-//    }
+    fun dajZaokruzenProgres(odgovoreno: Int, ukupno: Int): String {
+        Log.i("PROGRES", "odgovoreno " + odgovoreno + " ukupno" + ukupno)
+        if(ukupno != 0) {
+            val omjer = odgovoreno.toFloat()/ukupno.toFloat()
+            if(omjer >= 0 && omjer<0.1){
+                return "0%"
+            }else if (omjer >= 0.1 && omjer < 0.3){
+                return "20%"
+            }else if (omjer >= 0.3 && omjer < 0.5){
+                return  "40%"
+            }else if (omjer >= 0.5 && omjer < 0.7){
+                return "60%"
+            }else if (omjer >= 0.7 && omjer < 0.9){
+                return "80%"
+            }else return "100%"
+        }else {
+            return "0%"
+        }
+    }
 
 //    fun proglasiAnketuUradjenom(anketa: Anketa) {
 //        val calendar = Calendar.getInstance()

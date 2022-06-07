@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.annotation.LayoutRes
+import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.models.AnketaTaken
@@ -25,20 +26,23 @@ class OdgovoriListaAdapter(context: Context, @LayoutRes val layoutResource: Int,
         val tekstOdgovora = view.findViewById<TextView>(android.R.id.text1)
         //val anketaTaken = pitanjeAnketaViewModel.dajPitanjeAnketuZaAnketu(anketa, pitanje)
 
-        if(odgovorIndeks == null){
+        if(!onemoguci){
             view.setOnClickListener() {
                 for (i in 0 until parent.childCount){
                     if (i == position){
                         if((parent.getChildAt(i) as TextView).currentTextColor == Color.parseColor("#FF000000")){
                             (parent.getChildAt(i) as TextView).setTextColor(Color.parseColor("#0000FF"))
                             odgovorIndeks = position
+                            fragmentPitanje.odgovorIndeks = position
+                            Log.i("ODGOVORIO na", " " + odgovorIndeks + " ")
                             //pitanjeAnketaViewModel.azurirajOdgovor(pitanjeAnketa,position)
                         }else{
                             (parent.getChildAt(i) as TextView).setTextColor(Color.parseColor("#FF000000"))
                             //pitanjeAnketaViewModel.azurirajOdgovor(pitanjeAnketa,null)
                             odgovorIndeks = null
+                            fragmentPitanje.odgovorIndeks = null
                         }
-                        //fragmentPitanje.azurirajProgres()
+                        fragmentPitanje.azurirajProgres()
                     }else{
                         (parent.getChildAt(i) as TextView).setTextColor(Color.parseColor("#FF000000"))
                     }

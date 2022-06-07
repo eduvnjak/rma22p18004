@@ -16,10 +16,11 @@ import ba.etf.rma22.projekat.data.models.AnketaTaken
 import ba.etf.rma22.projekat.data.models.Pitanje
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
 
-class FragmentPitanje(val pitanje: Pitanje, val odgovorIndeks: Int?, val pregled: Boolean): Fragment() {
+class FragmentPitanje(val pitanje: Pitanje, var odgovorIndeks: Int?, var pregled: Boolean): Fragment() {
     private lateinit var listaOdgovora: ListView
     private lateinit var tekstPitanja: TextView
     private lateinit var dugmeZaustavi: Button
+    val samoPregled = (odgovorIndeks != null)
 
     private lateinit var listaOdgovoraAdapter: ArrayAdapter<String>
 
@@ -39,8 +40,7 @@ class FragmentPitanje(val pitanje: Pitanje, val odgovorIndeks: Int?, val pregled
         tekstPitanja = view.findViewById(R.id.tekstPitanja)
         dugmeZaustavi = view.findViewById(R.id.dugmeZaustavi)
 
-
-        listaOdgovoraAdapter =  OdgovoriListaAdapter(requireActivity(), R.layout.lista_pitanja_element, pitanje, odgovorIndeks, false, this)
+        listaOdgovoraAdapter =  OdgovoriListaAdapter(requireActivity(), R.layout.lista_pitanja_element, pitanje, odgovorIndeks, samoPregled, this)
         listaOdgovora.adapter = listaOdgovoraAdapter
 
 
@@ -56,10 +56,8 @@ class FragmentPitanje(val pitanje: Pitanje, val odgovorIndeks: Int?, val pregled
         (activity as MainActivity).zaustaviAnketu()
     }
 
-//    fun azurirajProgres() {
-//        //izracunaj novi
-//        pitanjeAnketaViewModel.azurirajProgres(anketa)
-//        //posalji obavijestu main activity da izmijeni u fragmentPredaj
-//        (activity as MainActivity).azurirajProgresUFragmentu()
-//    }
+    fun azurirajProgres() {
+        //posalji obavijestu main activity da izmijeni u fragmentPredaj
+        (activity as MainActivity).azurirajProgresUFragmentu()
+    }
 }

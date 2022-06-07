@@ -3,9 +3,7 @@ package ba.etf.rma22.projekat.viewmodel
 import android.util.Log
 import ba.etf.rma22.projekat.data.models.Grupa
 import ba.etf.rma22.projekat.data.models.Istrazivanje
-import ba.etf.rma22.projekat.data.repositories.GrupaRepository
 import ba.etf.rma22.projekat.data.repositories.IstrazivanjeIGrupaRepository
-import ba.etf.rma22.projekat.data.repositories.IstrazivanjeRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

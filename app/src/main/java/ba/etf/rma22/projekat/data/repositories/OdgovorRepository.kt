@@ -24,7 +24,7 @@ object OdgovorRepository {
         }
     }
 
-    fun postaviOdgovorAnketa(idAnketaTaken: Int,idPitanje: Int,odgovor: Int): Int{
+    fun postaviOdgovorAnketa(idAnketaTaken: Int, idPitanje: Int, odgovor: Int): Int{
         return 1
     }
 }

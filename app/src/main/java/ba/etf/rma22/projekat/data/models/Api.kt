@@ -96,7 +96,7 @@ interface Api {
     //zapocni odgovaranje studenta sa id-em id na anketu sa id-em kid
     @POST("/student/{id}/anketa/{kid}")
     suspend fun zapocniAnketu(
-        @Path("id") studentId: Int,
+        @Path("id") studentId: String,
         @Path("kid") anketaId: Int
     ): Response<AnketaTaken>
 

@@ -16,6 +16,7 @@ class FragmentPredaj(val anketa: Anketa, val pregled: Boolean): Fragment() {
     private lateinit var progresTekst: TextView
     private lateinit var dugmePredaj: Button
 
+    private var progresTemp = "0%"
     private var anketeViewModel = AnketeViewModel()
 
     companion object{
@@ -31,27 +32,25 @@ class FragmentPredaj(val anketa: Anketa, val pregled: Boolean): Fragment() {
         progresTekst = view.findViewById(R.id.progresTekst)
         dugmePredaj = view.findViewById(R.id.dugmePredaj)
 
-        //progresTekst.text = anketeViewModel.dajProgres(anketa)
-        progresTekst.text = "TODO"
-
+        progresTekst.text = progresTemp
         dugmePredaj.isEnabled = !pregled
         dugmePredaj.setOnClickListener{
-//            predajAnketu()
+            predajAnketu()
         }
-
         return view
     }
 
-//    private fun predajAnketu() {
-//        anketeViewModel.proglasiAnketuUradjenom(anketa)
-//        val poruka = "Završili ste anketu ${anketa.naziv} u okviru istraživanja ${anketa.nazivIstrazivanja}"
-//        (activity as MainActivity).predajAnketuPrikaziPoruku(poruka)
-//    }
-//    fun updateProgress() {
-////        Log.i("TAGTAG","fragment predaj")
-//        if(this::progresTekst.isInitialized){
-////            Log.i("TAGTAG","fragment predaj mijenjam" + anketeViewModel.dajProgres(anketa))
-//            progresTekst.text = anketeViewModel.dajProgres(anketa)
-//        }
-//    }
+    private fun predajAnketu() {
+        val poruka = "Završili ste anketu ${anketa.naziv} u okviru istraživanja ${anketa.nazivIstrazivanja}"
+        (activity as MainActivity).predajAnketuPrikaziPoruku(poruka)
+    }
+    fun updateProgress(progres: String) {
+//        Log.i("TAGTAG","fragment predaj")
+        if(this::progresTekst.isInitialized){
+//            Log.i("TAGTAG","fragment predaj mijenjam" + anketeViewModel.dajProgres(anketa))
+            progresTekst.text = progres
+        }else{
+            progresTemp = progres
+        }
+    }
 }

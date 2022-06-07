@@ -7,9 +7,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 object TakeAnketaRepository {
-    //vrati povratni tip na non null
-    fun zapocniAnketu(idAnkete: Int): AnketaTaken? {
-        return null
+
+    suspend fun zapocniAnketu(idAnkete: Int): AnketaTaken? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = ApiAdapter.retrofit.zapocniAnketu(AccountRepository.getHash(), idAnkete)
+                val responseBody = response.body()
+                return@withContext responseBody
+            }catch (e: Exception) {
+                println("Greska sa servisom")
+                return@withContext null
+            }
+        }
     }
     suspend fun getPoceteAnkete(): List<AnketaTaken> {
         return withContext(Dispatchers.IO) {

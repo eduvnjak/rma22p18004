@@ -8,6 +8,7 @@ import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.models.Odgovor
 import ba.etf.rma22.projekat.data.models.Pitanje
 import ba.etf.rma22.projekat.view.*
+import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private var anketaZaustavljena = false
 
     private var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
-
+    private var anketeViewModel = AnketeViewModel()
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                 FragmentIstrazivanje(),
             )
         viewPager = findViewById(R.id.pager)
-        viewPager.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
+        viewPager.offscreenPageLimit = 10
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, fragments, lifecycle)
         viewPager.adapter = viewPagerAdapter
 
@@ -76,6 +77,7 @@ class MainActivity : AppCompatActivity() {
             viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], indeksOdgovora, false))
         }
         viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, false))
+        azurirajProgresUFragmentu()
     }
 
     fun zaustaviAnketu(){
@@ -90,7 +92,15 @@ class MainActivity : AppCompatActivity() {
 
     fun azurirajProgresUFragmentu() {
 ////        Log.i("TAGTAG","azuriram")
-//        (viewPagerAdapter.dajFragment(viewPagerAdapter.itemCount-1) as FragmentPredaj).updateProgress()
+        val ukupanBrojPitanja = viewPagerAdapter.itemCount-1
+        var ukupanBrojOdgovorenih = 0
+        for (i in 0 until ukupanBrojPitanja) {
+            if((viewPagerAdapter.dajFragment(i) as FragmentPitanje).odgovorIndeks != null){
+                ukupanBrojOdgovorenih++
+            }
+        }
+        val progres = anketeViewModel.dajZaokruzenProgres(ukupanBrojOdgovorenih, ukupanBrojPitanja)
+        (viewPagerAdapter.dajFragment(viewPagerAdapter.itemCount-1) as FragmentPredaj).updateProgress(progres)
     }
 
     fun pokreniPregledAnkete(anketa: Anketa) {
@@ -105,7 +115,7 @@ class MainActivity : AppCompatActivity() {
             val indeksOdgovora = odgovoriDosadasnji.find { odgovor -> odgovor.pitanjeId == pitanjaZaAnketu[i].id }?.odgovoreno
             viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], indeksOdgovora, true))
         }
-        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, true))
+        azurirajProgresUFragmentu()
     }
 
     fun predajAnketuPrikaziPoruku(poruka: String) {
