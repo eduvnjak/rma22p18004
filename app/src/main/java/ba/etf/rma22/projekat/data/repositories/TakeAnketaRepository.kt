@@ -27,7 +27,7 @@ object TakeAnketaRepository {
     suspend fun dajPokusajZaAnketu(anketaId: Int): AnketaTaken? {
         return withContext(Dispatchers.IO) {
             val poceteAnkete = getPoceteAnkete()
-            val zapocetiPokusaj = poceteAnkete.find { at -> at.anketaId == anketaId }
+            val zapocetiPokusaj = poceteAnkete.find { at -> at.AnketumId == anketaId }
             return@withContext zapocetiPokusaj
         }
     }

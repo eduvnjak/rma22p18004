@@ -8,5 +8,5 @@ data class AnketaTaken(
     @SerializedName("student") val student: String,
     @SerializedName("progres") val progres: Int, // da li ovdje treba int mozda?
     @SerializedName("datumRada") val datumRada: Date,
-    @SerializedName("AnketumId") val anketaId: Int
+    @SerializedName("AnketumId") val AnketumId: Int
 )

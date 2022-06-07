@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.models.Pitanje
+import ba.etf.rma22.projekat.data.models.PitanjeAnketa
 import ba.etf.rma22.projekat.view.*
+import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
@@ -13,6 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     private var izvrsenUpis = false
     private var anketaZaustavljena = false
+
+    private var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,14 +80,18 @@ class MainActivity : AppCompatActivity() {
 //        (viewPagerAdapter.dajFragment(viewPagerAdapter.itemCount-1) as FragmentPredaj).updateProgress()
     }
 
-    fun pokreniPregledAnkete(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>) {
-//        viewPagerAdapter.remove(0)
-//        viewPagerAdapter.remove(0)
-//        val brojPitanja = pitanjaZaAnketu.size
-//        for(i in 0 until brojPitanja){
-//            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, true))
-//        }
-//        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, true))
+    fun pokreniPregledAnkete(anketa: Anketa) {
+        pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa, ::pokreniPregledAnketeSecond)
+    }
+
+    fun pokreniPregledAnketeSecond(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>) {
+        viewPagerAdapter.remove(0)
+        viewPagerAdapter.remove(0)
+        val brojPitanja = pitanjaZaAnketu.size
+        for(i in 0 until brojPitanja){
+            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], anketa, true))
+        }
+        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, true))
     }
 
     fun predajAnketuPrikaziPoruku(poruka: String) {

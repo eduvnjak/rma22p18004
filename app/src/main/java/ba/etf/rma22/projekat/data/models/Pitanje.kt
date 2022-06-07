@@ -1,3 +1,10 @@
 package ba.etf.rma22.projekat.data.models
 
-data class Pitanje(val naziv: String, val tekst: String, val opcije: List<String>)
+import com.google.gson.annotations.SerializedName
+
+data class Pitanje(
+    @SerializedName("id") val id: Int,
+    @SerializedName("naziv") val naziv: String,
+    @SerializedName("tekstPitanja") val tekst: String,
+    @SerializedName("opcije" )val opcije: List<String>
+    )

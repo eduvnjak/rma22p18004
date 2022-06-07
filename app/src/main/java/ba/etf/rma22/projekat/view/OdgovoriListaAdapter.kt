@@ -17,11 +17,11 @@ class OdgovoriListaAdapter(context: Context, @LayoutRes val layoutResource: Int,
                            val pitanje: Pitanje, val anketa: Anketa,
                            val onemoguci: Boolean, var fragmentPitanje: FragmentPitanje): ArrayAdapter<String>(context, layoutResource, pitanje.opcije)  {
 
-//    private val pitanjeAnketaViewModel = PitanjeAnketaViewModel()
-//
-//    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-//        val view = super.getView(position, convertView, parent)
-//        val tekstOdgovora = view.findViewById<TextView>(android.R.id.text1)
+    private val pitanjeAnketaViewModel = PitanjeAnketaViewModel()
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val view = super.getView(position, convertView, parent)
+        val tekstOdgovora = view.findViewById<TextView>(android.R.id.text1)
 //        val pitanjeAnketa = pitanjeAnketaViewModel.dajPitanjeAnketuZaAnketu(anketa, pitanje)
 //
 //        if(pitanjeAnketa.odabranaOpcija != null && position == pitanjeAnketa.odabranaOpcija){
@@ -47,6 +47,6 @@ class OdgovoriListaAdapter(context: Context, @LayoutRes val layoutResource: Int,
 //                }
 //            }
 //        }
-//        return view
-//    }
+        return view
+    }
 }

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
@@ -55,6 +56,7 @@ class FragmentAnkete: Fragment() {
 
     private fun ispuniAnketu(anketa: Anketa) {
         //provjeri da li se anketa moze ispuniti
+        //todo
 //        if(anketa.dajStatusAnkete() == 3){
 //            Toast.makeText(requireContext(),"Anketa još nije aktivna", Toast.LENGTH_SHORT).show()
 //            return
@@ -64,6 +66,8 @@ class FragmentAnkete: Fragment() {
 //        }else{
 //            (activity as MainActivity).pokreniPregledAnkete(anketa, pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa))
 //        }
+        (activity as MainActivity).pokreniPregledAnkete(anketa)
+//        pitanjeAnketaViewModel.dajPitanjaZaAnketu(anketa, MainActivity::pokreniPregledAnkete)
     }
 
     inner class FilterAnketaSpinnerListener: AdapterView.OnItemSelectedListener{
