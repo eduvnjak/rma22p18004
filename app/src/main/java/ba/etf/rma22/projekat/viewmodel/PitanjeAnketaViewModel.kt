@@ -47,7 +47,8 @@ class PitanjeAnketaViewModel {
 
     fun postaviOdgovore(mapaPitanjeOdgovor: MutableMap<Pitanje, Int?>, anketaId: Int, action: (poruka: String) -> Unit, poruka: String ) {
         scope.launch {
-            val pokusaj = TakeAnketaRepository.dajPokusajZaAnketu(anketaId)
+            Log.i("PREDAJ", " " + anketaId)
+            val pokusaj = TakeAnketaRepository.zapocniAnketu(anketaId)
             for (entry in mapaPitanjeOdgovor) {
                 if (entry.value != null)
                     OdgovorRepository.postaviOdgovorAnketa(
