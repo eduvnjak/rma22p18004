@@ -11,8 +11,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
-import ba.etf.rma22.projekat.data.models.Anketa
-import ba.etf.rma22.projekat.data.models.AnketaTaken
 import ba.etf.rma22.projekat.data.models.Pitanje
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
 
@@ -44,7 +42,7 @@ class FragmentPitanje(val pitanje: Pitanje, var odgovorIndeks: Int?, var pregled
         listaOdgovora.adapter = listaOdgovoraAdapter
 
 
-        tekstPitanja.text = pitanje.tekst
+        tekstPitanja.text = pitanje.tekstPitanja
         dugmeZaustavi.setOnClickListener{
             zaustaviAnketu()
         }

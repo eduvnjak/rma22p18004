@@ -20,25 +20,29 @@ object TakeAnketaRepository {
             }
         }
     }
-    suspend fun getPoceteAnkete(): List<AnketaTaken> {
+    suspend fun getPoceteAnkete(): List<AnketaTaken>? {
         return withContext(Dispatchers.IO) {
             try{
                 val response = ApiAdapter.retrofit.dajSvePokusaje(AccountRepository.getHash())
                 val responseBody = response.body()
-                if (responseBody!!.isEmpty()) return@withContext emptyList()
+                if (responseBody!!.isEmpty()) return@withContext null
                 return@withContext responseBody
             }
             catch(e: Exception) {
                 println("Greska pri pozivu servisa")
-                return@withContext emptyList()
+                return@withContext null
             }
         }
     }
     suspend fun dajPokusajZaAnketu(anketaId: Int): AnketaTaken? {
         return withContext(Dispatchers.IO) {
-            val poceteAnkete = getPoceteAnkete().sortedByDescending { anketaTaken -> anketaTaken.id }
-            val zapocetiPokusaj = poceteAnkete.find { at -> at.AnketumId == anketaId }
-            return@withContext zapocetiPokusaj
+            try{
+                val poceteAnkete = getPoceteAnkete()!!.sortedByDescending { anketaTaken -> anketaTaken.id }
+                val zapocetiPokusaj = poceteAnkete.find { at -> at.AnketumId == anketaId }
+                return@withContext zapocetiPokusaj
+            } catch (npe: NullPointerException) {
+                return@withContext null
+            }
         }
     }
 }

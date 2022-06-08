@@ -38,28 +38,28 @@ class PocetniTest {
         }
 
     }
-
-    @Test
-    fun popuniAnketeGetDone() {
-        onView(withId(R.id.pager)).perform(ViewPager2Actions.scrollToPosition(0))
-        onView(withId(R.id.filterAnketa)).perform(click())
-        onData(allOf(Is(instanceOf(String::class.java)), Is("Sve moje ankete"))).perform(click())
-        val ankete = AnketaRepository.getMyAnkete()
-        onView(withId(R.id.listaAnketa)).check(hasItemCount(ankete.size))
-        for (anketa in ankete) {
-            itemTest(R.id.listaAnketa, anketa)
-        }
-
-    }
-
-    @Test
-    fun godineTest() {
-        onView(withId(R.id.pager)).perform(ViewPager2Actions.scrollToPosition(1))
-        var listaOdabira = listOf<String>("1", "2", "3", "4", "5")
-        for (odabir in listaOdabira) {
-            onView(withId(R.id.odabirGodina)).perform(click())
-            onData(allOf(Is(instanceOf(String::class.java)), Is(odabir))).perform(click())
-        }
-    }
+//
+//    @Test
+//    fun popuniAnketeGetDone() {
+//        onView(withId(R.id.pager)).perform(ViewPager2Actions.scrollToPosition(0))
+//        onView(withId(R.id.filterAnketa)).perform(click())
+//        onData(allOf(Is(instanceOf(String::class.java)), Is("Sve moje ankete"))).perform(click())
+//        val ankete = AnketaRepository.getMyAnkete()
+//        onView(withId(R.id.listaAnketa)).check(hasItemCount(ankete.size))
+//        for (anketa in ankete) {
+//            itemTest(R.id.listaAnketa, anketa)
+//        }
+//
+//    }
+//
+//    @Test
+//    fun godineTest() {
+//        onView(withId(R.id.pager)).perform(ViewPager2Actions.scrollToPosition(1))
+//        var listaOdabira = listOf<String>("1", "2", "3", "4", "5")
+//        for (odabir in listaOdabira) {
+//            onView(withId(R.id.odabirGodina)).perform(click())
+//            onData(allOf(Is(instanceOf(String::class.java)), Is(odabir))).perform(click())
+//        }
+//    }
 
 }

@@ -39,7 +39,7 @@ object OdgovorRepository {
                     OdgovorRequestBody(odgovor, idPitanje, progres))
                 return@withContext progres
             } catch (e: Exception) {
-                Log.i("test", "greska")
+//                Log.i("test", "greska")
                 return@withContext -1
             }
         }

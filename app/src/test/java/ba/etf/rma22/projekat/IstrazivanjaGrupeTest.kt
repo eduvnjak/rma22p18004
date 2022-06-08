@@ -2,15 +2,11 @@ package ba.etf.rma22.projekat
 
 import ba.etf.rma22.projekat.data.models.Grupa
 import ba.etf.rma22.projekat.data.models.Istrazivanje
-import ba.etf.rma22.projekat.data.repositories.GrupaRepository
-import ba.etf.rma22.projekat.data.repositories.IstrazivanjeRepository
 import org.junit.Assert
 import org.junit.Test
 
 class IstrazivanjaGrupeTest {
 
-    val istrazivanjeRep = IstrazivanjeRepository
-    val grupaRep = GrupaRepository
 //    @Test
 //    fun testPredmetiSaGodina(){
 //        val istrazivanjaSaGodine1 = istrazivanjeRep.dajIstrazivanjaNaKojaNijeUpisan(1)

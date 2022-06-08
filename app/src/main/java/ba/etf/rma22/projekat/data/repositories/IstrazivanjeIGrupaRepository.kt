@@ -49,7 +49,7 @@ object IstrazivanjeIGrupaRepository {
             val response = ApiAdapter.retrofit.dodajStudentaUGrupu(idStudent, idGrupa)
             val responseBodyObject = response.body()
             val poruka = responseBodyObject?.poruka ?: ""
-            Log.i("TEST", "Istrazivanje i grupa repository upis " + idGrupa + " poruka " + poruka)
+//            Log.i("TEST", "Istrazivanje i grupa repository upis " + idGrupa + " poruka " + poruka)
 
             if (poruka == "Grupa not found" || poruka.contains("Ne postoji account"))
                 return@withContext false
@@ -64,7 +64,7 @@ object IstrazivanjeIGrupaRepository {
 //            var responseBody = response.body() ?: mutableListOf()
             return@withContext response.body() ?: mutableListOf()
             } catch (exception: IllegalStateException) {
-                Log.i("TEST"," greska")
+//                Log.i("TEST"," greska")
                 return@withContext mutableListOf<Grupa>()
             }
         }

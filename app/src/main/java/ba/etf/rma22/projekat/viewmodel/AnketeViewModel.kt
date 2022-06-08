@@ -24,7 +24,8 @@ class AnketeViewModel {
         when(odabranaOpcija) {
             opcije[0] -> {
                 scope.launch {
-                    val ankete = AnketaRepository.getUpisane()
+                    var ankete = AnketaRepository.getUpisane()
+                    ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
                     ankete.forEach {
                         it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
                     }
@@ -35,7 +36,8 @@ class AnketeViewModel {
             }
             opcije[1] -> {
                 scope.launch {
-                    val ankete = AnketaRepository.getAll()
+                    var ankete = AnketaRepository.getAll()
+                    ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
                     ankete.forEach {
                         it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
                     }
@@ -45,7 +47,8 @@ class AnketeViewModel {
             }
             opcije[2] -> {
                 scope.launch {
-                    val ankete = AnketaRepository.getUpisane()
+                    var ankete = AnketaRepository.getUpisane()
+                    ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
                     ankete.forEach {
                         it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
                     }
@@ -55,14 +58,16 @@ class AnketeViewModel {
             }
             opcije[3] -> {
                 scope.launch {
-                    val ankete = AnketaRepository.getUpisane()
+                    var ankete = AnketaRepository.getUpisane()
+                    ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
                     anketeAction.invoke(ankete.filter { anketa -> anketa.datumPocetak > trenutniDatum })
                 }
                 //return AnketaRepository.getFuture().sortedBy { it.datumPocetak  }
             }
             opcije[4] -> {
                 scope.launch {
-                    val ankete = AnketaRepository.getUpisane()
+                    var ankete = AnketaRepository.getUpisane()
+                    ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
                     ankete.forEach {
                         it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
                     }

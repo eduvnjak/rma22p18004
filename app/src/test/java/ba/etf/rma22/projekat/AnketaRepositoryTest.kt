@@ -2,7 +2,6 @@ package ba.etf.rma22.projekat
 
 import ba.etf.rma22.projekat.data.models.Grupa
 import ba.etf.rma22.projekat.data.repositories.AnketaRepository
-import ba.etf.rma22.projekat.data.repositories.GrupaRepository
 import org.junit.Assert
 import org.junit.Test
 

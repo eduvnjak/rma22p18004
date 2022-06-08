@@ -51,7 +51,8 @@ object AnketaRepository {
             if(responseBody == null) {
                 responseBody = mutableListOf()
             }
-            return@withContext popuniIstrazivanjaZaAnkete(responseBody)
+//            return@withContext popuniIstrazivanjaZaAnkete(responseBody)
+            return@withContext responseBody
         }
     }
     suspend fun getAll(): List<Anketa> {
@@ -63,11 +64,12 @@ object AnketaRepository {
                 response.body()?.let { anketaList.addAll(it) }
                 i++
             } while (response.body()!!.size == 5)
-            return@withContext popuniIstrazivanjaZaAnkete(anketaList)
+//            return@withContext popuniIstrazivanjaZaAnkete(anketaList)
+            return@withContext anketaList
         }
     }
 
-    private suspend fun popuniIstrazivanjaZaAnkete(ankete: List<Anketa>): List<Anketa> {
+     suspend fun popuniIstrazivanjaZaAnkete(ankete: List<Anketa>): List<Anketa> {
         val anketeSaIstrazivanjem = mutableListOf<Anketa>()
         for (anketa in ankete) {
             var grupeZaAnketu = ApiAdapter.retrofit.dajGrupeZaAnketu(anketa.id).body()
@@ -105,7 +107,8 @@ object AnketaRepository {
                     }
                 }
             }
-            return@withContext popuniIstrazivanjaZaAnkete(upisaneAnkete)
+            //return@withContext popuniIstrazivanjaZaAnkete(upisaneAnkete)
+            return@withContext upisaneAnkete
         }
     }
 }

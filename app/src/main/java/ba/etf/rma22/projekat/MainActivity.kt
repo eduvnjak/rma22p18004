@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         val brojPitanja = pitanjaZaAnketu.size
         for(i in 0 until brojPitanja) {
             val indeksOdgovora = odgovoriDosadasnji.find { odgovor -> odgovor.pitanjeId == pitanjaZaAnketu[i].id }?.odgovoreno
-            Log.i("TEST", pitanjaZaAnketu[i].tekst + " " + indeksOdgovora +" " + odgovoriDosadasnji.size)
+            Log.i("TEST", pitanjaZaAnketu[i].tekstPitanja + " " + indeksOdgovora +" " + odgovoriDosadasnji.size)
             viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], indeksOdgovora, false))
         }
         viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, false))
