@@ -11,12 +11,14 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
+import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ListaAnketaAdapter(private var dataSet: List<Anketa>,
                         private val onItemClicked: (anketa: Anketa) -> Unit
 ): RecyclerView.Adapter<ListaAnketaAdapter.ViewHolder>() {
+    val anketeViewModel = AnketeViewModel()
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageViewStanjeAnkete: ImageView = view.findViewById(R.id.imageView_stanje_ankete)
         val progressBarProgresZavrsetka: ProgressBar = view.findViewById(R.id.progresZavrsetka)
@@ -51,8 +53,9 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>,
 
         if(dataSet[position].predana) {
             statusBoja = "plava"
-            //todo dobavi datum
-            holder.textViewAnketaDatumText.text = "TODO"
+            holder.textViewAnketaDatumText.text = context.getString(R.string.anketa_uradjena)
+            if(dataSet[position].datumRada != null)
+                holder.textViewAnketaDatum.text = simpleDateFormat.format(dataSet[position].datumRada)
         } else if (trenutniDatum < dataSet[position].datumPocetak) {
             statusBoja = "zuta"
             holder.textViewAnketaDatumText.text = context.getString(R.string.vrijeme_aktiviranja)
@@ -107,6 +110,5 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>,
         dataSet=noveAnkete
         notifyDataSetChanged()
     }
-
 
 }

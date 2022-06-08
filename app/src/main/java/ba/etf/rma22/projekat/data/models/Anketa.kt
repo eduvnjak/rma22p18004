@@ -16,7 +16,8 @@ data class Anketa(
     var grupaId: Int?,
     var nazivGrupe: String?,
     var progres: Int?,
-    var predana: Boolean = false
+    var predana: Boolean = false,
+    var datumRada: Date?
 )
 //data class Anketa(
 //    val naziv: String,

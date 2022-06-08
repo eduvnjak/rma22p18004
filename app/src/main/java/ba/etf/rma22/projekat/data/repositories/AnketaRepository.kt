@@ -78,12 +78,14 @@ object AnketaRepository {
             val tempList = mutableListOf<Anketa>()
             grupeZaAnketu!!.forEach { grupa ->
                 val istrazivanje = ApiAdapter.retrofit.dajIstrazivanje(grupa.istrazivanjeId).body()!!
-                tempList.add(Anketa(anketa.id, anketa.naziv, anketa.datumPocetak, anketa.datumKraj, anketa.trajanje, istrazivanje.id, istrazivanje.naziv, grupa.id, grupa.naziv,0,false))
+                tempList.add(Anketa(anketa.id, anketa.naziv, anketa.datumPocetak, anketa.datumKraj, anketa.trajanje, istrazivanje.id, istrazivanje.naziv, grupa.id, grupa.naziv,0,false, null))
             }
             anketeSaIstrazivanjem.addAll(tempList)
         }
         //postavi i progres
         anketeSaIstrazivanjem.forEach { anketa -> anketa.progres = TakeAnketaRepository.dajPokusajZaAnketu(anketa.id)?.progres ?: 0 }
+         //postavi i datum rada
+         anketeSaIstrazivanjem.forEach { anketa -> anketa.datumRada = TakeAnketaRepository.dajPokusajZaAnketu(anketa.id)?.datumRada }
         return anketeSaIstrazivanjem
     }
 

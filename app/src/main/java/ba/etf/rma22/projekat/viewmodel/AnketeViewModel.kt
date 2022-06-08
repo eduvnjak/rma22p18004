@@ -99,6 +99,9 @@ class AnketeViewModel {
         }
     }
 
+    fun dajDatumZaUradjenuAnketu(anketaId: Int) {
+
+    }
 //    fun proglasiAnketuUradjenom(anketa: Anketa) {
 //        val calendar = Calendar.getInstance()
 //        AnketaRepository.dajAnketu(anketa.naziv, anketa.nazivIstrazivanja)!!.datumRada = calendar.time
