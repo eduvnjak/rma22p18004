@@ -13,9 +13,7 @@ import java.util.*
 class AnketeViewModel {
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
-//    fun dajAnkete(): List<Anketa> {
-//        return AnketaRepository.getMyAnkete().sortedBy { it.datumPocetak  }
-//    }
+
 
     fun filtriraj(anketeAction: ((ankete: List<Anketa>) -> Unit),odabranaOpcija: String, opcije: Array<String>): List<Anketa> {
         val pitanjeAnketaViewModel = PitanjeAnketaViewModel()
@@ -99,11 +97,14 @@ class AnketeViewModel {
         }
     }
 
-    fun dajDatumZaUradjenuAnketu(anketaId: Int) {
 
+    fun anketaSeMozeIspuniti(anketa: Anketa): Boolean {
+        if (anketa.predana) return false
+        if (anketa.datumKraj != null) {
+            val trenutnoVrijeme = Calendar.getInstance().time
+            return anketa.datumKraj > trenutnoVrijeme
+        }
+        return true
     }
-//    fun proglasiAnketuUradjenom(anketa: Anketa) {
-//        val calendar = Calendar.getInstance()
-//        AnketaRepository.dajAnketu(anketa.naziv, anketa.nazivIstrazivanja)!!.datumRada = calendar.time
-//    }
+
 }

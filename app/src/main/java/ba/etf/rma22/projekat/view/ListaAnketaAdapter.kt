@@ -98,8 +98,10 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>,
 //            }
 //        }
 
-        //TODO("postavi razlog postavljanja listenera")
-        holder.itemView.setOnClickListener{onItemClicked(dataSet[position])}
+        holder.itemView.setOnClickListener{
+            if (statusBoja == "zelena" || statusBoja == "plava" || statusBoja == "crvena")
+                onItemClicked(dataSet[position])
+        }
     }
 
     override fun getItemCount(): Int {

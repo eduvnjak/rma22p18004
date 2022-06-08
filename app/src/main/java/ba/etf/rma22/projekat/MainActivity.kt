@@ -13,6 +13,7 @@ import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
@@ -76,7 +77,8 @@ class MainActivity : AppCompatActivity() {
             Log.i("TEST", pitanjaZaAnketu[i].tekstPitanja + " " + indeksOdgovora +" " + odgovoriDosadasnji.size)
             viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], indeksOdgovora, false))
         }
-        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, false))
+        val daLiSeMozeIspuniti = anketeViewModel.anketaSeMozeIspuniti(anketa)
+        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, !daLiSeMozeIspuniti))
         azurirajProgresUFragmentu()
     }
 

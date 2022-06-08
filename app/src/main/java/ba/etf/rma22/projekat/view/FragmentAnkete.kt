@@ -56,7 +56,6 @@ class FragmentAnkete: Fragment() {
 
     private fun ispuniAnketu(anketa: Anketa) {
         //provjeri da li se anketa moze ispuniti
-        //todo
 //        if(anketa.dajStatusAnkete() == 3){
 //            Toast.makeText(requireContext(),"Anketa još nije aktivna", Toast.LENGTH_SHORT).show()
 //            return
