@@ -10,6 +10,7 @@ import ba.etf.rma22.projekat.data.models.Pitanje
 import ba.etf.rma22.projekat.view.*
 import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
+import ba.etf.rma22.projekat.viewmodel.UpisIstrazivanjeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
     private var anketeViewModel = AnketeViewModel()
+    private var upisIstrazivanjeViewModel = UpisIstrazivanjeViewModel()
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +50,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
+        val payload = intent.getStringExtra("payload")
+        if (payload != null) {
+            upisIstrazivanjeViewModel.postaviAcountHash(payload)
+        }
     }
     fun prikaziPorukuUspjesanUpis(poruka: String){
         val fragmentPoruka = FragmentPoruka.newInstance(poruka)
@@ -105,20 +112,20 @@ class MainActivity : AppCompatActivity() {
         (viewPagerAdapter.dajFragment(viewPagerAdapter.itemCount-1) as FragmentPredaj).updateProgress(progres)
     }
 
-    fun pokreniPregledAnkete(anketa: Anketa) {
-        pitanjeAnketaViewModel.dajPitanjaZaAnketuIPokusaj(anketa, ::prikaziPitanjaPregled)
-    }
+//    fun pokreniPregledAnkete(anketa: Anketa) {
+//        pitanjeAnketaViewModel.dajPitanjaZaAnketuIPokusaj(anketa, ::prikaziPitanjaPregled)
+//    }
 
-    fun prikaziPitanjaPregled(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>, odgovoriDosadasnji: List<Odgovor>) {
-        viewPagerAdapter.remove(0)
-        viewPagerAdapter.remove(0)
-        val brojPitanja = pitanjaZaAnketu.size
-        for(i in 0 until brojPitanja){
-            val indeksOdgovora = odgovoriDosadasnji.find { odgovor -> odgovor.pitanjeId == pitanjaZaAnketu[i].id }?.odgovoreno
-            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], indeksOdgovora, true))
-        }
-        azurirajProgresUFragmentu()
-    }
+//    fun prikaziPitanjaPregled(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>, odgovoriDosadasnji: List<Odgovor>) {
+//        viewPagerAdapter.remove(0)
+//        viewPagerAdapter.remove(0)
+//        val brojPitanja = pitanjaZaAnketu.size
+//        for(i in 0 until brojPitanja){
+//            val indeksOdgovora = odgovoriDosadasnji.find { odgovor -> odgovor.pitanjeId == pitanjaZaAnketu[i].id }?.odgovoreno
+//            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], indeksOdgovora, true))
+//        }
+//        azurirajProgresUFragmentu()
+//    }
 
     fun predajAnketu(poruka: String, anketaId: Int) {
         //posalji odgovore

@@ -3,6 +3,7 @@ package ba.etf.rma22.projekat.viewmodel
 import android.util.Log
 import ba.etf.rma22.projekat.data.models.Grupa
 import ba.etf.rma22.projekat.data.models.Istrazivanje
+import ba.etf.rma22.projekat.data.repositories.AccountRepository
 import ba.etf.rma22.projekat.data.repositories.IstrazivanjeIGrupaRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,5 +55,11 @@ class UpisIstrazivanjeViewModel {
 
     private suspend fun dajGrupeZaIstrazivanje(istrazivanjeId: Int): List<Grupa> {
         return IstrazivanjeIGrupaRepository.getGrupeZaIstrazivanje(istrazivanjeId)
+    }
+
+    fun postaviAcountHash(payload: String) {
+        scope.launch {
+            AccountRepository.postaviHash(payload)
+        }
     }
 }
