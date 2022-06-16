@@ -1,12 +1,17 @@
 package ba.etf.rma22.projekat.data.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
+@Entity
 data class AnketaTaken(
-    @SerializedName("id") val id: Int,
-    @SerializedName("student") val student: String,
-    @SerializedName("progres") val progres: Int, // da li ovdje treba int mozda?
-    @SerializedName("datumRada") val datumRada: Date,
-    @SerializedName("AnketumId") val AnketumId: Int
+    @PrimaryKey @SerializedName("id") val id: Int,
+    @ColumnInfo(name = "student") @SerializedName("student") val student: String,
+    @ColumnInfo(name = "progres") @SerializedName("progres") val progres: Int,
+    @ColumnInfo(name = "datumRada") @SerializedName("datumRada") val datumRada: Date,
+    @ColumnInfo(name = "AnketumId") @SerializedName("AnketumId") val AnketumId: Int
+    //dal ove kolone moraju malim slovom
 )
