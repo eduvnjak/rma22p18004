@@ -10,6 +10,8 @@ data class Grupa(
     @PrimaryKey @SerializedName("id") val id: Int,
     @ColumnInfo(name = "naziv") @SerializedName("naziv") val naziv: String,
     @ColumnInfo(name = "IstrazivanjeId") @SerializedName("IstrazivanjeId") val istrazivanjeId: Int) {
+    @ColumnInfo(name = "upisana")
+    var upisana: Boolean? = null
     override fun toString(): String {
         return naziv
     }

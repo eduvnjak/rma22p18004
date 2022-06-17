@@ -7,8 +7,12 @@ import com.google.gson.annotations.SerializedName
 
 @Entity
 data class Odgovor(
-    @PrimaryKey @SerializedName("id") val id: Int?,
+    @ColumnInfo(name = "id") @SerializedName("id") val id: Int?,
     @ColumnInfo(name = "odgovoreno") @SerializedName("odgovoreno") val odgovoreno: Int,
     @ColumnInfo(name = "anketaTakenId") @SerializedName("AnketaTakenId") val anketaTakenId: Int,
     @ColumnInfo(name = "PitanjeId") @SerializedName("PitanjeId") val pitanjeId: Int,
-)
+){
+    //moze li ovako
+    @PrimaryKey(autoGenerate = true)
+    val tabelaId: Int? = null
+}

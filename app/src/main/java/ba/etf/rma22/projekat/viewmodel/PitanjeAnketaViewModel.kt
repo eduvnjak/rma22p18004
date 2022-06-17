@@ -28,17 +28,7 @@ class PitanjeAnketaViewModel {
             action.invoke(anketa, pitanja, odgovori)
         }
     }
-//    fun dajPitanjeAnketuZaAnketu(anketa: Anketa, pitanje: Pitanje): PitanjeAnketa {
-//        return PitanjeAnketaRepository.getPitanjeAnketa(anketa.naziv, anketa.nazivIstrazivanja, pitanje.naziv)
-//    }
-//
-//    fun azurirajOdgovor(pitanjeAnketa: PitanjeAnketa, odgovor: Int?) {
-//        PitanjeAnketaRepository.odgovoriNaPitanje(pitanjeAnketa.naziv, pitanjeAnketa.anketa, pitanjeAnketa.istrazivanje, odgovor)
-//    }
-//    fun azurirajProgres(anketa: Anketa){
-//        val progres = PitanjeAnketaRepository.izracunajProgres(anketa.naziv,anketa.nazivIstrazivanja)
-//        AnketaRepository.azurirajProgresZaAnketu(anketa, progres)
-//    }
+
     suspend fun isAnketaPredana(anketa: Anketa, pitanja: List<Pitanje>): Boolean {
         val dosadasnjiOdgovori = OdgovorRepository.getOdgovoriAnketa(anketa.id)
         Log.i("TEST", "tu sam 1")

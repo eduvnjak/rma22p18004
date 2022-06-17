@@ -5,10 +5,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity
+@Entity(primaryKeys = ["id","anketaId"])
 data class Pitanje(
-    @PrimaryKey @SerializedName("id") val id: Int,
+    @ColumnInfo(name = "id") @SerializedName("id") val id: Int,
     @ColumnInfo(name = "naziv") @SerializedName("naziv") val naziv: String,
     @ColumnInfo(name = "tekstPitanja") @SerializedName("tekstPitanja") val tekstPitanja: String,
     @ColumnInfo(name = "opcije") @SerializedName("opcije" )val opcije: List<String>
-    )
+    ){
+    @ColumnInfo(name = "anketaId")
+    var anketaId: Int? = null
+}
+//treba li mi ovdje drugi kljuc?

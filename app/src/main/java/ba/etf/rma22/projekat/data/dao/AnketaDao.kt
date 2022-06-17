@@ -9,4 +9,6 @@ interface AnketaDao {
     suspend fun getAll()
     @Insert
     suspend fun insertAnkete(vararg ankete: Anketa)
+    @Query("DELETE FROM Anketa")
+    suspend fun deleteAll()
 }
