@@ -20,6 +20,7 @@ object TakeAnketaRepository {
                 val response = ApiAdapter.retrofit.zapocniAnketu(AccountRepository.getHash(), idAnkete)
                 val responseBody = response.body()
                 //todo upisi ovaj novi pokusaj u bazu
+                upisiAnketaTakenUBazu(responseBody)
                 return@withContext responseBody
             }catch (e: Exception) {
                 println("Greska sa servisom")
@@ -42,7 +43,13 @@ object TakeAnketaRepository {
             }
         }
     }
+    private suspend fun upisiAnketaTakenUBazu(pokusaj: AnketaTaken?){
 
+        if (pokusaj != null) {
+            val db = AppDatabase.getInstance(context)
+            db.anketaTakenDao().insertAnketaTaken(pokusaj)
+        }
+    }
     private suspend fun upisiPoceteAnketeUBazu(pokusaji: List<AnketaTaken>) {
         val db = AppDatabase.getInstance(context)
         db.anketaTakenDao().insertAnketaTaken(*pokusaji.toTypedArray())
