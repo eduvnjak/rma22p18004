@@ -20,11 +20,12 @@ object AccountRepository {
 
     suspend fun postaviHash(acHash: String): Boolean {
         return withContext(Dispatchers.IO){
-            if(acHash != getHash()){
+            getHash()
+//            if(acHash != getHash()){
                 this@AccountRepository.acHash = acHash
                 obnoviBazu(acHash)
                 //return true
-            }//treba li obnovu svakako uraditi?
+//            }//treba li obnovu svakako uraditi? stavicemo da treba!
             return@withContext true
             //return@withContext false
         }

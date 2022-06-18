@@ -11,19 +11,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class UpisIstrazivanjeViewModel {
-//    fun dajIstrazivanja(odabranaGodina: String): List<String>{
-//        return IstrazivanjeRepository.dajIstrazivanjaNaKojaNijeUpisan(Integer.parseInt(odabranaGodina)).map { istrazivanje -> istrazivanje.naziv }
-//    }
-//    fun dajGrupe(odabranoIstrazivanje: String): List<String>{
-//        return GrupaRepository.getGroupsByIstrazivanje(odabranoIstrazivanje).map { grupa -> grupa.naziv }
-//    }
 
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
     fun upisiIstrazivanje(actionUpis: (string: String) -> Unit, poruka: String, odabranaGrupaId: Int, odabranaGodina: Int) {
         scope.launch {
             postaviPosljednjuOdabranuGodinu(odabranaGodina)
-            Log.i("TEST", "viewmodel upisi IStrazivanje")
+            //Log.i("TEST", "viewmodel upisi IStrazivanje")
             if(IstrazivanjeIGrupaRepository.upisiUGrupu(odabranaGrupaId)){
                 actionUpis.invoke(poruka)
             }
@@ -39,21 +33,24 @@ class UpisIstrazivanjeViewModel {
     fun popuniIstrazivanjaZaGodinu(actionIstrazivanja: (istrazivanja: List<Istrazivanje>) -> Unit, odabranaGodina: Int) {
         scope.launch {
             actionIstrazivanja.invoke(dajIstrazivanjaZaGodinu(odabranaGodina))
+            //actionIstrazivanja.invoke(emptyList<Istrazivanje>())
         }
     }
 
     private suspend fun dajIstrazivanjaZaGodinu(odabranaGodina: Int): List<Istrazivanje> {
         return IstrazivanjeIGrupaRepository.dajNeupisanaIstrazivanjaZaGodinu(odabranaGodina)
+        //return emptyList()
     }
 
     fun popuniGrupeZaIstrazivanje(actionGrupe: (List<Grupa>) -> Unit, istrazivanjeId: Int) {
         scope.launch {
-            //ovdje neki if trebal
             actionGrupe.invoke((dajGrupeZaIstrazivanje(istrazivanjeId)))
+            //actionGrupe.invoke(emptyList())
         }
     }
 
     private suspend fun dajGrupeZaIstrazivanje(istrazivanjeId: Int): List<Grupa> {
+        //return emptyList()
         return IstrazivanjeIGrupaRepository.getGrupeZaIstrazivanje(istrazivanjeId)
     }
 

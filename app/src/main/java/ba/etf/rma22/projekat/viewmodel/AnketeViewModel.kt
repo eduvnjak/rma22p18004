@@ -13,8 +13,6 @@ import java.util.*
 class AnketeViewModel {
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
-
-
     fun filtriraj(anketeAction: ((ankete: List<Anketa>) -> Unit),odabranaOpcija: String, opcije: Array<String>): List<Anketa> {
         val pitanjeAnketaViewModel = PitanjeAnketaViewModel()
         val trenutniDatum = Calendar.getInstance().time
@@ -30,7 +28,6 @@ class AnketeViewModel {
 //                    Log.i("TEST", "tu sam 2")
                     anketeAction.invoke(ankete)
                 }
-                //return AnketaRepository.getMyAnkete().sortedBy { it.datumPocetak  }
             }
             opcije[1] -> {
                 scope.launch {
@@ -41,7 +38,6 @@ class AnketeViewModel {
                     }
                     anketeAction.invoke(ankete)
                 }
-                //return AnketaRepository.getAll().sortedBy { it.datumPocetak  }
             }
             opcije[2] -> {
                 scope.launch {
@@ -52,7 +48,6 @@ class AnketeViewModel {
                     }
                     anketeAction.invoke(ankete.filter { anketa -> anketa.predana })
                 }
-                //return AnketaRepository.getDone().sortedBy { it.datumPocetak  }
             }
             opcije[3] -> {
                 scope.launch {
@@ -60,7 +55,6 @@ class AnketeViewModel {
                     ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
                     anketeAction.invoke(ankete.filter { anketa -> anketa.datumPocetak > trenutniDatum })
                 }
-                //return AnketaRepository.getFuture().sortedBy { it.datumPocetak  }
             }
             opcije[4] -> {
                 scope.launch {
@@ -71,14 +65,13 @@ class AnketeViewModel {
                     }
                     anketeAction.invoke(ankete.filter { anketa -> anketa.datumKraj != null && trenutniDatum > anketa.datumKraj })
                 }
-                //return AnketaRepository.getNotTaken().sortedBy { it.datumPocetak  }
             }
         }
         return emptyList()
     }
 
     fun dajZaokruzenProgres(odgovoreno: Int, ukupno: Int): String {
-        Log.i("PROGRES", "odgovoreno " + odgovoreno + " ukupno" + ukupno)
+        //Log.i("PROGRES", "odgovoreno " + odgovoreno + " ukupno" + ukupno)
         if(ukupno != 0) {
             val omjer = odgovoreno.toFloat()/ukupno.toFloat()
             if(omjer >= 0 && omjer<0.1){
