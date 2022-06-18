@@ -22,7 +22,10 @@ data class Anketa(
     var progres: Int?,
     var predana: Boolean = false,
     var datumRada: Date?
-)
+){
+    @ColumnInfo(name = "upisana")
+    var upisana: Boolean = false
+}
 //data class Anketa(
 //    val naziv: String,
 //    val nazivIstrazivanja: String,

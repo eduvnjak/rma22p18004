@@ -18,4 +18,6 @@ interface GrupaDao {
     suspend fun deleteAll()
     @Query("SELECT * FROM Grupa WHERE upisana=1")
     suspend fun getUpisaneGrupe(): List<Grupa>
+    @Query("SELECT * FROM Grupa WHERE id=(:grupaId)")
+    suspend fun getGrupaById(grupaId: Int): Grupa
 }

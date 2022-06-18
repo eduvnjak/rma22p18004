@@ -137,12 +137,17 @@ object IstrazivanjeIGrupaRepository {
             val upisaneGrupe = getUpisaneGrupeBaza()
             val istrazivanja = getIstrazivanjaBaza()
             val upisana = mutableListOf<Istrazivanje>()
+            // mozel ovako
+            val idsUpisanihIstrazivanja = upisaneGrupe.map{grupa -> grupa.istrazivanjeId }
             istrazivanja.forEach {
-                val grupeZaIstrazivanje = getGrupeZaIstrazivanjeBaza(it.id)
-                if(grupeZaIstrazivanje.any {
-                    grupa -> upisaneGrupe.any { grupa2 -> grupa2.id == grupa.id }
-                    }) upisana.add(it)
+                if (it.id in idsUpisanihIstrazivanja) upisana.add(it)
             }
+//            istrazivanja.forEach {
+//                val grupeZaIstrazivanje = getGrupeZaIstrazivanjeBaza(it.id)
+//                if(grupeZaIstrazivanje.any {
+//                    grupa -> upisaneGrupe.any { grupa2 -> grupa2.id == grupa.id }
+//                    }) upisana.add(it)
+//            }
             return@withContext upisana
         }
     }

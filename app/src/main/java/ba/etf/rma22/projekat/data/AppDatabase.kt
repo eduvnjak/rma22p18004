@@ -16,6 +16,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun istrazivanjeDao(): IstrazivanjeDao
     abstract fun odgovorDao(): OdgovorDao
     abstract fun pitanjeDao(): PitanjeDao
+    abstract fun anketaGrupaDao(): AnketaGrupaDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null

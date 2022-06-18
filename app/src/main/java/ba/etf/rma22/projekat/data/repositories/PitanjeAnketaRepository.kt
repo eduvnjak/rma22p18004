@@ -18,17 +18,7 @@ object PitanjeAnketaRepository {
     fun setContext(_context: Context) {
         context = _context
     }
-//    fun odgovoriNaPitanje(naziv: String, anketa: String, istrazivanje: String, odgovor: Int?) {
-//        getPitanjeAnketa(anketa,istrazivanje,naziv).odabranaOpcija = odgovor
-//    }
-//
-//    fun izracunajProgres(nazivAnkete: String, nazivIstrazivanja: String): Float {
-//        val svaPitanja = pitanjaAnkete.filter { pitanjeAnketa -> pitanjeAnketa.anketa == nazivAnkete && pitanjeAnketa.istrazivanje == nazivIstrazivanja }
-//        val ukupnoPitanja = svaPitanja.size
-//        val odgovoreno = svaPitanja.count { pitanjeAnketa -> pitanjeAnketa.odabranaOpcija != null }
-////        Log.i("TAGTAG", ukupnoPitanja.toString() + " " + odgovoreno)
-//        return odgovoreno.toFloat()/ukupnoPitanja
-//    }
+
     suspend fun getPitanja(idAnkete: Int): List<Pitanje> {
         return withContext(Dispatchers.IO) {
             try {

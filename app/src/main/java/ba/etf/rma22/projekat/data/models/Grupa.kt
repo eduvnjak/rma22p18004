@@ -12,6 +12,7 @@ data class Grupa(
     @ColumnInfo(name = "IstrazivanjeId") @SerializedName("IstrazivanjeId") val istrazivanjeId: Int) {
     @ColumnInfo(name = "upisana")
     var upisana: Boolean? = null
+    /// TODO: dal ovdje da stavim non null tip, da su defaultno false
     override fun toString(): String {
         return naziv
     }
