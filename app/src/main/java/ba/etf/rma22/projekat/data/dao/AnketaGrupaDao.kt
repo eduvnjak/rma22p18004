@@ -9,11 +9,11 @@ import ba.etf.rma22.projekat.data.models.AnketaGrupa
 @Dao
 interface AnketaGrupaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAnketaGrupa(vararg anketaGrupa: AnketaGrupa)
+    fun insertAnketaGrupa(vararg anketaGrupa: AnketaGrupa)
 
     @Query("SELECT * FROM AnketaGrupa WHERE anketaId=:idAnkete")
-    suspend fun getAnketaGrupaZaAnketu(idAnkete: Int): List<AnketaGrupa>
+    fun getAnketaGrupaZaAnketu(idAnkete: Int): List<AnketaGrupa>
 
     @Query("DELETE FROM AnketaGrupa")
-    suspend fun deleteAll()
+    fun deleteAll()
 }
