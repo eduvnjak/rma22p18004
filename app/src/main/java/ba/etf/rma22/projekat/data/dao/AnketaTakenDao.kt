@@ -13,4 +13,6 @@ interface AnketaTakenDao {
     suspend fun insertAnketaTaken(vararg at: AnketaTaken)
     @Query("DELETE FROM AnketaTaken")
     suspend fun deleteAll()
+    @Query("UPDATE AnketaTaken SET progres=(:noviProgres) WHERE id=(:idAt)")
+    suspend fun updateProgres(idAt: Int, noviProgres: Int)
 }

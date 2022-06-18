@@ -6,8 +6,9 @@ import ba.etf.rma22.projekat.data.models.Odgovor
 
 interface OdgovorDao {
     @Insert
-    suspend fun insertOdgovor(odgovor: Odgovor)
-
+    suspend fun insertOdgovor(vararg odgovor: Odgovor)
+    @Query("SELECT * FROM Odgovor WHERE AnketaTakenId=(:idPokusaja)")
+    suspend fun getOdgovoriZaPokusaj(idPokusaja: Int): List<Odgovor>
     @Query("DELETE FROM Odgovor")
     suspend fun deleteAll()
 }
