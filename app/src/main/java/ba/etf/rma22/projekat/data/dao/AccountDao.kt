@@ -18,6 +18,6 @@ interface AccountDao {
     @Query("SELECT acHash FROM Account WHERE id=0")
     suspend fun getHash(): String
 
-    @Query("UPDATE Account SET acHash=(:noviHash) WHERE id=0")
+    @Query("UPDATE Account SET acHash=:noviHash WHERE id=0")
     suspend fun updateHash(noviHash: String)
 }

@@ -14,11 +14,11 @@ interface GrupaDao {
     @Query("SELECT * FROM Grupa")
     suspend fun getGrupe(): List<Grupa>
 
-    @Query("SELECT * FROM Grupa WHERE IstrazivanjeId=(:idIstrazivanja)")
+    @Query("SELECT * FROM Grupa WHERE IstrazivanjeId=:idIstrazivanja")
     suspend fun getGrupeZaIstrazivanje(idIstrazivanja: Int): List<Grupa>
     //jel ovo dobro ispod ovo upisan = 1
 
-    @Query("UPDATE Grupa SET upisana=1 WHERE id=(:grupaId)")
+    @Query("UPDATE Grupa SET upisana=1 WHERE id=:grupaId")
     suspend fun upisiUGrupu(grupaId: Int)
 
     @Query("DELETE FROM Grupa")
@@ -27,6 +27,6 @@ interface GrupaDao {
     @Query("SELECT * FROM Grupa WHERE upisana=1")
     suspend fun getUpisaneGrupe(): List<Grupa>
 
-    @Query("SELECT * FROM Grupa WHERE id=(:grupaId)")
+    @Query("SELECT * FROM Grupa WHERE id=:grupaId")
     suspend fun getGrupaById(grupaId: Int): Grupa
 }

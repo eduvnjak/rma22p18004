@@ -11,7 +11,7 @@ interface OdgovorDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOdgovor(vararg odgovor: Odgovor)
 
-    @Query("SELECT * FROM Odgovor WHERE AnketaTakenId=(:idPokusaja)")
+    @Query("SELECT * FROM Odgovor WHERE AnketaTakenId=:idPokusaja")
     suspend fun getOdgovoriZaPokusaj(idPokusaja: Int): List<Odgovor>
 
     @Query("DELETE FROM Odgovor")

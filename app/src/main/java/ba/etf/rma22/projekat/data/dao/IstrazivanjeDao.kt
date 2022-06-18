@@ -14,7 +14,7 @@ interface IstrazivanjeDao {
     @Query("SELECT * FROM Istrazivanje")
     suspend fun getIstrazivanja(): List<Istrazivanje>
 
-    @Query("SELECT * FROM Istrazivanje WHERE id=(:idIstrazivanja)")
+    @Query("SELECT * FROM Istrazivanje WHERE id=:idIstrazivanja")
     suspend fun getIstrazivanjeById(idIstrazivanja: Int): Istrazivanje?
     // ^dal ovo gore treba biti non null
 

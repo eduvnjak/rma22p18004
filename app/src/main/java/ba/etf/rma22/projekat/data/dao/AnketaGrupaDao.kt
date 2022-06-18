@@ -11,7 +11,7 @@ interface AnketaGrupaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAnketaGrupa(vararg anketaGrupa: AnketaGrupa)
 
-    @Query("SELECT * FROM AnketaGrupa WHERE anketaId=(:idAnkete)")
+    @Query("SELECT * FROM AnketaGrupa WHERE anketaId=:idAnkete")
     suspend fun getAnketaGrupaZaAnketu(idAnkete: Int): List<AnketaGrupa>
 
     @Query("DELETE FROM AnketaGrupa")

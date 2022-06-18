@@ -14,6 +14,6 @@ interface PitanjeDao {
     @Query("DELETE FROM Pitanje")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM Pitanje WHERE anketaId=(:idAnkete)")
+    @Query("SELECT * FROM Pitanje WHERE anketaId=:idAnkete")
     suspend fun getPitanjaZaAnketu(idAnkete: Int): List<Pitanje>
 }
