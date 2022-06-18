@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import ba.etf.rma22.projekat.data.dao.*
 import ba.etf.rma22.projekat.data.models.*
 
-@Database(entities = [Account::class, Anketa::class, AnketaTaken::class, Grupa::class, Istrazivanje::class, Odgovor::class, Pitanje::class],version = 1)
+@Database(entities = [Account::class, Anketa::class, AnketaGrupa::class, AnketaTaken::class, Grupa::class, Istrazivanje::class, Odgovor::class, Pitanje::class],version = 1)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
     abstract fun anketaDao(): AnketaDao

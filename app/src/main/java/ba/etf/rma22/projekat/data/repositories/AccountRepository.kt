@@ -36,6 +36,7 @@ object AccountRepository {
                 val db = AppDatabase.getInstance(context)
                 val accountDao = db.accountDao()
                 db.anketaDao().deleteAll()
+                db.anketaGrupaDao().deleteAll()
                 db.anketaTakenDao().deleteAll()
                 db.grupaDao().deleteAll()
                 db.istrazivanjeDao().deleteAll()

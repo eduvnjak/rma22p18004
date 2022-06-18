@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(primaryKeys = ["anketaTakenId","PitanjeId"])
+@Entity(primaryKeys = ["AnketaTakenId","PitanjeId"])
 data class Odgovor(
     @ColumnInfo(name = "id") @SerializedName("id") val id: Int?,
     @ColumnInfo(name = "odgovoreno") @SerializedName("odgovoreno") val odgovoreno: Int,

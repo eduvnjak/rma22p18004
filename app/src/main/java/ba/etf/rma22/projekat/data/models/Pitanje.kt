@@ -10,9 +10,9 @@ data class Pitanje(
     @ColumnInfo(name = "id") @SerializedName("id") val id: Int,
     @ColumnInfo(name = "naziv") @SerializedName("naziv") val naziv: String,
     @ColumnInfo(name = "tekstPitanja") @SerializedName("tekstPitanja") val tekstPitanja: String,
-    @ColumnInfo(name = "opcije") @SerializedName("opcije" )val opcije: List<String>
+    @ColumnInfo(name = "opcije") @SerializedName("opcije" ) val opcije: List<String>
     ){
     @ColumnInfo(name = "anketaId")
-    var anketaId: Int? = null
+    var anketaId: Int = -1
 }
 //treba li mi ovdje drugi kljuc?
