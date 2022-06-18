@@ -1,11 +1,12 @@
 package ba.etf.rma22.projekat.data.dao
 
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import ba.etf.rma22.projekat.data.models.Istrazivanje
 
 interface IstrazivanjeDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertIstrazivanje(vararg istrazivanja: Istrazivanje)
     @Query("SELECT * FROM Istrazivanje")
     suspend fun getIstrazivanja(): List<Istrazivanje>

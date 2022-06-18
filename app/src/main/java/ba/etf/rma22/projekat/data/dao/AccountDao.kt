@@ -1,12 +1,13 @@
 package ba.etf.rma22.projekat.data.dao
 
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import ba.etf.rma22.projekat.data.models.Account
 
 interface AccountDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAccount(acc: Account)
     @Query("SELECT * FROM Account")
     suspend fun getAll(): List<Account>
