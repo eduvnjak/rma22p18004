@@ -19,13 +19,17 @@ object PitanjeAnketaRepository {
         context = _context
     }
 
-    suspend fun getPitanja(idAnkete: Int): List<Pitanje> {
+    suspend fun getPitanja(idAnkete: Int?): List<Pitanje> {
         return withContext(Dispatchers.IO) {
-            try {
-                val response = ApiAdapter.retrofit.dajPitanjaZaAnketu(idAnkete)
-                upisiPitanjaUBazu(response.body(), idAnkete)
-                return@withContext response.body()!!
-            }catch (exception: Exception) {
+            if(idAnkete != null) {
+                try {
+                    val response = ApiAdapter.retrofit.dajPitanjaZaAnketu(idAnkete)
+                    upisiPitanjaUBazu(response.body(), idAnkete)
+                    return@withContext response.body()!!
+                } catch (exception: Exception) {
+                    return@withContext emptyList<Pitanje>()
+                }
+            } else{
                 return@withContext emptyList<Pitanje>()
             }
         }

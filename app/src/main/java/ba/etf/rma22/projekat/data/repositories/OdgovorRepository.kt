@@ -17,20 +17,27 @@ object OdgovorRepository {
     fun setContext(_context: Context) {
         context = _context
     }
-    suspend fun getOdgovoriAnketa(idAnkete: Int): List<Odgovor>{
+    suspend fun getOdgovoriAnketa(idAnkete: Int?): List<Odgovor>{
         return withContext(Dispatchers.IO) {
-            val odgovoriZaAnketu = mutableListOf<Odgovor>()
-            var pokusaj = TakeAnketaRepository.dajPokusajZaAnketu(idAnkete)
-            if (pokusaj == null) {
-                return@withContext odgovoriZaAnketu
-            } else{
-                try{
-                    val odgovoriZaPokusaj = ApiAdapter.retrofit.dajOdgovoreZaPokusaj(AccountRepository.getHash(), pokusaj.id).body() ?: mutableListOf()
-                    upisiOdgovoreUBazu(odgovoriZaPokusaj)
-                    return@withContext odgovoriZaPokusaj
-                } catch (e: IllegalStateException){
-                    return@withContext mutableListOf<Odgovor>()
+            if(idAnkete != null) {
+                val odgovoriZaAnketu = mutableListOf<Odgovor>()
+                var pokusaj = TakeAnketaRepository.dajPokusajZaAnketu(idAnkete)
+                if (pokusaj == null) {
+                    return@withContext odgovoriZaAnketu
+                } else {
+                    try {
+                        val odgovoriZaPokusaj = ApiAdapter.retrofit.dajOdgovoreZaPokusaj(
+                            AccountRepository.getHash(),
+                            pokusaj.id
+                        ).body() ?: mutableListOf()
+                        upisiOdgovoreUBazu(odgovoriZaPokusaj)
+                        return@withContext odgovoriZaPokusaj
+                    } catch (e: IllegalStateException) {
+                        return@withContext mutableListOf<Odgovor>()
+                    }
                 }
+            }else{
+                return@withContext emptyList<Odgovor>()
             }
         }
     }
@@ -51,21 +58,32 @@ object OdgovorRepository {
         }
     }
 
-    suspend fun postaviOdgovorAnketa(idAnketaTaken: Int, idPitanje: Int, odgovor: Int): Int{
+    suspend fun postaviOdgovorAnketa(idAnketaTaken: Int?, idPitanje: Int?, odgovor: Int): Int{
         return withContext(Dispatchers.IO) {
-            try{
-                val anketaTaken = ApiAdapter.retrofit.dajSvePokusaje(AccountRepository.getHash()).body()!!.find { anketaTaken -> anketaTaken.id == idAnketaTaken }
-                val pitanjaNaAnketi = PitanjeAnketaRepository.getPitanja(anketaTaken!!.AnketumId)
-                val pitanje = pitanjaNaAnketi.find { pitanje -> pitanje.id == idPitanje }
-                val progres = zaokruzenProgres(getOdgovoriAnketa(anketaTaken.AnketumId).size + 1, pitanjaNaAnketi.size)
-                val response = ApiAdapter.retrofit.postaviOdgovorZaPokusaj(
-                    AccountRepository.getHash(),
-                    anketaTaken.id,
-                    OdgovorRequestBody(odgovor, idPitanje, progres))
-                postaviOdgovorIAzurirajPokusajUBazi(idAnketaTaken, progres, idPitanje, odgovor)
-                return@withContext progres
-            } catch (e: Exception) {
+            if(idAnketaTaken != null && idPitanje != null) {
+                try {
+                    val anketaTaken =
+                        ApiAdapter.retrofit.dajSvePokusaje(AccountRepository.getHash()).body()!!
+                            .find { anketaTaken -> anketaTaken.id == idAnketaTaken }
+                    val pitanjaNaAnketi =
+                        PitanjeAnketaRepository.getPitanja(anketaTaken!!.AnketumId)
+                    val pitanje = pitanjaNaAnketi.find { pitanje -> pitanje.id == idPitanje }
+                    val progres = zaokruzenProgres(
+                        getOdgovoriAnketa(anketaTaken.AnketumId).size + 1,
+                        pitanjaNaAnketi.size
+                    )
+                    val response = ApiAdapter.retrofit.postaviOdgovorZaPokusaj(
+                        AccountRepository.getHash(),
+                        anketaTaken.id,
+                        OdgovorRequestBody(odgovor, idPitanje, progres)
+                    )
+                    postaviOdgovorIAzurirajPokusajUBazi(idAnketaTaken, progres, idPitanje, odgovor)
+                    return@withContext progres
+                } catch (e: Exception) {
 //                Log.i("test", "greska")
+                    return@withContext -1
+                }
+            } else {
                 return@withContext -1
             }
         }

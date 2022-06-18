@@ -14,16 +14,20 @@ object TakeAnketaRepository {
     fun setContext(_context: Context) {
         context = _context
     }
-    suspend fun zapocniAnketu(idAnkete: Int): AnketaTaken? {
+    suspend fun zapocniAnketu(idAnkete: Int?): AnketaTaken? {
         return withContext(Dispatchers.IO) {
-            try {
-                val response = ApiAdapter.retrofit.zapocniAnketu(AccountRepository.getHash(), idAnkete)
-                val responseBody = response.body()
-                //todo upisi ovaj novi pokusaj u bazu
-                upisiAnketaTakenUBazu(responseBody)
-                return@withContext responseBody
-            }catch (e: Exception) {
-                println("Greska sa servisom")
+            if(idAnkete != null) {
+                try {
+                    val response =
+                        ApiAdapter.retrofit.zapocniAnketu(AccountRepository.getHash(), idAnkete)
+                    val responseBody = response.body()
+                    upisiAnketaTakenUBazu(responseBody)
+                    return@withContext responseBody
+                } catch (e: Exception) {
+                    println("Greska sa servisom")
+                    return@withContext null
+                }
+            }else{
                 return@withContext null
             }
         }
