@@ -86,7 +86,7 @@ class FragmentAnkete: Fragment() {
         listaAnketaAdapter.updateAnkete(anketeViewModel.filtriraj(::prikaziAnkete,odabranaOpcija,resources.getStringArray(R.array.filter_anketa_opcije)))
     }
     private fun prikaziAnkete(noveAnkete: List<Anketa>) {
-        Toast.makeText(context,"Ankete dohvacene!",Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context,"Ankete dohvacene!",Toast.LENGTH_SHORT).show()
         listaAnketaAdapter.updateAnkete(noveAnkete)
     }
 }

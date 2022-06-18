@@ -48,15 +48,18 @@ object TakeAnketaRepository {
         }
     }
     private suspend fun upisiAnketaTakenUBazu(pokusaj: AnketaTaken?){
-
-        if (pokusaj != null) {
-            val db = AppDatabase.getInstance(context)
-            db.anketaTakenDao().insertAnketaTaken(pokusaj)
+        return withContext(Dispatchers.IO) {
+            if (pokusaj != null) {
+                val db = AppDatabase.getInstance(context)
+                db.anketaTakenDao().insertAnketaTaken(pokusaj)
+            }
         }
     }
     private suspend fun upisiPoceteAnketeUBazu(pokusaji: List<AnketaTaken>) {
-        val db = AppDatabase.getInstance(context)
-        db.anketaTakenDao().insertAnketaTaken(*pokusaji.toTypedArray())
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            db.anketaTakenDao().insertAnketaTaken(*pokusaji.toTypedArray())
+        }
     }
     suspend fun getPoceteAnketeBaza(): List<AnketaTaken>? {
         return withContext(Dispatchers.IO) {

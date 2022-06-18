@@ -42,8 +42,10 @@ object OdgovorRepository {
         }
     }
     private suspend fun upisiOdgovoreUBazu(odgovoriZaPokusaj: List<Odgovor>) {
-        val db = AppDatabase.getInstance(context)
-        db.odgovorDao().insertOdgovor(*odgovoriZaPokusaj.toTypedArray())
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            db.odgovorDao().insertOdgovor(*odgovoriZaPokusaj.toTypedArray())
+        }
     }
     suspend fun getOdgovorAnketaBaza(idAnkete: Int): List<Odgovor> {
         return withContext(Dispatchers.IO) {
@@ -95,11 +97,13 @@ object OdgovorRepository {
         idPitanje: Int,
         odgovor: Int
     ) {
-        val db = AppDatabase.getInstance(context)
-        //update progres za anketa taken
-        db.anketaTakenDao().updateProgres(idAnketaTaken, progres)
-        //postavi odgovor
-        db.odgovorDao().insertOdgovor(Odgovor(null,odgovor,idAnketaTaken,idPitanje))
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            //update progres za anketa taken
+            db.anketaTakenDao().updateProgres(idAnketaTaken, progres)
+            //postavi odgovor
+            db.odgovorDao().insertOdgovor(Odgovor(null, odgovor, idAnketaTaken, idPitanje))
+        }
     }
 
 

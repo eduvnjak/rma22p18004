@@ -48,8 +48,10 @@ object IstrazivanjeIGrupaRepository {
     }
 
     private suspend fun upisiIstrazivanjaUBazu(istrazivanjaList: List<Istrazivanje>) {
-        val db = AppDatabase.getInstance(context)
-        db.istrazivanjeDao().insertIstrazivanje(*istrazivanjaList.toTypedArray())
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            db.istrazivanjeDao().insertIstrazivanje(*istrazivanjaList.toTypedArray())
+        }
     }
 
     suspend fun getGrupe(): List<Grupa> {
@@ -67,8 +69,10 @@ object IstrazivanjeIGrupaRepository {
         }
     }
     private suspend fun upisiGrupeUBazu(grupe: List<Grupa>) {
-        val db = AppDatabase.getInstance(context)
-        db.grupaDao().insertGrupa(*grupe.toTypedArray())
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            db.grupaDao().insertGrupa(*grupe.toTypedArray())
+        }
     }
 
     suspend fun getGrupeZaIstrazivanje(idIstrazivanja: Int): List<Grupa> {
@@ -103,8 +107,10 @@ object IstrazivanjeIGrupaRepository {
     }
 
     private suspend fun upisiUGrupuBaza(idGrupa: Int) {
-        val db = AppDatabase.getInstance(context)
-        db.grupaDao().upisiUGrupu(idGrupa)
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            db.grupaDao().upisiUGrupu(idGrupa)
+        }
     }
 
     suspend fun getUpisaneGrupe(): List<Grupa> {

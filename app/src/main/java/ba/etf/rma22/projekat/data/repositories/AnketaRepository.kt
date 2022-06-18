@@ -31,9 +31,11 @@ object AnketaRepository {
     }
 
     private suspend fun upisiAnketeUBazu(ankete: List<Anketa>?) {
-        if(ankete != null) {
-            val db = AppDatabase.getInstance(context)
-            db.anketaDao().insertAnkete(*ankete.toTypedArray())
+        return withContext(Dispatchers.IO) {
+            if (ankete != null) {
+                val db = AppDatabase.getInstance(context)
+                db.anketaDao().insertAnkete(*ankete.toTypedArray())
+            }
         }
     }
 
@@ -86,36 +88,56 @@ object AnketaRepository {
     }
 
     private suspend fun upisiAnketaGrupeUBazu(listaAnketaGrupa: List<AnketaGrupa>) {
-        val db = AppDatabase.getInstance(context)
-        db.anketaGrupaDao().insertAnketaGrupa(*listaAnketaGrupa.toTypedArray())
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            db.anketaGrupaDao().insertAnketaGrupa(*listaAnketaGrupa.toTypedArray())
+        }
     }
 
     suspend fun popuniIstrazivanjaZaAnketeBaza(ankete: List<Anketa>): List<Anketa> {
-        val db = AppDatabase.getInstance(context)
-        val anketeSaIstrazivanjem = mutableListOf<Anketa>()
-        for (anketa in ankete) {
-            val listaAnketaGrupa = db.anketaGrupaDao().getAnketaGrupaZaAnketu(anketa.id)
-            val skupIstrazivanja = mutableSetOf<Istrazivanje>()
-            listaAnketaGrupa.forEach {
-                val grupa = db.grupaDao().getGrupaById(it.grupaId)
-                val istrazivanje = db.istrazivanjeDao().getIstrazivanjeById(grupa.istrazivanjeId)
-                if (istrazivanje != null) {
-                    skupIstrazivanja.add(istrazivanje)
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            val anketeSaIstrazivanjem = mutableListOf<Anketa>()
+            for (anketa in ankete) {
+                val listaAnketaGrupa = db.anketaGrupaDao().getAnketaGrupaZaAnketu(anketa.id)
+                val skupIstrazivanja = mutableSetOf<Istrazivanje>()
+                listaAnketaGrupa.forEach {
+                    val grupa = db.grupaDao().getGrupaById(it.grupaId)
+                    val istrazivanje =
+                        db.istrazivanjeDao().getIstrazivanjeById(grupa.istrazivanjeId)
+                    if (istrazivanje != null) {
+                        skupIstrazivanja.add(istrazivanje)
+                    }
                 }
+                val tempList = mutableListOf<Anketa>()
+                for (istrazivanje in skupIstrazivanja) {
+                    tempList.add(
+                        Anketa(
+                            anketa.id,
+                            anketa.naziv,
+                            anketa.datumPocetak,
+                            anketa.datumKraj,
+                            anketa.trajanje,
+                            istrazivanje.id,
+                            istrazivanje.naziv,
+                            null,
+                            null,
+                            0,
+                            false,
+                            null
+                        )
+                    )
+                }
+                anketeSaIstrazivanjem.addAll(tempList)
             }
-            val tempList = mutableListOf<Anketa>()
-            for (istrazivanje in skupIstrazivanja){
-                tempList.add(Anketa(anketa.id, anketa.naziv, anketa.datumPocetak, anketa.datumKraj, anketa.trajanje, istrazivanje.id, istrazivanje.naziv, null, null,0,false, null))
+            //postavi datumrada i progres
+            anketeSaIstrazivanjem.forEach {
+                val pokusaj = TakeAnketaRepository.dajPokusajZaAnketuBaza(it.id)
+                it.progres = pokusaj?.progres ?: 0
+                it.datumRada = pokusaj?.datumRada
             }
-            anketeSaIstrazivanjem.addAll(tempList)
+            return@withContext anketeSaIstrazivanjem
         }
-        //postavi datumrada i progres
-        anketeSaIstrazivanjem.forEach {
-            val pokusaj = TakeAnketaRepository.dajPokusajZaAnketuBaza(it.id)
-            it.progres = pokusaj?.progres ?: 0
-            it.datumRada = pokusaj?.datumRada
-        }
-        return anketeSaIstrazivanjem
     }
     suspend fun getById(id: Int): Anketa {
         return withContext(Dispatchers.IO) {
@@ -127,9 +149,11 @@ object AnketaRepository {
     }
     //ovu iznad iz baze???
     private suspend fun upisiAnketuUBazu(anketa: Anketa?) {
-        if(anketa != null) {
-            val db = AppDatabase.getInstance(context)
-            db.anketaDao().insertAnkete(anketa)
+        return withContext(Dispatchers.IO) {
+            if (anketa != null) {
+                val db = AppDatabase.getInstance(context)
+                db.anketaDao().insertAnkete(anketa)
+            }
         }
     }
 
@@ -153,9 +177,11 @@ object AnketaRepository {
     }
 
     private suspend fun upisiUpisaneUBazu(upisaneAnkete: List<Anketa>) {
-        for (anketa in upisaneAnkete) anketa.upisana = true
-        val db = AppDatabase.getInstance(context)
-        db.anketaDao().insertAnkete(*upisaneAnkete.toTypedArray())
+        return withContext(Dispatchers.IO) {
+            for (anketa in upisaneAnkete) anketa.upisana = true
+            val db = AppDatabase.getInstance(context)
+            db.anketaDao().insertAnkete(*upisaneAnkete.toTypedArray())
+        }
     }
 
     suspend fun getUpisaneBaza(): List<Anketa> {

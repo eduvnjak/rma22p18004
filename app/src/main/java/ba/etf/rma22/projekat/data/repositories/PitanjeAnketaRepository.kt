@@ -34,12 +34,13 @@ object PitanjeAnketaRepository {
             }
         }
     }
-    //trebal mi ovdje ispod return with context
     private suspend fun upisiPitanjaUBazu(pitanja: List<Pitanje>?, idAnkete: Int) {
-        if(pitanja != null){
-            pitanja.forEach { pitanje -> pitanje.anketaId = idAnkete }
-            val db = AppDatabase.getInstance(context)
-            db.pitanjeDao().insertPitanje(*pitanja.toTypedArray())
+        return withContext(Dispatchers.IO) {
+            if (pitanja != null) {
+                pitanja.forEach { pitanje -> pitanje.anketaId = idAnkete }
+                val db = AppDatabase.getInstance(context)
+                db.pitanjeDao().insertPitanje(*pitanja.toTypedArray())
+            }
         }
     }
     suspend fun getPitanjaBaza(idAnkete: Int): List<Pitanje> {
