@@ -1,12 +1,16 @@
 package ba.etf.rma22.projekat
 
+import android.content.Context
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.models.Odgovor
 import ba.etf.rma22.projekat.data.models.Pitanje
+import ba.etf.rma22.projekat.data.repositories.*
 import ba.etf.rma22.projekat.view.*
 import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
@@ -26,11 +30,38 @@ class MainActivity : AppCompatActivity() {
     private var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
     private var anketeViewModel = AnketeViewModel()
     private var upisIstrazivanjeViewModel = UpisIstrazivanjeViewModel()
-    private val scope = CoroutineScope(Job() + Dispatchers.Main)
+
+    var offlineMode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //check network
+        //dal ovdje kao context ide this ili appcontext
+        val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = cm.activeNetwork
+        val capabilities = cm.getNetworkCapabilities(network)
+        if (capabilities == null) {
+            offlineMode = true
+            Toast.makeText(this, "Offline mode", Toast.LENGTH_SHORT).show()
+        } else {
+            offlineMode = false
+            Toast.makeText(this, "Online mode", Toast.LENGTH_SHORT).show()
+        }
+        //postavi context
+        AccountRepository.setContext(applicationContext)
+        AnketaRepository.setContext(applicationContext)
+        IstrazivanjeIGrupaRepository.setContext(applicationContext)
+        OdgovorRepository.setContext(applicationContext)
+        PitanjeAnketaRepository.setContext(applicationContext)
+        TakeAnketaRepository.setContext(applicationContext)
+
+        val payload = intent.getStringExtra("payload")
+        if (payload != null) {
+            upisIstrazivanjeViewModel.postaviAcountHash(payload)
+        }
+
         val fragments =
             mutableListOf(
                 FragmentAnkete(),
@@ -51,10 +82,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        val payload = intent.getStringExtra("payload")
-        if (payload != null) {
-            upisIstrazivanjeViewModel.postaviAcountHash(payload)
-        }
     }
     fun prikaziPorukuUspjesanUpis(poruka: String){
         val fragmentPoruka = FragmentPoruka.newInstance(poruka)
@@ -111,21 +138,6 @@ class MainActivity : AppCompatActivity() {
         val progres = anketeViewModel.dajZaokruzenProgres(ukupanBrojOdgovorenih, ukupanBrojPitanja)
         (viewPagerAdapter.dajFragment(viewPagerAdapter.itemCount-1) as FragmentPredaj).updateProgress(progres)
     }
-
-//    fun pokreniPregledAnkete(anketa: Anketa) {
-//        pitanjeAnketaViewModel.dajPitanjaZaAnketuIPokusaj(anketa, ::prikaziPitanjaPregled)
-//    }
-
-//    fun prikaziPitanjaPregled(anketa: Anketa, pitanjaZaAnketu: List<Pitanje>, odgovoriDosadasnji: List<Odgovor>) {
-//        viewPagerAdapter.remove(0)
-//        viewPagerAdapter.remove(0)
-//        val brojPitanja = pitanjaZaAnketu.size
-//        for(i in 0 until brojPitanja){
-//            val indeksOdgovora = odgovoriDosadasnji.find { odgovor -> odgovor.pitanjeId == pitanjaZaAnketu[i].id }?.odgovoreno
-//            viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], indeksOdgovora, true))
-//        }
-//        azurirajProgresUFragmentu()
-//    }
 
     fun predajAnketu(poruka: String, anketaId: Int) {
         //posalji odgovore
