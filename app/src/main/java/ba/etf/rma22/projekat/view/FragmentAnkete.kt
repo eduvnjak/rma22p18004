@@ -53,7 +53,12 @@ class FragmentAnkete(val offlineMode: Boolean) : Fragment() {
     }
 
     private fun ispuniAnketu(anketa: Anketa) {
-        (activity as MainActivity).pokreniIspunjavanjeAnkete(anketa)
+        if(filterAnketa.selectedItem.toString() != "Sve ankete"){
+            (activity as MainActivity).pokreniIspunjavanjeAnkete(anketa)
+        } else {
+            val toast = Toast.makeText(context,"Nije moguce poceti ispuniti anketu prilikom prikaza svih anketa!",Toast.LENGTH_SHORT)
+            toast.show()
+        }
     }
 
     inner class FilterAnketaSpinnerListener: AdapterView.OnItemSelectedListener{
