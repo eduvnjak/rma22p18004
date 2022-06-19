@@ -53,14 +53,14 @@ class MainActivity : AppCompatActivity() {
         PitanjeAnketaRepository.setContext(applicationContext)
         TakeAnketaRepository.setContext(applicationContext)
 
+        pitanjeAnketaViewModel = PitanjeAnketaViewModel(offlineMode)
+        anketeViewModel = AnketeViewModel(offlineMode)
+        upisIstrazivanjeViewModel = UpisIstrazivanjeViewModel(offlineMode)
+
         val payload = intent.getStringExtra("payload")
         if (payload != null) {
             upisIstrazivanjeViewModel.postaviAcountHash(payload)
         }
-
-        pitanjeAnketaViewModel = PitanjeAnketaViewModel(offlineMode)
-        anketeViewModel = AnketeViewModel(offlineMode)
-        upisIstrazivanjeViewModel = UpisIstrazivanjeViewModel(offlineMode)
 
         val fragments =
             mutableListOf(
