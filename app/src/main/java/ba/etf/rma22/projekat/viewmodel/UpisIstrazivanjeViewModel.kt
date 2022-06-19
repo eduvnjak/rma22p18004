@@ -62,9 +62,4 @@ class UpisIstrazivanjeViewModel(val offlineMode: Boolean) {
         }
     }
 
-    fun postaviAcountHash(payload: String) {
-        scope.launch {
-            AccountRepository.postaviHash(payload)
-        }
-    }
 }

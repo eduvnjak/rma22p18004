@@ -12,6 +12,7 @@ import ba.etf.rma22.projekat.data.models.Odgovor
 import ba.etf.rma22.projekat.data.models.Pitanje
 import ba.etf.rma22.projekat.data.repositories.*
 import ba.etf.rma22.projekat.view.*
+import ba.etf.rma22.projekat.viewmodel.AccountViewModel
 import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
 import ba.etf.rma22.projekat.viewmodel.UpisIstrazivanjeViewModel
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pitanjeAnketaViewModel: PitanjeAnketaViewModel
     private lateinit var anketeViewModel: AnketeViewModel
     private lateinit var upisIstrazivanjeViewModel: UpisIstrazivanjeViewModel
+    private lateinit var accountViewModel: AccountViewModel
 
     var offlineMode = true
 
@@ -56,10 +58,11 @@ class MainActivity : AppCompatActivity() {
         pitanjeAnketaViewModel = PitanjeAnketaViewModel(offlineMode)
         anketeViewModel = AnketeViewModel(offlineMode)
         upisIstrazivanjeViewModel = UpisIstrazivanjeViewModel(offlineMode)
+        accountViewModel = AccountViewModel()
 
         val payload = intent.getStringExtra("payload")
         if (payload != null) {
-            upisIstrazivanjeViewModel.postaviAcountHash(payload)
+            accountViewModel.postaviAcountHash(payload)
         }
 
         val fragments =
