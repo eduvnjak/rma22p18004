@@ -11,8 +11,8 @@ interface AnketaTakenDao {
     @Query("SELECT * FROM Anketataken")
     fun getAll(): List<AnketaTaken>?
 
-    @Query("SELECT * FROM AnketaTaken WHERE id=:atid ORDER BY id DESC LIMIT 1")
-    fun getAnketaTaken(atid: Int): AnketaTaken?
+    @Query("SELECT * FROM AnketaTaken WHERE AnketumId=:aid ORDER BY id DESC LIMIT 1")
+    fun getAnketaTaken(aid: Int): AnketaTaken?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAnketaTaken(vararg at: AnketaTaken)
