@@ -47,7 +47,7 @@ object OdgovorRepository {
             db.odgovorDao().insertOdgovor(*odgovoriZaPokusaj.toTypedArray())
         }
     }
-    suspend fun getOdgovorAnketaBaza(idAnkete: Int): List<Odgovor> {
+    suspend fun getOdgovoriAnketaBaza(idAnkete: Int): List<Odgovor> {
         return withContext(Dispatchers.IO) {
             val db = AppDatabase.getInstance(context)
             val pokusaj = TakeAnketaRepository.dajPokusajZaAnketuBaza(idAnkete)

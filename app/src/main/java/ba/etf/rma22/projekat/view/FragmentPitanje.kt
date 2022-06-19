@@ -22,8 +22,6 @@ class FragmentPitanje(val pitanje: Pitanje, var odgovorIndeks: Int?, var pregled
 
     private lateinit var listaOdgovoraAdapter: ArrayAdapter<String>
 
-    private val pitanjeAnketaViewModel = PitanjeAnketaViewModel()
-
     companion object {
         fun newInstance(pitanje: Pitanje, odgovorIndeks: Int?, pregled: Boolean) = FragmentPitanje(pitanje, odgovorIndeks, pregled)
     }

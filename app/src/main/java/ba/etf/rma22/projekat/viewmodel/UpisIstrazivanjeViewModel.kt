@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class UpisIstrazivanjeViewModel {
+class UpisIstrazivanjeViewModel(val offlineMode: Boolean) {
 
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
@@ -32,26 +32,34 @@ class UpisIstrazivanjeViewModel {
 
     fun popuniIstrazivanjaZaGodinu(actionIstrazivanja: (istrazivanja: List<Istrazivanje>) -> Unit, odabranaGodina: Int) {
         scope.launch {
-            actionIstrazivanja.invoke(dajIstrazivanjaZaGodinu(odabranaGodina))
             //actionIstrazivanja.invoke(emptyList<Istrazivanje>())
+            actionIstrazivanja.invoke(dajIstrazivanjaZaGodinu(odabranaGodina))
         }
     }
 
     private suspend fun dajIstrazivanjaZaGodinu(odabranaGodina: Int): List<Istrazivanje> {
-        return IstrazivanjeIGrupaRepository.dajNeupisanaIstrazivanjaZaGodinu(odabranaGodina)
         //return emptyList()
+        return if(offlineMode){
+            IstrazivanjeIGrupaRepository.dajNeupisanaIstrazivanjaZaGodinuBaza(odabranaGodina)
+        }else{
+            IstrazivanjeIGrupaRepository.dajNeupisanaIstrazivanjaZaGodinu(odabranaGodina)
+        }
     }
 
     fun popuniGrupeZaIstrazivanje(actionGrupe: (List<Grupa>) -> Unit, istrazivanjeId: Int) {
         scope.launch {
-            actionGrupe.invoke((dajGrupeZaIstrazivanje(istrazivanjeId)))
             //actionGrupe.invoke(emptyList())
+            actionGrupe.invoke((dajGrupeZaIstrazivanje(istrazivanjeId)))
         }
     }
 
     private suspend fun dajGrupeZaIstrazivanje(istrazivanjeId: Int): List<Grupa> {
         //return emptyList()
-        return IstrazivanjeIGrupaRepository.getGrupeZaIstrazivanje(istrazivanjeId)
+        return if (offlineMode){
+            IstrazivanjeIGrupaRepository.getGrupeZaIstrazivanjeBaza(istrazivanjeId)
+        }else{
+            IstrazivanjeIGrupaRepository.getGrupeZaIstrazivanje(istrazivanjeId)
+        }
     }
 
     fun postaviAcountHash(payload: String) {

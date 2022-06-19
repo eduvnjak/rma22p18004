@@ -10,58 +10,99 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 
-class AnketeViewModel {
+class AnketeViewModel(val offlineMode: Boolean) {
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
     fun filtriraj(anketeAction: ((ankete: List<Anketa>) -> Unit),odabranaOpcija: String, opcije: Array<String>): List<Anketa> {
-        val pitanjeAnketaViewModel = PitanjeAnketaViewModel()
+        val pitanjeAnketaViewModel = PitanjeAnketaViewModel(offlineMode)
         val trenutniDatum = Calendar.getInstance().time
 
         when(odabranaOpcija) {
             opcije[0] -> {
                 scope.launch {
-                    var ankete = AnketaRepository.getUpisane()
-                    ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
-                    ankete.forEach {
-                        it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
+                    var ankete: List<Anketa>
+                    if(offlineMode){
+                        ankete = AnketaRepository.getUpisaneBaza()
+                        ankete = AnketaRepository.popuniIstrazivanjaZaAnketeBaza(ankete)
+                        ankete.forEach {
+                            it.predana = pitanjeAnketaViewModel.isAnketaPredana(it, PitanjeAnketaRepository.getPitanjaBaza(it.id))
+                        }
+                    }else{
+                        ankete = AnketaRepository.getUpisane()
+                        ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
+                        ankete.forEach {
+                            it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
+                        }
                     }
-//                    Log.i("TEST", "tu sam 2")
                     anketeAction.invoke(ankete)
                 }
             }
             opcije[1] -> {
                 scope.launch {
-                    var ankete = AnketaRepository.getAll()
-                    ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
-                    ankete.forEach {
-                        it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
+                    var ankete: List<Anketa>
+                    if(offlineMode){
+                        ankete = AnketaRepository.getAllBaza()
+                        ankete = AnketaRepository.popuniIstrazivanjaZaAnketeBaza(ankete)
+                        ankete.forEach {
+                            it.predana = pitanjeAnketaViewModel.isAnketaPredana(it, PitanjeAnketaRepository.getPitanjaBaza(it.id))
+                        }
+                    }else{
+                        ankete = AnketaRepository.getAll()
+                        ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
+                        ankete.forEach {
+                            it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
+                        }
                     }
                     anketeAction.invoke(ankete)
                 }
             }
             opcije[2] -> {
                 scope.launch {
-                    var ankete = AnketaRepository.getUpisane()
-                    ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
-                    ankete.forEach {
-                        it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
+                    var ankete: List<Anketa>
+                    if(offlineMode){
+                        ankete = AnketaRepository.getUpisaneBaza()
+                        ankete = AnketaRepository.popuniIstrazivanjaZaAnketeBaza(ankete)
+                        ankete.forEach {
+                            it.predana = pitanjeAnketaViewModel.isAnketaPredana(it, PitanjeAnketaRepository.getPitanjaBaza(it.id))
+                        }
+                    }else{
+                        ankete = AnketaRepository.getUpisane()
+                        ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
+                        ankete.forEach {
+                            it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
+                        }
                     }
                     anketeAction.invoke(ankete.filter { anketa -> anketa.predana })
                 }
             }
             opcije[3] -> {
                 scope.launch {
-                    var ankete = AnketaRepository.getUpisane()
-                    ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
+                    var ankete: List<Anketa>
+                    if(offlineMode){
+                        ankete = AnketaRepository.getUpisaneBaza()
+                        ankete = AnketaRepository.popuniIstrazivanjaZaAnketeBaza(ankete)
+                    } else {
+                        ankete = AnketaRepository.getUpisane()
+                        ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
+                    }
                     anketeAction.invoke(ankete.filter { anketa -> anketa.datumPocetak > trenutniDatum })
                 }
             }
             opcije[4] -> {
                 scope.launch {
-                    var ankete = AnketaRepository.getUpisane()
-                    ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
-                    ankete.forEach {
-                        it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
+                    var ankete: List<Anketa>
+                    if (offlineMode) {
+                        ankete = AnketaRepository.getUpisaneBaza()
+                        ankete = AnketaRepository.popuniIstrazivanjaZaAnketeBaza(ankete)
+                        ankete.forEach {
+                            it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanjaBaza(it.id))
+                        }
+                    } else {
+                        ankete = AnketaRepository.getUpisane()
+                        ankete = AnketaRepository.popuniIstrazivanjaZaAnkete(ankete)
+                        ankete.forEach {
+                            it.predana = pitanjeAnketaViewModel.isAnketaPredana(it,PitanjeAnketaRepository.getPitanja(it.id))
+                        }
                     }
                     anketeAction.invoke(ankete.filter { anketa -> anketa.datumKraj != null && trenutniDatum > anketa.datumKraj })
                 }

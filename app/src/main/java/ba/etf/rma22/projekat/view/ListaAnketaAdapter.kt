@@ -7,18 +7,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
-import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ListaAnketaAdapter(private var dataSet: List<Anketa>,
                         private val onItemClicked: (anketa: Anketa) -> Unit
 ): RecyclerView.Adapter<ListaAnketaAdapter.ViewHolder>() {
-    val anketeViewModel = AnketeViewModel()
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageViewStanjeAnkete: ImageView = view.findViewById(R.id.imageView_stanje_ankete)
         val progressBarProgresZavrsetka: ProgressBar = view.findViewById(R.id.progresZavrsetka)
@@ -35,7 +32,6 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.lista_anketa_list_element, parent, false)
-
         return ViewHolder(view)
     }
 
@@ -74,29 +70,6 @@ class ListaAnketaAdapter(private var dataSet: List<Anketa>,
             }
         }
         holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier(statusBoja,"drawable",context.packageName))
-
-//        when(dataSet[position].dajStatusAnkete()){
-//            1->{
-//                holder.textViewAnketaDatumText.text=context.getString(R.string.anketa_uradjena)
-//                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
-//                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("plava","drawable",context.packageName))
-//            }
-//            2->{
-//                holder.textViewAnketaDatumText.text=context.getString(R.string.vrijeme_zatvaranja)
-//                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
-//                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("zelena","drawable",context.packageName))
-//            }
-//            3->{
-//                holder.textViewAnketaDatumText.text=context.getString(R.string.vrijeme_aktiviranja)
-//                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
-//                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("zuta","drawable",context.packageName))
-//            }
-//            4->{
-//                holder.textViewAnketaDatumText.text=context.getString(R.string.anketa_zatvorena)
-//                holder.textViewAnketaDatum.text=simpleDateFormat.format(dataSet[position].dajDatumZaListu())
-//                holder.imageViewStanjeAnkete.setImageResource(context.resources.getIdentifier("crvena","drawable",context.packageName))
-//            }
-//        }
 
         holder.itemView.setOnClickListener{
             if (statusBoja == "zelena" || statusBoja == "plava" || statusBoja == "crvena")

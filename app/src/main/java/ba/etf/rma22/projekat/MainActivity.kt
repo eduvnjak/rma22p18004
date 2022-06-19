@@ -15,10 +15,6 @@ import ba.etf.rma22.projekat.view.*
 import ba.etf.rma22.projekat.viewmodel.AnketeViewModel
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
 import ba.etf.rma22.projekat.viewmodel.UpisIstrazivanjeViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
@@ -27,9 +23,9 @@ class MainActivity : AppCompatActivity() {
     private var izvrsenUpis = false
     private var anketaZaustavljena = false
 
-    private var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
-    private var anketeViewModel = AnketeViewModel()
-    private var upisIstrazivanjeViewModel = UpisIstrazivanjeViewModel()
+    private lateinit var pitanjeAnketaViewModel: PitanjeAnketaViewModel
+    private lateinit var anketeViewModel: AnketeViewModel
+    private lateinit var upisIstrazivanjeViewModel: UpisIstrazivanjeViewModel
 
     var offlineMode = true
 
@@ -62,10 +58,14 @@ class MainActivity : AppCompatActivity() {
             upisIstrazivanjeViewModel.postaviAcountHash(payload)
         }
 
+        pitanjeAnketaViewModel = PitanjeAnketaViewModel(offlineMode)
+        anketeViewModel = AnketeViewModel(offlineMode)
+        upisIstrazivanjeViewModel = UpisIstrazivanjeViewModel(offlineMode)
+
         val fragments =
             mutableListOf(
-                FragmentAnkete(),
-                FragmentIstrazivanje(),
+                FragmentAnkete(offlineMode),
+                FragmentIstrazivanje(offlineMode),
             )
         viewPager = findViewById(R.id.pager)
         viewPager.offscreenPageLimit = 10
@@ -77,11 +77,10 @@ class MainActivity : AppCompatActivity() {
                 if(position == 0 && (izvrsenUpis || anketaZaustavljena)){
                     izvrsenUpis = false
                     anketaZaustavljena = false
-                    viewPagerAdapter.refreshFragment(1,FragmentIstrazivanje())
+                    viewPagerAdapter.refreshFragment(1,FragmentIstrazivanje(offlineMode))
                 }
             }
         })
-
     }
     fun prikaziPorukuUspjesanUpis(poruka: String){
         val fragmentPoruka = FragmentPoruka.newInstance(poruka)
@@ -89,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
         //da li ovaj refresh ispod ili samo pozvati neku metodu osvjezi ankete u fragment poruka
         viewPagerAdapter.refreshFragment(1,fragmentPoruka)
-        viewPagerAdapter.refreshFragment(0,FragmentAnkete())
+        viewPagerAdapter.refreshFragment(0,FragmentAnkete(offlineMode))
 
         izvrsenUpis = true
     }
@@ -112,13 +111,13 @@ class MainActivity : AppCompatActivity() {
             viewPagerAdapter.add(i,FragmentPitanje.newInstance(pitanjaZaAnketu[i], indeksOdgovora, false))
         }
         val daLiSeMozeIspuniti = anketeViewModel.anketaSeMozeIspuniti(anketa)
-        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, !daLiSeMozeIspuniti))
+        viewPagerAdapter.add(brojPitanja,FragmentPredaj.newInstance(anketa, !daLiSeMozeIspuniti, offlineMode))
         azurirajProgresUFragmentu()
     }
 
     fun zaustaviAnketu(){
-        val fragmentAnkete = FragmentAnkete.newInstance()
-        val fragmentIstrazivanje = FragmentIstrazivanje.newInstance()
+        val fragmentAnkete = FragmentAnkete.newInstance(offlineMode)
+        val fragmentIstrazivanje = FragmentIstrazivanje.newInstance(offlineMode)
 
         viewPagerAdapter.ocistiSve()
         viewPagerAdapter.add(0,fragmentAnkete)
@@ -151,7 +150,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun anketaPredanaPrikaziPoruku(poruka: String) {
         val fragmentPoruka = FragmentPoruka.newInstance(poruka)
-        val fragmentAnkete = FragmentAnkete.newInstance()
+        val fragmentAnkete = FragmentAnkete.newInstance(offlineMode)
 
         viewPagerAdapter.ocistiSve()
         viewPagerAdapter.add(0,fragmentAnkete)

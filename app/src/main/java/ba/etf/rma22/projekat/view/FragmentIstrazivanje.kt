@@ -13,7 +13,7 @@ import ba.etf.rma22.projekat.data.models.Grupa
 import ba.etf.rma22.projekat.data.models.Istrazivanje
 import ba.etf.rma22.projekat.viewmodel.UpisIstrazivanjeViewModel
 
-class FragmentIstrazivanje: Fragment() {
+class FragmentIstrazivanje(val offlineMode: Boolean) : Fragment() {
     private lateinit var odabirGodinaSpinner: Spinner
     private lateinit var odabirIstrazivanjaSpinner: Spinner
     private lateinit var odabirGrupaSpinner: Spinner
@@ -22,9 +22,9 @@ class FragmentIstrazivanje: Fragment() {
     private lateinit var odabirIstrazivanjaSpinnerAdapter: ArrayAdapter<Istrazivanje>
     private lateinit var odabirGrupaSpinnerAdapter: ArrayAdapter<Grupa>
 
-    private var upisIstrazivanjeViewModel = UpisIstrazivanjeViewModel()
+    private var upisIstrazivanjeViewModel = UpisIstrazivanjeViewModel(offlineMode)
     companion object{
-        fun newInstance(): FragmentIstrazivanje = FragmentIstrazivanje()
+        fun newInstance(offlineMode: Boolean): FragmentIstrazivanje = FragmentIstrazivanje(offlineMode)
     }
 
     override fun onCreateView(
@@ -58,6 +58,7 @@ class FragmentIstrazivanje: Fragment() {
         dodajIstrazivanjeButton.setOnClickListener{
             dodajIstrazivanjeButtonAction()
         }
+        dodajIstrazivanjeButton.isEnabled = !offlineMode
         return view
     }
     private fun dodajIstrazivanjeButtonAction() {
@@ -80,7 +81,7 @@ class FragmentIstrazivanje: Fragment() {
     }
     inner class OdabirGrupaSpinnerListener : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-            dodajIstrazivanjeButton.isEnabled=true
+            if(!offlineMode) dodajIstrazivanjeButton.isEnabled=true
         }
 
         override fun onNothingSelected(p0: AdapterView<*>?) {
