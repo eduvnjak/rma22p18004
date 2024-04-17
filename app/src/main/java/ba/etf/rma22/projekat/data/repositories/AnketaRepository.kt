@@ -10,11 +10,11 @@ object AnketaRepository {
 
     init {
         val calendar = Calendar.getInstance()
-        calendar.set(2022,2,7)
+        calendar.set(2024,2,7)
         var datum1: Date = calendar.time
-        calendar.set(2022,2,15)
+        calendar.set(2024,2,15)
         var datum2: Date = calendar.time
-        calendar.set(2022,2,9)
+        calendar.set(2024,2,9)
         var datum3 = calendar.time
 
         ankete.add(
@@ -37,9 +37,9 @@ object AnketaRepository {
             "I1 G2",
             0f)
         )
-        calendar.set(2022,2,8)
+        calendar.set(2024,2,8)
         datum1 = calendar.time
-        calendar.set(2022,2,15)
+        calendar.set(2024,2,15)
         datum2 = calendar.time
         ankete.add(
             Anketa("Anketa 2 I1 G1",
@@ -51,9 +51,9 @@ object AnketaRepository {
             "I1 G1",
             0.75f)
         )
-        calendar.set(2022,7,10)
+        calendar.set(2024,9,10)
         datum1 = calendar.time
-        calendar.set(2022,7,15)
+        calendar.set(2024,11,15)
         datum2 = calendar.time
         ankete.add(
             Anketa("Anketa 1 I4 G1",
@@ -75,9 +75,9 @@ object AnketaRepository {
                 "I1 G2",
                 0f)
         )
-        calendar.set(2022,1,10)
+        calendar.set(2023,0,10)
         datum1 = calendar.time
-        calendar.set(2022,6,15)
+        calendar.set(2025,11,15)
         datum2 = calendar.time
         ankete.add(
             Anketa("Anketa 1 I5 G1",
@@ -89,11 +89,11 @@ object AnketaRepository {
             "I5 G1",
             0.13f)
         )
-        calendar.set(2022,3,1)
+        calendar.set(2024,3,1)
         datum1 = calendar.time
-        calendar.set(2022,5,5)
+        calendar.set(2024,5,5)
         datum2 = calendar.time
-        calendar.set(2022,3,3)
+        calendar.set(2024,3,3)
         datum3 = calendar.time
         ankete.add(
             Anketa("Anketa 2 I5 G1",
@@ -105,9 +105,9 @@ object AnketaRepository {
                 "I5 G1",
                 1f)
         )
-        calendar.set(2022,2,8)
+        calendar.set(2024,2,8)
         datum1 = calendar.time
-        calendar.set(2022,2,15)
+        calendar.set(2024,2,15)
         datum2 = calendar.time
         ankete.add(
             Anketa("Anketa 1 I6 G1",
@@ -129,9 +129,9 @@ object AnketaRepository {
             "I6 G2",
             0f)
         )
-        calendar.set(2022,7,10)
+        calendar.set(2024,7,10)
         datum1 = calendar.time
-        calendar.set(2022,7,15)
+        calendar.set(2024,7,15)
         datum2 = calendar.time
         ankete.add(
             Anketa("Anketa 1 I2 G1",
@@ -153,9 +153,9 @@ object AnketaRepository {
             "I3 G1",
             0f)
         )
-        calendar.set(2022,2,10)
+        calendar.set(2024,2,10)
         datum1 = calendar.time
-        calendar.set(2022,7,15)
+        calendar.set(2024,7,15)
         datum2 = calendar.time
         ankete.add(
             Anketa("Anketa 2 I2 G1",
